@@ -3,6 +3,7 @@ import { FaWhatsapp } from "react-icons/fa";
 // import { Button } from "./ui/button";
 import logo from "./megalogo.png"
 
+
 const GREEN = "#007518";
 const GREEN_DARK = "#003d0c";
 const GOLD = "#ffba00";
@@ -145,7 +146,7 @@ function Reveal({ children, delay = 0, className = "" }) {
 
 
 
-const BOOKING_STEPS = ["Your details", "Your operation", "Confirm & pay"];
+const BOOKING_STEPS = ["STEP ONE", "STEP TWO", "Confirm & pay"];
  
 function ProgressBar({ step }) {
   const pct = (step / (BOOKING_STEPS.length - 1)) * 100;
@@ -173,232 +174,7 @@ function ProgressBar({ step }) {
 }
  
  
-function BookingModal({ service, onClose }) {
-  const paystackReady = usePaystackScript();
-  const [step, setStep] = useState(0);
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    contactMethod: "",
-    farmSize: "",
-    timeline: "",
-    location: "",
-    source: "",
-  });
-  const [status, setStatus] = useState("form"); // form | paying | paid
-  const [reference, setReference] = useState("");
- 
-  if (!service) return null;
- 
-  const update = (k) => (e) => setForm({ ...form, [k]: e.target.value });
- 
-  const step0Valid = form.name.trim() && /\S+@\S+\.\S+/.test(form.email) && form.phone.trim() && form.contactMethod;
-  const step1Valid = form.farmSize && form.timeline && form.location.trim();
-  const step2Valid = form.source;
-  const stepValid = [step0Valid, step1Valid, step2Valid][step];
- 
-  const next = () => { if (stepValid) setStep((s) => Math.min(s + 1, BOOKING_STEPS.length - 1)); };
-  const back = () => setStep((s) => Math.max(s - 1, 0));
- 
-  const pay = () => {
-    if (!step2Valid || !paystackReady) return;
-    setStatus("paying");
-    const handler = window.PaystackPop.setup({
-      key: PAYSTACK_PUBLIC_KEY,
-      email: form.email,
-      amount: service.price * 100, // kobo
-      currency: "NGN",
-      metadata: {
-        custom_fields: [
-          { display_name: "Name", variable_name: "name", value: form.name },
-          { display_name: "Phone", variable_name: "phone", value: form.phone },
-          { display_name: "Service", variable_name: "service", value: service.title },
-          { display_name: "Preferred contact method", variable_name: "contact_method", value: form.contactMethod },
-          { display_name: "Farm/business size", variable_name: "farm_size", value: form.farmSize },
-          { display_name: "Timeline", variable_name: "timeline", value: form.timeline },
-          { display_name: "Location", variable_name: "location", value: form.location },
-          { display_name: "Heard about us via", variable_name: "source", value: form.source },
-        ],
-      },
-      callback: (response) => {
-        setReference(response.reference);
-        setStatus("paid");
-      },
-      onClose: () => {
-        setStatus((s) => (s === "paying" ? "form" : s));
-      },
-    });
-    handler.openIframe();
-  };
- 
-  const selectClass = "vd-input w-full px-4 py-2.5 rounded-lg bg-white outline-none text-sm";
-  const selectStyle = { border: "1px solid #00751833" };
-  const inputClass = "vd-input w-full px-4 py-2.5 rounded-lg bg-white outline-none text-sm";
- 
-  return (
-    <div
-      className="vd-overlay fixed inset-0 z-50 flex items-center justify-center p-4"
-      style={{ background: "rgba(0,20,5,0.55)" }}
-      onClick={onClose}
-    >
-      <div
-        className="vd-modal w-full max-w-md rounded-2xl bg-white p-7 relative"
-        style={{ maxHeight: "90vh", overflowY: "auto" }}
-        onClick={(e) => e.stopPropagation()}
-      >
-        <button
-          onClick={onClose}
-          aria-label="Close"
-          className="absolute top-4 right-4 opacity-50 hover:opacity-100 transition-opacity"
-        >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={INK} strokeWidth="2">
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
-          </svg>
-        </button>
- 
-        {status === "paid" ? (
-          <div className="text-center py-6 vd-fade">
-            <div className="w-12 h-12 rounded-full vd-bg-gold mx-auto mb-4 flex items-center justify-center">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={GREEN_DARK} strokeWidth="2.5">
-                <polyline className="vd-check" points="20 6 9 17 4 12" />
-              </svg>
-            </div>
-            <p className="vd-display text-xl font-semibold vd-text-green-dark mb-2">Booking confirmed</p>
-            <p className="opacity-75 text-sm mb-1">
-              {service.title} for {form.name.split(" ")[0]} — payment received.
-            </p>
-            <p className="opacity-50 text-xs mb-6">Reference: {reference}</p>
-            <button onClick={onClose} className="vd-btn-primary px-6 py-2.5 rounded-full text-sm font-semibold">
-              Done
-            </button>
-          </div>
-        ) : (
-          <>
-            <div className="w-full h-24 rounded-xl overflow-hidden mb-4">
-              <img src={service.image} alt={service.title} className="w-full h-full object-cover" />
-            </div>
-            <p className="text-xs uppercase tracking-widest vd-text-gold font-semibold mb-1">{service.eyebrow}</p>
-            <p className="vd-display text-xl font-semibold vd-text-green-dark mb-1">{service.title}</p>
-            <p className="text-sm opacity-70 mb-5">
-              Consultation fee: <span className="font-semibold vd-text-green-dark">{naira(service.price)}</span>
-            </p>
- 
-            <ProgressBar step={step} />
- 
-            {step === 0 && (
-              <div className="space-y-4 vd-fade">
-                <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Name</label>
-                  <input value={form.name} onChange={update("name")} placeholder="Your full name" className={inputClass} style={selectStyle} />
-                </div>
-                <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Email</label>
-                  <input value={form.email} onChange={update("email")} placeholder="you@example.com" className={inputClass} style={selectStyle} />
-                </div>
-                <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Phone</label>
-                  <input value={form.phone} onChange={update("phone")} placeholder="080X XXX XXXX" className={inputClass} style={selectStyle} />
-                </div>
-                <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Preferred contact method</label>
-                  <select value={form.contactMethod} onChange={update("contactMethod")} className={selectClass} style={selectStyle}>
-                    <option value="">Select an option</option>
-                    <option value="Email">Email</option>
-                    <option value="Phone call">Phone call</option>
-                    <option value="WhatsApp">WhatsApp</option>
-                  </select>
-                </div>
-              </div>
-            )}
- 
-            {step === 1 && (
-              <div className="space-y-4 vd-fade">
-                <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Farm / business size</label>
-                  <select value={form.farmSize} onChange={update("farmSize")} className={selectClass} style={selectStyle}>
-                    <option value="">Select an option</option>
-                    <option value="Smallholder (under 5 hectares)">Smallholder (under 5 hectares)</option>
-                    <option value="Medium (5–50 hectares)">Medium (5–50 hectares)</option>
-                    <option value="Large enterprise (50+ hectares)">Large enterprise (50+ hectares)</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Timeline</label>
-                  <select value={form.timeline} onChange={update("timeline")} className={selectClass} style={selectStyle}>
-                    <option value="">Select an option</option>
-                    <option value="This week">This week</option>
-                    <option value="This month">This month</option>
-                    <option value="Just exploring">Just exploring</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Location (state)</label>
-                  <input value={form.location} onChange={update("location")} placeholder="e.g. Oyo State" className={inputClass} style={selectStyle} />
-                </div>
-              </div>
-            )}
- 
-            {step === 2 && (
-              <div className="space-y-4 vd-fade">
-                <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">How did you hear about us?</label>
-                  <select value={form.source} onChange={update("source")} className={selectClass} style={selectStyle}>
-                    <option value="">Select an option</option>
-                    <option value="Referral">Referral</option>
-                    <option value="Search">Search</option>
-                    <option value="Social media">Social media</option>
-                    <option value="Event / conference">Event / conference</option>
-                    <option value="Other">Other</option>
-                  </select>
-                </div>
-                <div className="rounded-lg p-4 text-sm" style={{ backgroundColor: "#eef3e6" }}>
-                  <p className="font-semibold vd-text-green-dark mb-1">{service.title}</p>
-                  <p className="opacity-70">{form.name} · {form.email}</p>
-                  <p className="opacity-70">{form.location} · {form.farmSize}</p>
-                </div>
-              </div>
-            )}
- 
-            <div className="flex gap-3 mt-6">
-              {step > 0 && (
-                <button onClick={back} className="vd-btn-outline flex-1 px-6 py-3 rounded-full text-sm font-semibold">
-                  Back
-                </button>
-              )}
-              {step < BOOKING_STEPS.length - 1 ? (
-                <button
-                  onClick={next}
-                  disabled={!stepValid}
-                  className="vd-btn-primary flex-1 px-6 py-3 rounded-full text-sm font-semibold"
-                >
-                  Next
-                </button>
-              ) : (
-                <button
-                  onClick={pay}
-                  disabled={!step2Valid || status === "paying"}
-                  className="vd-btn-primary flex-1 px-6 py-3 rounded-full text-sm font-semibold flex items-center justify-center gap-2"
-                >
-                  {status === "paying" && (
-                    <svg className="vd-spin" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={GREEN_DARK} strokeWidth="3">
-                      <circle cx="12" cy="12" r="9" opacity="0.25" />
-                      <path d="M21 12a9 9 0 0 0-9-9" />
-                    </svg>
-                  )}
-                  Pay {naira(service.price)}
-                </button>
-              )}
-            </div>
-            <p className="text-center text-xs opacity-45 mt-3">Secured by Paystack. Test key in use.</p>
-          </>
-        )}
-      </div>
-    </div>
-  );
-}
- 
+
 
 function CountUp({ to, suffix = "", prefix = "" }) {
   const [ref, inView] = useReveal();
@@ -442,74 +218,106 @@ function usePaystackScript() {
 
 const SERVICES = [
   {
-    id: "NIN Registration",
+    id: "NERD Registration",
     image: "https://www.nairaland.com/attachments/8298792_img20181130wa0024_jpegfcb0806aefb31292076f356d42f7f61a",
     eyebrow: "MEGANET",
-    title: "NIN Processing",
-    desc: "Streamline your National Identification Number registration with our expert assistance.",
-    items: ["Feasibility & market studies", "Investment-ready business plans", "Operational scale-up roadmaps"],
-    price: 45000,
-  },
-  {
-    id: "NERD",
-    image: "https://picsum.photos/seed/verdant-compliance/800/600",
-    eyebrow: "MEGANET",
-    
-    title: "NERD Enrollment",
-    desc: "Regulation moves fast across Nigerian and export markets. We keep your paperwork, permits and practices ahead of it.",
-    items: ["Environmental impact assessments", "Permit & licensing support", "ESG policy design"],
+    title: "NERD Registration",
+    desc: "Seamless uploading of academic research projects on the NERD platform as a mandatory requirement for successful NYSC registration.",
+    items: [],
     price: 13000,
   },
   {
-    id: "reporting",
-    image: "https://picsum.photos/seed/verdant-reporting/800/600",
+    id: "Nysc",
+    image: "https://picsum.photos/seed/verdant-compliance/800/600",
     eyebrow: "MEGANET",
-   
-    title: "Sustainability reporting",
-    desc: "Buyers and lenders want proof, not promises. We build reporting systems that hold up under scrutiny.",
-    items: ["Carbon & water footprinting", "Supply chain traceability", "Investor & buyer-ready reports"],
-    price: 30000,
+    
+    title: "NYSC Registration",
+    desc: "Hassle-free NYSC registration with accurate biometric capturing for a smooth and successful process.",
+    items: [],
+    price: 10000,
   },
   {
     id: "CAC Registration",
+    image: "https://picsum.photos/seed/verdant-reporting/800/600",
+    eyebrow: "MEGANET",
+   
+    title: "CAC Registration",
+    desc: "Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.",
+    items: ["Business Name: N45,000",
+      "Company Registration: N65,000",
+       "NGO/Association/Club/Church Registration: N130,000"],
+    price:"",
+  },
+  {
+    id: "Processing of Visa Documents",
     image: "https://picsum.photos/seed/verdant-partnerships/800/600",
     eyebrow: "MEGANET",
     
-    title:"CAC Registration",
-    desc: "Long-term agreements only work when everyone at the table understands what they're signing.",
-    items: ["Community land agreements", "Cooperative structuring", "Benefit-sharing frameworks"],
-    price: 40000,
+    title:"Processing of Visa Documents",
+    desc: "Professional assistance in preparing and processing visa documents for a smooth application experience.",
+    items: ["CV/Resume: N5,000",
+       "Personal Statement/Statement of Purpose: N20,000",
+      "Work Reference/Recommendation Letter: N5,000"],
+    price: "",
+  },
+  
+];
+ 
+
+
+const SERVICE = [
+  {
+    id: "School Fees Payment and Related Services",
+    image: "https://www.nairaland.com/attachments/8298792_img20181130wa0024_jpegfcb0806aefb31292076f356d42f7f61a",
+    eyebrow: "MEGANET",
+    title: "School Fees Payment and Related Services:",
+    desc: "Convenient and secure school fees payment assistance and other academic-related services",
+    items: [],
+    price: "",
   },
   {
-    id: "JAMB Registration",
-    image: "https://picsum.photos/seed/verdant-climate/800/600",
+    id: "JAMB Processing Services",
+    image: "https://picsum.photos/seed/verdant-compliance/800/600",
     eyebrow: "MEGANET",
     
-    title: "JAMB Registration",
-    desc: "Drought, flood and shifting seasons are business risks now. We help you plan around them, not just react to them.",
-    items: ["Climate risk assessments", "Resilient cropping plans", "Insurance & financing guidance"],
-    price: 35000,
+    title: "JAMB Processing Services",
+    desc: "Reliable JAMB processing services including admission status checking, printing of admission letters and original results, available for both candidates with and without email addresses.",
+    items: [],
+    price: "",
   },
-   {
-    id: "CV/Resume",
-    image: "https://picsum.photos/seed/verdant-climate/800/600",
+  {
+    id: "NIN Services",
+    image: "https://picsum.photos/seed/verdant-reporting/800/600",
+    eyebrow: "MEGANET",
+   
+    title: "NIN Services",
+    desc: "Fast and reliable NIN reprinting services, offering both plastic card and normal slip options for quick and hassle-free delivery.",
+    items: [],
+    price:"",
+  },
+  {
+    id: "Research Project/Seminar Writing:",
+    image: "https://picsum.photos/seed/verdant-partnerships/800/600",
     eyebrow: "MEGANET",
     
-    title: "CV/Resume",
-    desc: "Drought, flood and shifting seasons are business risks now. We help you plan around them, not just react to them.",
-    items: ["Climate risk assessments", "Resilient cropping plans", "Insurance & financing guidance"],
-    price: 5000,
+    title:"Research Project/Seminar Writing:",
+    desc: "Expert research project and seminar writing services tailored to meet academic standards.",
+    items: [],
+    price: "",
   },
-   {
-    id: "Personal Statement/ Statement of Purpose",
-    image: "https://picsum.photos/seed/verdant-climate/800/600",
+
+    {
+    id: "Computer Works",
+    image: "https://picsum.photos/seed/verdant-partnerships/800/600",
     eyebrow: "MEGANET",
     
-    title: "Personal Statement/ Statement of Purpose",
-    desc: "Drought, flood and shifting seasons are business risks now. We help you plan around them, not just react to them.",
-    items: ["Climate risk assessments", "Resilient cropping plans", "Insurance & financing guidance"],
-    price: 20000,
+    title:"Computer Works",
+    desc: "General computer services including typing, printing, scanning, and online registrations done efficiently and accurately.",
+    items: [],
+    price: "",
   },
+  
+  
 ];
  
 
@@ -646,6 +454,465 @@ function Nav({ page, setPage }) {
     </header>
   );
 }
+
+
+ function NYSCModal({ service, onClose }) {
+//   const paystackReady = usePaystackScript();
+  
+  const [step, setStep] = useState(0);
+  const [form, setForm] = useState({
+    name: "kk",
+    email: "k@gmail.com",
+    phone: "8",
+    nin: "9",
+    state: "g",
+    lgo: "h",
+    dob: "u",
+    address: "d",
+    bloodgroup: "t",
+    genotype: "i",
+    registration: "g",
+    matric: "0",
+    place: "t",
+    language: "y",
+    kinRelationship:"9",
+    kinName:"h",
+    kinEmail:"6",
+    kinPhone:"i",
+    shirt:"9",
+    trouser:"8",
+    shoe:"0",
+    stateBefore:"edo",
+    prifrom:"8",
+    prito:"9",
+    secfrom:"q",
+    secto:"2",
+    tetfrom:"7",
+    tetto:"9",
+    level:"6",
+    file:"",
+    file2:""
+
+  });
+
+  const [status, setStatus] = useState("form"); // form | paying | paid
+  const [reference, setReference] = useState("");
+ 
+  if (!service) return null;
+ 
+  const update = (k) => (e) => setForm({ ...form, [k]: e.target.value });
+ 
+  const step0Valid = form.name.trim() 
+   && /\S+@\S+\.\S+/.test(form.email) 
+   && form.phone.trim()
+   && form.address && form.lgo && form.nin
+   && form.matric && form.genotype && form.language 
+   && form.bloodgroup && form.dob &&  form.place &&  form.state ;
+  const step1Valid = form.kinEmail && form.kinName
+   && form.kinRelationship && form.kinPhone  && form.level && form.prifrom 
+   && form.prito && form.secfrom && form.secto && form.tetfrom && form.tetto ;
+  const step2Valid = form.file && form.file2;
+  const stepValid = [step0Valid, step1Valid, step2Valid][step];
+  console.log("stepValid:",step1Valid)
+ 
+  const next = () => { if (stepValid) setStep((s) => Math.min(s + 1, BOOKING_STEPS.length - 1)); };
+  const back = () => setStep((s) => Math.max(s - 1, 0));
+ 
+  const pay = () => {
+    if (!step2Valid || !paystackReady) return;
+    setStatus("paying");
+    const handler = window.PaystackPop.setup({
+      key: PAYSTACK_PUBLIC_KEY,
+      email: form.email,
+      amount: service.price * 100, // kobo
+      currency: "NGN",
+      metadata: {
+        custom_fields: [
+          { display_name: "Name", variable_name: "name", value: form.name },
+          { display_name: "Phone", variable_name: "phone", value: form.phone },
+          { display_name: "Service", variable_name: "service", value: service.title },
+          { display_name: "Preferred contact method", variable_name: "contact_method", value: form.contactMethod },
+          { display_name: "Farm/business size", variable_name: "farm_size", value: form.farmSize },
+          { display_name: "Timeline", variable_name: "timeline", value: form.timeline },
+          { display_name: "Location", variable_name: "location", value: form.location },
+          { display_name: "Heard about us via", variable_name: "source", value: form.source },
+        ],
+      },
+      callback: (response) => {
+        setReference(response.reference);
+        setStatus("paid");
+      },
+      onClose: () => {
+        setStatus((s) => (s === "paying" ? "form" : s));
+      },
+    });
+    handler.openIframe();
+  };
+ 
+  const selectClass = "vd-input w-full px-4 py-2.5 rounded-lg bg-white outline-none text-sm";
+  const selectStyle = { border: "1px solid #00751833" };
+  const inputClass = "vd-input w-full px-4 py-2.5 rounded-lg bg-white outline-none text-sm";
+ const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+const ALLOWED_FILE_TYPES = ["image/jpeg", "image/png", "image/webp", "application/pdf"];
+
+function formatBytes(bytes) {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} KB`;
+  return `${(bytes / 1024 / 1024).toFixed(1)} MB`;
+}
+
+  const [fileError, setFileError] = useState("");
+
+  const onFileChange2 = (e) => {
+    const f = e.target.files[0];
+    if (!f) return;
+    if (!ALLOWED_FILE_TYPES.includes(f.type)) {
+      setFileError("Please upload a JPEG, PNG, WEBP image or a PDF.");
+      return;
+    }
+    if (f.size > MAX_FILE_SIZE) {
+      setFileError("File must be 5MB or smaller.");
+      return;
+    }
+    setFileError("");
+    setForm({ ...form, file2: f });
+  };
+  const onFileChange = (e) => {
+    const f = e.target.files[0];
+    if (!f) return;
+    if (!ALLOWED_FILE_TYPES.includes(f.type)) {
+      setFileError("Please upload a JPEG, PNG, WEBP image or a PDF.");
+      return;
+    }
+    if (f.size > MAX_FILE_SIZE) {
+      setFileError("File must be 5MB or smaller.");
+      return;
+    }
+    setFileError("");
+    setForm({ ...form, file: f });
+  };
+
+  const removeFile = () => {
+    setForm({ ...form, file: null });
+    setFileError("");
+  };
+
+  return (
+    <div
+      className="vd-overlay fixed inset-0 z-50 flex items-center justify-center p-4"
+      style={{ background: "rgba(0,20,5,0.55)" }}
+      onClick={onClose}
+    >
+   
+      <div
+        className="vd-modal w-full max-w-md rounded-2xl bg-white p-7 relative"
+        style={{ maxHeight: "90vh", overflowY: "auto" }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          onClick={onClose}
+          aria-label="Close"
+          className="absolute top-4 right-4 opacity-50 hover:opacity-100 transition-opacity"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={INK} strokeWidth="2">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+ 
+        {status === "paid" ? (
+          <div className="text-center py-6 vd-fade">
+            <div className="w-12 h-12 rounded-full vd-bg-gold mx-auto mb-4 flex items-center justify-center">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={GREEN_DARK} strokeWidth="2.5">
+                <polyline className="vd-check" points="20 6 9 17 4 12" />
+              </svg>
+            </div>
+            <p className="vd-display text-xl font-semibold vd-text-green-dark mb-2">Booking confirmed</p>
+            <p className="opacity-75 text-sm mb-1">
+              {service.title} for {form.name.split(" ")[0]} — payment received.
+            </p>
+            <p className="opacity-50 text-xs mb-6">Reference: {reference}</p>
+            <button onClick={onClose} className="vd-btn-primary px-6 py-2.5 rounded-full text-sm font-semibold">
+              Done
+            </button>
+          </div>
+        ) : (
+          <>
+            <div className="w-full h-24 rounded-xl overflow-hidden mb-4">
+              <img src={service.image} alt={service.title} className="w-full h-full object-cover" />
+            </div>
+            <p className="text-xs uppercase tracking-widest vd-text-gold font-semibold mb-1">{service.eyebrow}</p>
+            <p className="vd-display text-xl font-semibold vd-text-green-dark mb-1">{service.title}</p>
+            <p className="text-sm opacity-70 mb-5">
+              Consultation fee: <span className="font-semibold vd-text-green-dark">{naira(service.price)}</span>
+            </p>
+ 
+            <ProgressBar step={step} />
+ 
+            {step === 0 && (
+              <div className="space-y-4 vd-fade">
+                <h1>Personal Data</h1>
+                <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Name</label>
+                  <input value={form.name} onChange={update("name")} placeholder="Your full name" className={inputClass} style={selectStyle} />
+                </div>
+                <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Email</label>
+                  <input value={form.email} onChange={update("email")} placeholder="you@example.com" className={inputClass} style={selectStyle} />
+                </div>
+                <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">JAMB Registration Number</label>
+                  <input value={form.registration} onChange={update("registration")} placeholder="" className={inputClass} style={selectStyle} />
+                </div>
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Matriculation Number</label>
+                  <input value={form.matric} onChange={update("matric")} placeholder="" className={inputClass} style={selectStyle} />
+                </div>
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">NIN</label>
+                  <input value={form.nin} onChange={update("nin")} placeholder="" className={inputClass} style={selectStyle} />
+                </div>
+                <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">State of Origin</label>
+                  <input value={form.state} onChange={update("state")} placeholder=" " className={inputClass} style={selectStyle} />
+                </div>
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">L.G.O</label>
+                  <input value={form.lgo} onChange={update("lgo")} placeholder=" " className={inputClass} style={selectStyle} />
+                </div>
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Place of Birth</label>
+                  <input value={form.place} onChange={update("place")} placeholder=" " className={inputClass} style={selectStyle} />
+                </div>
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Home Address</label>
+                  <input value={form.address} onChange={update("address")} placeholder=" " className={inputClass} style={selectStyle} />
+                </div>
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Date of Birth</label>
+                  <input value={form.dob} onChange={update("dob")} placeholder=" " className={inputClass} style={selectStyle} />
+                </div>
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Nigeria Language</label>
+                  <input value={form.language} onChange={update("language")} placeholder=" " className={inputClass} style={selectStyle} />
+                </div>
+                  <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Phone Number</label>
+                  <input value={form.phone} onChange={update("phone")} placeholder="" className={inputClass} style={selectStyle} />
+                </div>
+                <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5"> Genotype</label>
+                  <select value={form.genotype} onChange={update("genotype")} className={selectClass} style={selectStyle}>
+                    <option value="">Select an option</option>
+                    <option value="AA">AA</option>
+                    <option value="AS">AS</option>
+                    <option value="AC">AC</option>
+                    <option value="SS">SS</option>
+                    <option value="SC">SC</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5"> Blood Group</label>
+                  <select value={form.bloodgroup} onChange={update("bloodgroup")} className={selectClass} style={selectStyle}>
+                    <option value="">Select an option</option>
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                  </select>
+                </div>
+              </div>
+            )}
+ 
+            {step === 1 && (
+              <div className="space-y-4 vd-fade">
+                <h1>Education Background</h1>
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Primary School Attended</label>
+                  <div style={{
+                    marginBottom:"10px"
+                  }}>
+
+                  <input className="mb-1.5"
+                 value={form.prifrom} onChange={update("prifrom")} placeholder="From:" className={inputClass} style={selectStyle} />
+                 </div>
+                  <input value={form.prito} onChange={update("prito")} placeholder="To:" className={inputClass} style={selectStyle} />
+
+                </div>
+
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Secondary School Attended</label>
+                  <div style={{
+                    marginBottom:"10px"
+                  }}>
+
+                  <input className="mb-1.5"
+                 value={form.secfrom} onChange={update("secfrom")} placeholder="From:" className={inputClass} style={selectStyle} />
+                 </div>
+                  <input value={form.secto} onChange={update("secto")} placeholder="To:" className={inputClass} style={selectStyle} />
+
+                </div>
+
+
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Tertiary School Attended</label>
+                  <div style={{
+                    marginBottom:"10px"
+                  }}>
+
+                  <input className="mb-1.5"
+                 value={form.tetfrom} onChange={update("tetfrom")} placeholder="From:" className={inputClass} style={selectStyle} />
+                 </div>
+                  <input value={form.tetto} onChange={update("tetto")} placeholder="To:" className={inputClass} style={selectStyle} />
+
+                </div>
+                  <input value={form.level} onChange={update("level")} placeholder="O level Result (WAEC OR NECO)" className={inputClass} style={selectStyle} />
+                <h1>Next of kin</h1>
+                  <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Name</label>
+                  <input value={form.kinName} onChange={update("kinName")} placeholder="Your full name" className={inputClass} style={selectStyle} />
+                </div>
+                <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Email</label>
+                  <input value={form.kinEmail} onChange={update("kinEmail")} placeholder="you@example.com" className={inputClass} style={selectStyle} />
+                </div>
+                <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Phone Number</label>
+                  <input value={form.kinPhone} onChange={update("kinPhone")} placeholder="" className={inputClass} style={selectStyle} />
+                </div>
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Relationship</label>
+                  <input value={form.kinRelationship} onChange={update("kinRelationship")} placeholder="" className={inputClass} style={selectStyle} />
+                </div>
+                <h1>NYSC Kits</h1>
+                  <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Size of Shirt</label>
+                  <input value={form.shirt} onChange={update("shirt")} placeholder="Your full name" className={inputClass} style={selectStyle} />
+                </div>
+                <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Size of Trouser</label>
+                  <input value={form.trouser} onChange={update("trouser")} placeholder="you@example.com" className={inputClass} style={selectStyle} />
+                </div>
+                <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Size of Shoe</label>
+                  <input value={form.shoe} onChange={update("shoe")} placeholder="" className={inputClass} style={selectStyle} />
+                </div>
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">State visited before</label>
+                  <input value={form.stateBefore} onChange={update("stateBefore")} placeholder="" className={inputClass} style={selectStyle} />
+                </div>
+                
+              </div>
+            )}
+ 
+            {step === 2 && (
+              <div className="space-y-4 vd-fade">
+                <h1>Documents Upload</h1>
+                <div>
+  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">
+    Statement of Result 
+  </label>
+  {form.file ? (
+    <div className="flex items-center justify-between gap-3 rounded-lg px-4 py-3" style={{ border: "1px solid #00751833", backgroundColor: "#eef3e6" }}>
+      <div className="min-w-0">
+        <p className="text-sm font-medium truncate">{form.file.name}</p>
+        <p className="text-xs opacity-60">{formatBytes(form.file.size)}</p>
+      </div>
+      <button type="button" onClick={removeFile} className="text-xs font-semibold vd-text-green shrink-0">
+        Remove
+      </button>
+    </div>
+
+    
+  ) : (
+    <label className="vd-upload block">
+      <input type="file" accept={ALLOWED_FILE_TYPES.join(",")} onChange={onFileChange} className="hidden" />
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={GREEN} strokeWidth="2" className="mx-auto mb-1.5">
+        <path d="M12 3v12" />
+        <path d="M7 8l5-5 5 5" />
+        <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" />
+      </svg>
+      <p className="text-xs font-semibold vd-text-green">Click to upload</p>
+      <p className="text-xs opacity-50 mt-0.5">JPEG, PNG, WEBP or PDF · up to 5MB</p>
+    </label>
+  )}
+  {fileError && <p className="text-xs text-red-600 mt-1.5">{fileError}</p>}
+</div>
+               <div>
+  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">
+    Signature
+  </label>
+  {form.file2 ? (
+    <div className="flex items-center justify-between gap-3 rounded-lg px-4 py-3" style={{ border: "1px solid #00751833", backgroundColor: "#eef3e6" }}>
+      <div className="min-w-0">
+        <p className="text-sm font-medium truncate">{form.file2.name}</p>
+        <p className="text-xs opacity-60">{formatBytes(form.file2.size)}</p>
+      </div>
+      <button type="button" onClick={removeFile} className="text-xs font-semibold vd-text-green shrink-0">
+        Remove
+      </button>
+    </div>
+
+    
+  ) : (
+    <label className="vd-upload block">
+      <input type="file" accept={ALLOWED_FILE_TYPES.join(",")} onChange={onFileChange2} className="hidden" />
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={GREEN} strokeWidth="2" className="mx-auto mb-1.5">
+        <path d="M12 3v12" />
+        <path d="M7 8l5-5 5 5" />
+        <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" />
+      </svg>
+      <p className="text-xs font-semibold vd-text-green">Click to upload</p>
+      <p className="text-xs opacity-50 mt-0.5">JPEG, PNG, WEBP or PDF · up to 5MB</p>
+    </label>
+  )}
+  {fileError && <p className="text-xs text-red-600 mt-1.5">{fileError}</p>}
+</div>
+
+              </div>
+            )}
+ 
+            <div className="flex gap-3 mt-6">
+              {step > 0 && (
+                <button onClick={back} className="vd-btn-outline flex-1 px-6 py-3 rounded-full text-sm font-semibold">
+                  Back
+                </button>
+              )}
+              {step < BOOKING_STEPS.length - 1 ? (
+                <button
+                  onClick={next}
+                  disabled={!stepValid}
+                  className="vd-btn-primary flex-1 px-6 py-3 rounded-full text-sm font-semibold"
+                >
+                  Next
+                </button>
+              ) : (
+                <button
+                  onClick={pay}
+                  disabled={!step2Valid || status === "paying"}
+                  className="vd-btn-primary flex-1 px-6 py-3 rounded-full text-sm font-semibold flex items-center justify-center gap-2"
+                >
+                  {status === "paying" && (
+                    <svg className="vd-spin" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={GREEN_DARK} strokeWidth="3">
+                      <circle cx="12" cy="12" r="9" opacity="0.25" />
+                      <path d="M21 12a9 9 0 0 0-9-9" />
+                    </svg>
+                  )}
+                  Pay {naira(service.price)}
+                </button>
+              )}
+            </div>
+            <p className="text-center text-xs opacity-45 mt-3">Secured by Paystack. Test key in use.</p>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
 
 function Footer({ setPage }) {
   return (
@@ -864,6 +1131,50 @@ function ServicesPage({ openBooking }) {
       </section>
 
 
+
+      <section className="max-w-5xl mx-auto px-6 pb-20 space-y-6">
+        {SERVICE.map((s, i) => (
+          <Reveal key={s.id} delay={i * 70}>
+            <div
+           
+              className="vd-card rounded-2xl bg-white/60 overflow-hidden"
+              style={{ border: "1px solid #00751822" }}
+            >
+              <div className="vd-card-img h-40 sm:h-48">
+                <img src={s.image} alt={s.title} className="w-full h-full object-cover" loading="lazy" />
+              </div>
+              <div className="grid md:grid-cols-[160px_1fr] gap-6 p-8">
+                <div>
+                  <p className="text-xs uppercase tracking-widest vd-text-gold font-semibold">{s.eyebrow}</p>
+                  <p className="vd-display text-xl font-semibold vd-text-green-dark mt-2">{s.title}</p>
+                  <p className="text-sm font-semibold vd-text-green mt-3">{naira(s.price)}</p>
+                </div>
+                <div>
+                  <p className="opacity-80 leading-relaxed mb-4">{s.desc}</p>
+                  <ul className="grid sm:grid-cols-3 gap-3 mb-4">
+                    {s.items.map((it) => (
+                      <li key={it} className="text-sm flex items-start gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full vd-bg-green mt-1.5 shrink-0" />
+                        <span className="opacity-80">{it}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <a href="https://wa.me/+2348077810089">     
+                  <span
+                    
+                    className="vd-link-underline text-sm font-semibold vd-text-green inline-block"
+                  >
+                    Contact Us →
+                  </span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+        ))}
+      </section>
+
+
     </div>
   );
 }
@@ -1061,7 +1372,7 @@ export default function App() {
       {page === "Contact" && <ContactPage />}
       <Footer setPage={setPage} />
       {bookingService && (
-        <BookingModal service={bookingService} onClose={() => setBookingService(null)} />
+        <NYSCModal service={bookingService} onClose={() => setBookingService(null)} />
       )}
 
        <div style={{
