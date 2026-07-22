@@ -1195,7 +1195,7 @@ function AboutPage() {
 
   return (
     <div className="vd-fade">
-      <PageHero src="https://picsum.photos/seed/verdant-about/1600/900" alt="Farmers walking through a field" height="34vh" minHeight={220} />
+      <PageHero src="https://plus.unsplash.com/premium_photo-1676998930667-cab56c8fa602?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8bWFuJTIwbGFwdG9wfGVufDB8fDB8fHww" alt="Farmers walking through a field" height="34vh" minHeight={220} />
       <section className="vd-texture" style={{ marginTop: "-3rem" }}>
         <div className="max-w-4xl mx-auto px-6 pt-10 pb-14 text-center">
           <p className="vd-hero-eyebrow text-xs uppercase tracking-[0.2em] vd-text-green font-semibold mb-4"> Mission</p>
