@@ -956,7 +956,7 @@ function Footer({ setPage }) {
       </div>
       <div className="border-t border-white/10">
         <p className="max-w-6xl mx-auto px-6 py-5 text-xs opacity-60">
-          © 2026. All rights reserved.
+         Meganet © 2026. All rights reserved.
         </p>
       </div>
     </footer>
