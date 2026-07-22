@@ -1256,12 +1256,7 @@ function ContactPage() {
       <section className="vd-texture" style={{ marginTop: "-3rem" }}>
         <div className="max-w-4xl mx-auto px-6 pt-10 pb-10 text-center">
           <p className="vd-hero-eyebrow text-xs uppercase tracking-[0.2em] vd-text-green font-semibold mb-4">Contact</p>
-          <h1 className="vd-hero-title vd-display text-4xl font-semibold vd-text-green-dark leading-tight">
-            Tell us about your land, your season, or your idea.
-          </h1>
-          <p className="vd-hero-body mt-5 opacity-75 max-w-xl mx-auto">
-            We reply within two working days. No sales calls, just a straight answer on how we can help.
-          </p>
+        
         </div>
       </section>
 
