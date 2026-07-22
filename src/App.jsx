@@ -1252,7 +1252,7 @@ function ContactPage() {
 
   return (
     <div className="vd-fade">
-      <PageHero src="https://picsum.photos/seed/verdant-contact/1600/900" alt="Lagos skyline at golden hour" height="34vh" minHeight={220} />
+      <PageHero src="https://images.unsplash.com/photo-1544006659-f0b21884ce1d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8bWFuJTIwbGFwdG9wfGVufDB8fDB8fHww" alt="Lagos skyline at golden hour" height="34vh" minHeight={220} />
       <section className="vd-texture" style={{ marginTop: "-3rem" }}>
         <div className="max-w-4xl mx-auto px-6 pt-10 pb-10 text-center">
           <p className="vd-hero-eyebrow text-xs uppercase tracking-[0.2em] vd-text-green font-semibold mb-4">Contact</p>
