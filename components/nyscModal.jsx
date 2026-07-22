@@ -124,7 +124,7 @@ export default function NYSCModal({ service, onClose }) {
               Consultation fee: <span className="font-semibold vd-text-green-dark">{naira(service.price)}</span>
             </p>
  
-            {/* <ProgressBar step={step} /> */}
+            <ProgressBar step={step} />
  
             {step === 0 && (
               <div className="space-y-4 vd-fade">

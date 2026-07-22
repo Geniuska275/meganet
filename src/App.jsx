@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import { FaWhatsapp } from "react-icons/fa";
 // import { Button } from "./ui/button";
 import logo from "./megalogo.png"
+import MapComponent from "../components/map";
 
 
 const GREEN = "#007518";
@@ -1197,16 +1198,25 @@ function AboutPage() {
       <PageHero src="https://picsum.photos/seed/verdant-about/1600/900" alt="Farmers walking through a field" height="34vh" minHeight={220} />
       <section className="vd-texture" style={{ marginTop: "-3rem" }}>
         <div className="max-w-4xl mx-auto px-6 pt-10 pb-14 text-center">
-          <p className="vd-hero-eyebrow text-xs uppercase tracking-[0.2em] vd-text-green font-semibold mb-4">About us</p>
+          <p className="vd-hero-eyebrow text-xs uppercase tracking-[0.2em] vd-text-green font-semibold mb-4"> Mission</p>
           <h1 className="vd-hero-title vd-display text-4xl font-semibold vd-text-green-dark leading-tight">
-            Started at a kitchen table, still run that way.
+            Our Mission Statement
           </h1>
           <p className="vd-hero-body mt-5 opacity-75 max-w-2xl mx-auto leading-relaxed">
-            Verdant &amp; Co. began in 2017 when our founder left a Lagos finance job to help
-            her family's cassava cooperative survive a bad season. Nine years on, we're a
-            small team that still measures our work by whether the people we advise are
-            better off — not by the size of the report we hand them.
+To provide unmatched support in digital and administrative services while ensuring client satisfaction across multiple sectors.
           </p>
+        </div>
+      </section>
+
+            <section className="vd-texture" style={{ marginTop: "-3rem" }}>
+        <div className="max-w-4xl mx-auto px-6 pt-10 pb-14 text-center">
+          <p className="vd-hero-eyebrow text-xs uppercase tracking-[0.2em] vd-text-green font-semibold mb-4"> Vision</p>
+          <h1 className="vd-hero-title vd-display text-4xl font-semibold vd-text-green-dark leading-tight">
+            Our Vision Statement
+          </h1>
+          <p className="vd-hero-body mt-5 opacity-75 max-w-2xl mx-auto leading-relaxed">
+            To become the leading provider of integrated online services in the regions known for our innovation and reliability.
+           </p> 
         </div>
       </section>
 
@@ -1317,14 +1327,8 @@ function ContactPage() {
               <p className="text-sm mb-2">contact@meganet.com.ng</p>
               <p className="text-sm">+2348077810089</p>
             </div>
-            <div className="rounded-2xl overflow-hidden h-44 flex items-center justify-center" style={{ border: "1px solid #00751822", backgroundColor: "#eef3e6" }}>
-              <div className="text-center">
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke={GREEN} strokeWidth="2" className="mx-auto mb-2">
-                  <path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z" />
-                  <circle cx="12" cy="10" r="2.5" />
-                </svg>
-                <p className="text-xs opacity-60">Lagos, Nigeria</p>
-              </div>
+            <div className="rounded-2xl overflow-hidden h-44 flex items-center justify-center" style={{ border: "1px solid #00751822", backgroundColor: "#eef3e6" }}>       
+              <MapComponent/>
             </div>
           </div>
         </Reveal>
