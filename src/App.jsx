@@ -958,7 +958,7 @@ function Footer({ setPage }) {
       </div>
       <div className="border-t border-white/10">
         <p className="max-w-6xl mx-auto px-6 py-5 text-xs opacity-60">
-         Mega Integrated and Works © 2026. All rights reserved.
+         Mega Integrated Works and Services © 2026. All rights reserved.
         </p>
       </div>
     </footer>
