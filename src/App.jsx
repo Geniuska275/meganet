@@ -397,12 +397,23 @@ function Nav({ page, setPage }) {
   return (
     <header className="vd-bg-cream sticky top-0 z-20 border-b vd-border-green/10" style={{ borderBottomWidth: 1, borderBottomColor: "#00751822" }}>
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div style={{
+          display:"flex",
+          gap:"10px",
+          alignItems:"center"
+        }}>
+          <img src={logo} style={{
+          width:"30px",
+            height:"30px",
+            borderRadius:"15px"
+          }}/>
         <button
           onClick={() => { setPage("Home"); setOpen(false); }}
           className="vd-display vd-text-green-dark text-xl font-semibold tracking-tight"
-        >
+          >
          Meganet
         </button>
+          </div>
 
         <nav className="hidden md:flex items-center gap-8">
           {links.map((l) => (
@@ -1001,12 +1012,12 @@ function HomePage({ setPage, openBooking }) {
               </button>
             </div>
           </div>
-          <div className="max-w-xs mx-auto">
+          {/* <div className="max-w-xs mx-auto">
             <img src={logo} style={{
               borderRadius:"30px",
               boxShadow:"2px 4px rgba(0,0,0,0,3)"
             }}/>
-          </div>
+          </div> */}
         </div>
       </section>
 
