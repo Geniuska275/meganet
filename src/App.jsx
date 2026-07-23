@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { FaWhatsapp } from "react-icons/fa";
 // import { Button } from "./ui/button";
 import logo from "./megalogo.png"
+import hero from "./hero.avif"
+
 import MapComponent from "../components/map";
 
 
@@ -956,7 +958,7 @@ function Footer({ setPage }) {
       </div>
       <div className="border-t border-white/10">
         <p className="max-w-6xl mx-auto px-6 py-5 text-xs opacity-60">
-         Meganet © 2026. All rights reserved.
+         Mega Integrated and Works © 2026. All rights reserved.
         </p>
       </div>
     </footer>
@@ -977,7 +979,7 @@ function Stat({ number, label, suffix = "", prefix = "" }) {
 function HomePage({ setPage, openBooking }) {
   return (
     <div className="vd-fade">
-      <PageHero src="https://www.nairaland.com/attachments/8298792_img20181130wa0024_jpegfcb0806aefb31292076f356d42f7f61a" alt="Green farmland under an open sky" height="52vh" minHeight={320} />
+      <PageHero src={hero} alt="Green farmland under an open sky" height="52vh" minHeight={320} />
       <section className="vd-texture" style={{ marginTop: "-3rem" }}>
         <div className="max-w-6xl mx-auto px-6 pt-10 pb-20 grid md:grid-cols-2 gap-12 items-center">
           <div>
@@ -1010,10 +1012,10 @@ function HomePage({ setPage, openBooking }) {
 
       <section className="vd-bg-green-dark">
         <div className="max-w-6xl mx-auto px-6 py-10 grid grid-cols-2 md:grid-cols-4 gap-8 vd-text-cream">
-          <Stat number={120} label="Registrations" suffix="+" />
+          <Stat number={3000} label="NERD / NYSC Registrations" suffix="+" />
           <Stat number={36} label="States covered including FCT across 7 countries." />
           <Stat number={9} label="Years in service" suffix="+" />
-          <Stat number={40} label="CAC Registrations" suffix="+" />
+          <Stat number={500} label="CAC Registrations" suffix="+" />
         </div>
       </section>
 
