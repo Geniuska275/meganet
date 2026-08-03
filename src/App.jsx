@@ -4,7 +4,9 @@ import { FaWhatsapp } from "react-icons/fa";
 import logo from "./megalogo.png"
 import hero from "./hero.avif"
 
-import MapComponent from "../components/map";
+import MapComponent from "./components/map";
+import { TbRuler } from "react-icons/tb";
+import makePayment from "./components/paystack";
 
 
 const GREEN = "#007518";
@@ -325,7 +327,7 @@ const SERVICE = [
  
 
 function naira(amount) {
-  return `₦${amount.toLocaleString("en-NG")}`;
+  return `₦${amount?.toLocaleString("en-NG")}`;
 }
 
 
@@ -928,6 +930,435 @@ function formatBytes(bytes) {
 }
 
 
+
+ function NERDModal({ service, onClose }) {
+//   const paystackReady = usePaystackScript();
+  
+  const [step, setStep] = useState(0);
+  const [form, setForm] = useState({
+    name: "kk",
+    email: "k@gmail.com",
+    phone: "8",
+    nin: "9",
+    state: "g",
+    lgo: "h",
+    dob: "u",
+    address: "d",
+    bloodgroup: "t",
+    genotype: "i",
+    registration: "g",
+    matric: "0",
+    place: "t",
+    language: "y",
+    kinRelationship:"9",
+    kinName:"h",
+    kinEmail:"6",
+    kinPhone:"i",
+    shirt:"9",
+    trouser:"8",
+    shoe:"0",
+    stateBefore:"edo",
+    prifrom:"8",
+    prito:"9",
+    secfrom:"q",
+    secto:"2",
+    tetfrom:"7",
+    tetto:"9",
+    level:"6",
+    file:"",
+    file2:""
+
+  });
+
+  const [status, setStatus] = useState("form"); // form | paying | paid
+  const [reference, setReference] = useState("");
+ 
+  if (!service) return null;
+ 
+  const update = (k) => (e) => setForm({ ...form, [k]: e.target.value });
+ 
+  const step0Valid = form.name.trim() 
+   && /\S+@\S+\.\S+/.test(form.email) 
+   && form.phone.trim()
+   && form.address && form.lgo && form.nin
+   && form.matric && form.genotype && form.language 
+   && form.bloodgroup && form.dob &&  form.place &&  form.state ;
+  const step1Valid = form.kinEmail && form.kinName
+   && form.kinRelationship && form.kinPhone  && form.level && form.prifrom 
+   && form.prito && form.secfrom && form.secto && form.tetfrom && form.tetto ;
+  const step2Valid = form.file && form.file2;
+  const stepValid = [step0Valid, step1Valid, step2Valid][step];
+  console.log("stepValid:",step1Valid)
+ 
+  const next = () => { if (stepValid) setStep((s) => Math.min(s + 1, BOOKING_STEPS.length - 1)); };
+  const back = () => setStep((s) => Math.max(s - 1, 0));
+ 
+ 
+  const selectClass = "vd-input w-full px-4 py-2.5 rounded-lg bg-white outline-none text-sm";
+  const selectStyle = { border: "1px solid #00751833" };
+  const inputClass = "vd-input w-full px-4 py-2.5 rounded-lg bg-white outline-none text-sm";
+ const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+const ALLOWED_FILE_TYPES = ["image/jpeg", "image/png", "image/webp", "application/pdf"];
+
+function formatBytes(bytes) {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} KB`;
+  return `${(bytes / 1024 / 1024).toFixed(1)} MB`;
+}
+
+  const [fileError, setFileError] = useState("");
+
+  const onFileChange2 = (e) => {
+    const f = e.target.files[0];
+    if (!f) return;
+    if (!ALLOWED_FILE_TYPES.includes(f.type)) {
+      setFileError("Please upload a JPEG, PNG, WEBP image or a PDF.");
+      return;
+    }
+    if (f.size > MAX_FILE_SIZE) {
+      setFileError("File must be 5MB or smaller.");
+      return;
+    }
+    setFileError("");
+    setForm({ ...form, file2: f });
+  };
+  const onFileChange = (e) => {
+    const f = e.target.files[0];
+    if (!f) return;
+    if (!ALLOWED_FILE_TYPES.includes(f.type)) {
+      setFileError("Please upload a JPEG, PNG, WEBP image or a PDF.");
+      return;
+    }
+    if (f.size > MAX_FILE_SIZE) {
+      setFileError("File must be 5MB or smaller.");
+      return;
+    }
+    setFileError("");
+    setForm({ ...form, file: f });
+  };
+
+  const removeFile = () => {
+    setForm({ ...form, file: null });
+    setFileError("");
+  };
+
+  return (
+    <div
+      className="vd-overlay fixed inset-0 z-50 flex items-center justify-center p-4"
+      style={{ background: "rgba(0,20,5,0.55)" }}
+      onClick={onClose}
+    >
+   
+      <div
+        className="vd-modal w-full max-w-md rounded-2xl bg-white p-7 relative"
+        style={{ maxHeight: "90vh", overflowY: "auto" }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          onClick={onClose}
+          aria-label="Close"
+          className="absolute top-4 right-4 opacity-50 hover:opacity-100 transition-opacity"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={INK} strokeWidth="2">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+ 
+        {status === "paid" ? (
+          <div className="text-center py-6 vd-fade">
+            <div className="w-12 h-12 rounded-full vd-bg-gold mx-auto mb-4 flex items-center justify-center">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={GREEN_DARK} strokeWidth="2.5">
+                <polyline className="vd-check" points="20 6 9 17 4 12" />
+              </svg>
+            </div>
+            <p className="vd-display text-xl font-semibold vd-text-green-dark mb-2">Booking confirmed</p>
+            <p className="opacity-75 text-sm mb-1">
+              {service.title} for {form.name.split(" ")[0]} — payment received.
+            </p>
+            <p className="opacity-50 text-xs mb-6">Reference: {reference}</p>
+            <button onClick={onClose} className="vd-btn-primary px-6 py-2.5 rounded-full text-sm font-semibold">
+              Done
+            </button>
+          </div>
+        ) : (
+          <>
+            <div className="w-full h-24 rounded-xl overflow-hidden mb-4">
+              <img src={service.image} alt={service.title} className="w-full h-full object-cover" />
+            </div>
+            <p className="text-xs uppercase tracking-widest vd-text-gold font-semibold mb-1">{service.eyebrow}</p>
+            <p className="vd-display text-xl font-semibold vd-text-green-dark mb-1">{service.title}</p>
+            <p className="text-sm opacity-70 mb-5">
+              Consultation fee: <span className="font-semibold vd-text-green-dark">{naira(service.price)}</span>
+            </p>
+ 
+            <ProgressBar step={step} />
+ 
+            {step === 0 && (
+              <div className="space-y-4 vd-fade">
+                <h1>Personal Data</h1>
+                <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Name</label>
+                  <input value={form.name} onChange={update("name")} placeholder="Your full name" className={inputClass} style={selectStyle} />
+                </div>
+                <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Email</label>
+                  <input value={form.email} onChange={update("email")} placeholder="you@example.com" className={inputClass} style={selectStyle} />
+                </div>
+                <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">JAMB Registration Number</label>
+                  <input value={form.registration} onChange={update("registration")} placeholder="" className={inputClass} style={selectStyle} />
+                </div>
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Matriculation Number</label>
+                  <input value={form.matric} onChange={update("matric")} placeholder="" className={inputClass} style={selectStyle} />
+                </div>
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">NIN</label>
+                  <input value={form.nin} onChange={update("nin")} placeholder="" className={inputClass} style={selectStyle} />
+                </div>
+                <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">State of Origin</label>
+                  <input value={form.state} onChange={update("state")} placeholder=" " className={inputClass} style={selectStyle} />
+                </div>
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">L.G.O</label>
+                  <input value={form.lgo} onChange={update("lgo")} placeholder=" " className={inputClass} style={selectStyle} />
+                </div>
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Place of Birth</label>
+                  <input value={form.place} onChange={update("place")} placeholder=" " className={inputClass} style={selectStyle} />
+                </div>
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Home Address</label>
+                  <input value={form.address} onChange={update("address")} placeholder=" " className={inputClass} style={selectStyle} />
+                </div>
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Date of Birth</label>
+                  <input value={form.dob} onChange={update("dob")} placeholder=" " className={inputClass} style={selectStyle} />
+                </div>
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Nigeria Language</label>
+                  <input value={form.language} onChange={update("language")} placeholder=" " className={inputClass} style={selectStyle} />
+                </div>
+                  <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Phone Number</label>
+                  <input value={form.phone} onChange={update("phone")} placeholder="" className={inputClass} style={selectStyle} />
+                </div>
+                <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5"> Genotype</label>
+                  <select value={form.genotype} onChange={update("genotype")} className={selectClass} style={selectStyle}>
+                    <option value="">Select an option</option>
+                    <option value="AA">AA</option>
+                    <option value="AS">AS</option>
+                    <option value="AC">AC</option>
+                    <option value="SS">SS</option>
+                    <option value="SC">SC</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5"> Blood Group</label>
+                  <select value={form.bloodgroup} onChange={update("bloodgroup")} className={selectClass} style={selectStyle}>
+                    <option value="">Select an option</option>
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
+                  </select>
+                </div>
+              </div>
+            )}
+ 
+            {step === 1 && (
+              <div className="space-y-4 vd-fade">
+                <h1>Education Background</h1>
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Primary School Attended</label>
+                  <div style={{
+                    marginBottom:"10px"
+                  }}>
+
+                  <input className="mb-1.5"
+                 value={form.prifrom} onChange={update("prifrom")} placeholder="From:" className={inputClass} style={selectStyle} />
+                 </div>
+                  <input value={form.prito} onChange={update("prito")} placeholder="To:" className={inputClass} style={selectStyle} />
+
+                </div>
+
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Secondary School Attended</label>
+                  <div style={{
+                    marginBottom:"10px"
+                  }}>
+
+                  <input className="mb-1.5"
+                 value={form.secfrom} onChange={update("secfrom")} placeholder="From:" className={inputClass} style={selectStyle} />
+                 </div>
+                  <input value={form.secto} onChange={update("secto")} placeholder="To:" className={inputClass} style={selectStyle} />
+
+                </div>
+
+
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Tertiary School Attended</label>
+                  <div style={{
+                    marginBottom:"10px"
+                  }}>
+
+                  <input className="mb-1.5"
+                 value={form.tetfrom} onChange={update("tetfrom")} placeholder="From:" className={inputClass} style={selectStyle} />
+                 </div>
+                  <input value={form.tetto} onChange={update("tetto")} placeholder="To:" className={inputClass} style={selectStyle} />
+
+                </div>
+                  <input value={form.level} onChange={update("level")} placeholder="O level Result (WAEC OR NECO)" className={inputClass} style={selectStyle} />
+                <h1>Next of kin</h1>
+                  <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Name</label>
+                  <input value={form.kinName} onChange={update("kinName")} placeholder="Your full name" className={inputClass} style={selectStyle} />
+                </div>
+                <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Email</label>
+                  <input value={form.kinEmail} onChange={update("kinEmail")} placeholder="you@example.com" className={inputClass} style={selectStyle} />
+                </div>
+                <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Phone Number</label>
+                  <input value={form.kinPhone} onChange={update("kinPhone")} placeholder="" className={inputClass} style={selectStyle} />
+                </div>
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Relationship</label>
+                  <input value={form.kinRelationship} onChange={update("kinRelationship")} placeholder="" className={inputClass} style={selectStyle} />
+                </div>
+                <h1>NYSC Kits</h1>
+                  <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Size of Shirt</label>
+                  <input value={form.shirt} onChange={update("shirt")} placeholder="Your full name" className={inputClass} style={selectStyle} />
+                </div>
+                <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Size of Trouser</label>
+                  <input value={form.trouser} onChange={update("trouser")} placeholder="you@example.com" className={inputClass} style={selectStyle} />
+                </div>
+                <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Size of Shoe</label>
+                  <input value={form.shoe} onChange={update("shoe")} placeholder="" className={inputClass} style={selectStyle} />
+                </div>
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">State visited before</label>
+                  <input value={form.stateBefore} onChange={update("stateBefore")} placeholder="" className={inputClass} style={selectStyle} />
+                </div>
+                
+              </div>
+            )}
+ 
+            {step === 2 && (
+              <div className="space-y-4 vd-fade">
+                <h1>Documents Upload</h1>
+                <div>
+  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">
+    Statement of Result 
+  </label>
+  {form.file ? (
+    <div className="flex items-center justify-between gap-3 rounded-lg px-4 py-3" style={{ border: "1px solid #00751833", backgroundColor: "#eef3e6" }}>
+      <div className="min-w-0">
+        <p className="text-sm font-medium truncate">{form.file.name}</p>
+        <p className="text-xs opacity-60">{formatBytes(form.file.size)}</p>
+      </div>
+      <button type="button" onClick={removeFile} className="text-xs font-semibold vd-text-green shrink-0">
+        Remove
+      </button>
+    </div>
+
+    
+  ) : (
+    <label className="vd-upload block">
+      <input type="file" accept={ALLOWED_FILE_TYPES.join(",")} onChange={onFileChange} className="hidden" />
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={GREEN} strokeWidth="2" className="mx-auto mb-1.5">
+        <path d="M12 3v12" />
+        <path d="M7 8l5-5 5 5" />
+        <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" />
+      </svg>
+      <p className="text-xs font-semibold vd-text-green">Click to upload</p>
+      <p className="text-xs opacity-50 mt-0.5">JPEG, PNG, WEBP or PDF · up to 5MB</p>
+    </label>
+  )}
+  {fileError && <p className="text-xs text-red-600 mt-1.5">{fileError}</p>}
+</div>
+               <div>
+  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">
+    Signature
+  </label>
+  {form.file2 ? (
+    <div className="flex items-center justify-between gap-3 rounded-lg px-4 py-3" style={{ border: "1px solid #00751833", backgroundColor: "#eef3e6" }}>
+      <div className="min-w-0">
+        <p className="text-sm font-medium truncate">{form.file2.name}</p>
+        <p className="text-xs opacity-60">{formatBytes(form.file2.size)}</p>
+      </div>
+      <button type="button" onClick={removeFile} className="text-xs font-semibold vd-text-green shrink-0">
+        Remove
+      </button>
+    </div>
+
+    
+  ) : (
+    <label className="vd-upload block">
+      <input type="file" accept={ALLOWED_FILE_TYPES.join(",")} onChange={onFileChange2} className="hidden" />
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={GREEN} strokeWidth="2" className="mx-auto mb-1.5">
+        <path d="M12 3v12" />
+        <path d="M7 8l5-5 5 5" />
+        <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" />
+      </svg>
+      <p className="text-xs font-semibold vd-text-green">Click to upload</p>
+      <p className="text-xs opacity-50 mt-0.5">JPEG, PNG, WEBP or PDF · up to 5MB</p>
+    </label>
+  )}
+  {fileError && <p className="text-xs text-red-600 mt-1.5">{fileError}</p>}
+</div>
+
+              </div>
+            )}
+ 
+            <div className="flex gap-3 mt-6">
+              {step > 0 && (
+                <button onClick={back} className="vd-btn-outline flex-1 px-6 py-3 rounded-full text-sm font-semibold">
+                  Back
+                </button>
+              )}
+              {step < BOOKING_STEPS.length - 1 ? (
+                <button
+                  onClick={next}
+                  disabled={!stepValid}
+                  className="vd-btn-primary flex-1 px-6 py-3 rounded-full text-sm font-semibold"
+                >
+                  Next
+                </button>
+              ) : (
+                <button
+                  onClick={makePayment(service.price)}
+                  disabled={!step2Valid || status === "paying"}
+                  className="vd-btn-primary flex-1 px-6 py-3 rounded-full text-sm font-semibold flex items-center justify-center gap-2"
+                >
+                  {status === "paying" && (
+                    <svg className="vd-spin" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke={GREEN_DARK} strokeWidth="3">
+                      <circle cx="12" cy="12" r="9" opacity="0.25" />
+                      <path d="M21 12a9 9 0 0 0-9-9" />
+                    </svg>
+                  )}
+                  Pay {naira(service.price)}
+                </button>
+              )}
+            </div>
+            <p className="text-center text-xs opacity-45 mt-3">Secured by Paystack. Test key in use.</p>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
+
 function Footer({ setPage }) {
   return (
     <footer className="vd-bg-green-dark vd-text-cream">
@@ -987,7 +1418,26 @@ function Stat({ number, label, suffix = "", prefix = "" }) {
   );
 }
 
-function HomePage({ setPage, openBooking }) {
+function HomePage({ setPage, openBooking,openNerd }) {
+    const [nerd,setNerd]=useState({
+    id: "NERD Registration",
+    image: "https://www.nairaland.com/attachments/8298792_img20181130wa0024_jpegfcb0806aefb31292076f356d42f7f61a",
+    eyebrow: "MEGANET",
+    title: "NERD Registration",
+    desc: "Seamless uploading of academic research projects on the NERD platform as a mandatory requirement for successful NYSC registration.",
+    items: [],
+    price: 100,
+  } )
+    const [nysc,setNysc]=useState( {
+    id: "Nysc",
+    image: "https://picsum.photos/seed/verdant-compliance/800/600",
+    eyebrow: "MEGANET",
+    
+    title: "NYSC Registration",
+    desc: "Hassle-free NYSC registration with accurate biometric capturing for a smooth and successful process.",
+    items: [],
+    price: 10000,
+  })
   return (
     <div className="vd-fade">
       <PageHero src={hero} alt="Green farmland under an open sky" height="52vh" minHeight={320} />
@@ -1043,20 +1493,63 @@ function HomePage({ setPage, openBooking }) {
           </div>
         </Reveal>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {SERVICES.slice(0, 4).map((s, i) => (
-            <Reveal key={s.id} delay={i * 80}>
+          
+            <Reveal  delay={80}>
               <div
-                onClick={() => openBooking(s)}
+                onClick={() => openBooking(nysc)}
                 className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
                 style={{ borderWidth: 1, borderColor: "#00751822" }}
               >
                 <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
-                <p className="font-semibold vd-text-green-dark mb-2">{s.title}</p>
-                <p className="text-sm opacity-75 leading-relaxed mb-3">{s.desc}</p>
-                <p className="text-xs font-semibold vd-text-green">Book — {naira(s.price)} →</p>
+                <p className="font-semibold vd-text-green-dark mb-2">NYSC Registration</p>
+                <p className="text-sm opacity-75 leading-relaxed mb-3">Hassle-free NYSC registration with accurate biometric capturing for a smooth and successful process.</p>
+                <p className="text-xs font-semibold vd-text-green">Book-{naira("1000")} →</p>
               </div>
             </Reveal>
-          ))}
+
+             
+            <Reveal  delay={80}>
+              <div
+                onClick={() => openNerd(nerd)}
+                className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
+                style={{ borderWidth: 1, borderColor: "#00751822" }}
+              >
+                <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
+                <p className="font-semibold vd-text-green-dark mb-2">NERD Registration</p>
+                <p className="text-sm opacity-75 leading-relaxed mb-3">Seamless uploading of academic research projects on the NERD platform as a mandatory requirement for successful NYSC registration.</p>
+                <p className="text-xs font-semibold vd-text-green">Book-{naira("1300")} →</p>
+              </div>
+            </Reveal>
+
+
+             
+            <Reveal  delay={80}>
+              <div
+                onClick={() => openBooking(nysc)}
+                className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
+                style={{ borderWidth: 1, borderColor: "#00751822" }}
+              >
+                <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
+                <p className="font-semibold vd-text-green-dark mb-2">NYSC Registration</p>
+                <p className="text-sm opacity-75 leading-relaxed mb-3">Hassle-free NYSC registration with accurate biometric capturing for a smooth and successful process.</p>
+                <p className="text-xs font-semibold vd-text-green">Book-{naira("1000")} →</p>
+              </div>
+            </Reveal>
+
+             
+            <Reveal  delay={80}>
+              <div
+                onClick={() => openBooking(nysc)}
+                className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
+                style={{ borderWidth: 1, borderColor: "#00751822" }}
+              >
+                <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
+                <p className="font-semibold vd-text-green-dark mb-2">NYSC Registration</p>
+                <p className="text-sm opacity-75 leading-relaxed mb-3">Hassle-free NYSC registration with accurate biometric capturing for a smooth and successful process.</p>
+                <p className="text-xs font-semibold vd-text-green">Book-{naira("1000")} →</p>
+              </div>
+            </Reveal>
+
         </div>
       </section>
 
@@ -1103,36 +1596,35 @@ function ServicesPage({ openBooking }) {
           </p>
         </div>
       </section>
-
+ 
             <section className="max-w-5xl mx-auto px-6 pb-20 space-y-6">
-        {SERVICES.map((s, i) => (
-          <Reveal key={s.id} delay={i * 70}>
-            <div
-              onClick={() => openBooking(s)}
+             <Reveal >
+               <div
+              onClick={() =>{}}
               className="vd-card rounded-2xl bg-white/60 overflow-hidden"
               style={{ border: "1px solid #00751822" }}
-            >
+               >
               <div className="vd-card-img h-40 sm:h-48">
-                <img src={s.image} alt={s.title} className="w-full h-full object-cover" loading="lazy" />
+                <img src={"https://www.nairaland.com/attachments/8298792_img20181130wa0024_jpegfcb0806aefb31292076f356d42f7f61a"} alt={s.title} className="w-full h-full object-cover" loading="lazy" />
               </div>
               <div className="grid md:grid-cols-[160px_1fr] gap-6 p-8">
                 <div>
-                  <p className="text-xs uppercase tracking-widest vd-text-gold font-semibold">{s.eyebrow}</p>
-                  <p className="vd-display text-xl font-semibold vd-text-green-dark mt-2">{s.title}</p>
-                  <p className="text-sm font-semibold vd-text-green mt-3">{naira(s.price)}</p>
+                  <p className="text-xs uppercase tracking-widest vd-text-gold font-semibold">MEGANET</p>
+                  <p className="vd-display text-xl font-semibold vd-text-green-dark mt-2">NERD Registration</p>
+                  <p className="text-sm font-semibold vd-text-green mt-3">{naira("13000")}</p>
                 </div>
                 <div>
                   <p className="opacity-80 leading-relaxed mb-4">{s.desc}</p>
                   <ul className="grid sm:grid-cols-3 gap-3 mb-4">
-                    {s.items.map((it) => (
+                    {/* {s.items.map((it) => (
                       <li key={it} className="text-sm flex items-start gap-2">
                         <span className="w-1.5 h-1.5 rounded-full vd-bg-green mt-1.5 shrink-0" />
                         <span className="opacity-80">{it}</span>
                       </li>
-                    ))}
+                    ))} */}
                   </ul>
                   <span
-                    onClick={(e) => { e.stopPropagation(); openBooking(s); }}
+                    onClick={(e) => {  }}
                     className="vd-link-underline text-sm font-semibold vd-text-green inline-block"
                   >
                     Book this service →
@@ -1141,7 +1633,120 @@ function ServicesPage({ openBooking }) {
               </div>
             </div>
           </Reveal>
-        ))}
+
+
+          <Reveal delay={ 70}>
+            <div
+              onClick={() =>{}}
+              className="vd-card rounded-2xl bg-white/60 overflow-hidden"
+              style={{ border: "1px solid #00751822" }}
+            >
+              <div className="vd-card-img h-40 sm:h-48">
+                <img src={"https://www.nairaland.com/attachments/8298792_img20181130wa0024_jpegfcb0806aefb31292076f356d42f7f61a"} alt={s.title} className="w-full h-full object-cover" loading="lazy" />
+              </div>
+              <div className="grid md:grid-cols-[160px_1fr] gap-6 p-8">
+                <div>
+                  <p className="text-xs uppercase tracking-widest vd-text-gold font-semibold">MEGANET</p>
+                  <p className="vd-display text-xl font-semibold vd-text-green-dark mt-2">NERD Registration</p>
+                  <p className="text-sm font-semibold vd-text-green mt-3">{naira("13000")}</p>
+                </div>
+                <div>
+                  <p className="opacity-80 leading-relaxed mb-4">{s.desc}</p>
+                  <ul className="grid sm:grid-cols-3 gap-3 mb-4">
+                    {/* {s.items.map((it) => (
+                      <li key={it} className="text-sm flex items-start gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full vd-bg-green mt-1.5 shrink-0" />
+                        <span className="opacity-80">{it}</span>
+                      </li>
+                    ))} */}
+                  </ul>
+                  <span
+                    onClick={(e) => {  }}
+                    className="vd-link-underline text-sm font-semibold vd-text-green inline-block"
+                  >
+                    Book this service →
+                  </span>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+
+
+
+          <Reveal delay>
+            <div
+              onClick={() =>{}}
+              className="vd-card rounded-2xl bg-white/60 overflow-hidden"
+              style={{ border: "1px solid #00751822" }}
+            >
+              <div className="vd-card-img h-40 sm:h-48">
+                <img src={"https://www.nairaland.com/attachments/8298792_img20181130wa0024_jpegfcb0806aefb31292076f356d42f7f61a"} alt={s.title} className="w-full h-full object-cover" loading="lazy" />
+              </div>
+              <div className="grid md:grid-cols-[160px_1fr] gap-6 p-8">
+                <div>
+                  <p className="text-xs uppercase tracking-widest vd-text-gold font-semibold">MEGANET</p>
+                  <p className="vd-display text-xl font-semibold vd-text-green-dark mt-2">NERD Registration</p>
+                  <p className="text-sm font-semibold vd-text-green mt-3">{naira("13000")}</p>
+                </div>
+                <div>
+                  <p className="opacity-80 leading-relaxed mb-4">{s.desc}</p>
+                  <ul className="grid sm:grid-cols-3 gap-3 mb-4">
+                    {/* {s.items.map((it) => (
+                      <li key={it} className="text-sm flex items-start gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full vd-bg-green mt-1.5 shrink-0" />
+                        <span className="opacity-80">{it}</span>
+                      </li>
+                    ))} */}
+                  </ul>
+                  <span
+                    onClick={(e) => {  }}
+                    className="vd-link-underline text-sm font-semibold vd-text-green inline-block"
+                  >
+                    Book this service →
+                  </span>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+
+
+
+          <Reveal>
+            <div
+              onClick={() =>{}}
+              className="vd-card rounded-2xl bg-white/60 overflow-hidden"
+              style={{ border: "1px solid #00751822" }}
+            >
+              <div className="vd-card-img h-40 sm:h-48">
+                <img src={"https://www.nairaland.com/attachments/8298792_img20181130wa0024_jpegfcb0806aefb31292076f356d42f7f61a"} alt={s.title} className="w-full h-full object-cover" loading="lazy" />
+              </div>
+              <div className="grid md:grid-cols-[160px_1fr] gap-6 p-8">
+                <div>
+                  <p className="text-xs uppercase tracking-widest vd-text-gold font-semibold">MEGANET</p>
+                  <p className="vd-display text-xl font-semibold vd-text-green-dark mt-2">NERD Registration</p>
+                  <p className="text-sm font-semibold vd-text-green mt-3">{naira("13000")}</p>
+                </div>
+                <div>
+                  <p className="opacity-80 leading-relaxed mb-4">{s.desc}</p>
+                  <ul className="grid sm:grid-cols-3 gap-3 mb-4">
+                    {/* {s.items.map((it) => (
+                      <li key={it} className="text-sm flex items-start gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full vd-bg-green mt-1.5 shrink-0" />
+                        <span className="opacity-80">{it}</span>
+                      </li>
+                    ))} */}
+                  </ul>
+                  <span
+                    onClick={(e) => {  }}
+                    className="vd-link-underline text-sm font-semibold vd-text-green inline-block"
+                  >
+                    Book this service →
+                  </span>
+                </div>
+              </div>
+            </div>
+          </Reveal>
+    
       </section>
 
 
@@ -1347,7 +1952,9 @@ function ContactPage() {
 
 export default function App() {
   const [page, setPage] = useState("Home");
-  const [bookingService, setBookingService] = useState(null);
+  const [openNysc, setOpenNysc] = useState(null);
+  const [openNerd, setOpenNerd] = useState(null);
+
   const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
@@ -1378,13 +1985,16 @@ export default function App() {
       />
 
       <Nav page={page} setPage={setPage} />
-      {page === "Home" && <HomePage setPage={setPage} openBooking={setBookingService} />}
-      {page === "Services" && <ServicesPage openBooking={setBookingService} />}
+      {page === "Home" && <HomePage setPage={setPage} openBooking={setOpenNysc} openNerd={setOpenNerd} />}
+      {page === "Services" && <ServicesPage openBooking={setOpenNerd} />}
       {page === "About" && <AboutPage />}
       {page === "Contact" && <ContactPage />}
       <Footer setPage={setPage} />
-      {bookingService && (
-        <NYSCModal service={bookingService} onClose={() => setBookingService(null)} />
+      {openNysc && (
+        <NYSCModal service={openNysc} onClose={() => setOpenNysc(null)} />
+      )}
+       {openNerd && (
+        <NERDModal service={openNerd} onClose={() => setOpenNerd(null)} />
       )}
 
        <div style={{
