@@ -1,85 +1,162 @@
 import { useState } from "react";
-import ProgressBar from "./progressBar";
-const BOOKING_STEPS = ["Your details", "Your operation", "Confirm & pay"];
+import makePayment from "./paystack";
 const GREEN = "#007518";
 const GREEN_DARK = "#003d0c";
 const GOLD = "#ffba00";
 const CREAM = "#fcfbfe";
 const INK = "#12200f";
-export default function NERDModal({ service, onClose }) {
-//   const paystackReady = usePaystackScript();
-  const [step, setStep] = useState(0);
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    contactMethod: "",
-    farmSize: "",
-    timeline: "",
-    location: "",
-    source: "",
-  });
-  const [status, setStatus] = useState("form"); // form | paying | paid
-  const [reference, setReference] = useState("");
- function naira(amount) {
-  return `₦${amount.toLocaleString("en-NG")}`;
-}
 
+function naira(amount) {
+  return `₦${amount?.toLocaleString("en-NG")}`;
+}
+const BOOKING_STEPS = ["Your details", "Your operation", "Confirm & pay"];
+
+function ProgressBar({ step }) {
+  const pct = (step / (BOOKING_STEPS.length - 1)) * 100;
+  return (
+    <div className="mb-6">
+      <div className="flex justify-between mb-2">
+        {BOOKING_STEPS.map((label, i) => (
+          <span
+            key={label}
+            className="text-[11px] font-semibold uppercase tracking-wide"
+            style={{ color: i <= step ? GREEN_DARK : "#9ca89a", transition: "color .3s ease" }}
+          >
+            {label}
+          </span>
+        ))}
+      </div>
+      <div className="h-1.5 rounded-full w-full overflow-hidden" style={{ backgroundColor: "#00751822" }}>
+        <div
+          className="h-full rounded-full"
+          style={{ width: `${pct}%`, backgroundColor: GOLD, transition: "width .35s ease" }}
+        />
+      </div>
+    </div>
+  );
+}
+ 
  
 
+
+ export default function NERDModal({ service, onClose }) {
+//   const paystackReady = usePaystackScript();
+  
+  const [step, setStep] = useState(0);
+  const [form, setForm] = useState({
+    name: "kk",
+    email: "k@gmail.com",
+    phone: "8",
+    nin: "9",
+    state: "g",
+    lgo: "h",
+    dob: "u",
+    address: "d",
+    bloodgroup: "t",
+    genotype: "i",
+    registration: "g",
+    matric: "0",
+    place: "t",
+    language: "y",
+    kinRelationship:"9",
+    kinName:"h",
+    kinEmail:"6",
+    kinPhone:"i",
+    shirt:"9",
+    trouser:"8",
+    shoe:"0",
+    stateBefore:"edo",
+    prifrom:"8",
+    prito:"9",
+    secfrom:"q",
+    secto:"2",
+    tetfrom:"7",
+    tetto:"9",
+    level:"6",
+    file:"",
+    file2:""
+
+  });
+
+  const [status, setStatus] = useState("form"); // form | paying | paid
+  const [reference, setReference] = useState("");
+ 
   if (!service) return null;
  
   const update = (k) => (e) => setForm({ ...form, [k]: e.target.value });
  
-  const step0Valid = form.name.trim() && /\S+@\S+\.\S+/.test(form.email) && form.phone.trim() && form.contactMethod;
-  const step1Valid = form.farmSize && form.timeline && form.location.trim();
-  const step2Valid = form.source;
+  const step0Valid = form.name.trim() 
+   && /\S+@\S+\.\S+/.test(form.email) 
+   && form.phone.trim()
+   && form.address && form.lgo && form.nin
+   && form.matric && form.genotype && form.language 
+   && form.bloodgroup && form.dob &&  form.place &&  form.state ;
+  const step1Valid = form.kinEmail && form.kinName
+   && form.kinRelationship && form.kinPhone  && form.level && form.prifrom 
+   && form.prito && form.secfrom && form.secto && form.tetfrom && form.tetto ;
+  const step2Valid = form.file && form.file2;
   const stepValid = [step0Valid, step1Valid, step2Valid][step];
+  console.log("stepValid:",step1Valid)
  
   const next = () => { if (stepValid) setStep((s) => Math.min(s + 1, BOOKING_STEPS.length - 1)); };
   const back = () => setStep((s) => Math.max(s - 1, 0));
  
-  const pay = () => {
-    if (!step2Valid) return;
-    setStatus("paying");
-    const handler = window.PaystackPop.setup({
-      key: PAYSTACK_PUBLIC_KEY,
-      email: form.email,
-      amount: service.price * 100, // kobo
-      currency: "NGN",
-      metadata: {
-        custom_fields: [
-          { display_name: "Name", variable_name: "name", value: form.name },
-          { display_name: "Phone", variable_name: "phone", value: form.phone },
-          { display_name: "Service", variable_name: "service", value: service.title },
-          { display_name: "Preferred contact method", variable_name: "contact_method", value: form.contactMethod },
-          { display_name: "Farm/business size", variable_name: "farm_size", value: form.farmSize },
-          { display_name: "Timeline", variable_name: "timeline", value: form.timeline },
-          { display_name: "Location", variable_name: "location", value: form.location },
-          { display_name: "Heard about us via", variable_name: "source", value: form.source },
-        ],
-      },
-      callback: (response) => {
-        setReference(response.reference);
-        setStatus("paid");
-      },
-      onClose: () => {
-        setStatus((s) => (s === "paying" ? "form" : s));
-      },
-    });
-    handler.openIframe();
-  };
  
   const selectClass = "vd-input w-full px-4 py-2.5 rounded-lg bg-white outline-none text-sm";
   const selectStyle = { border: "1px solid #00751833" };
   const inputClass = "vd-input w-full px-4 py-2.5 rounded-lg bg-white outline-none text-sm";
- 
+ const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+const ALLOWED_FILE_TYPES = ["image/jpeg", "image/png", "image/webp", "application/pdf"];
+
+function formatBytes(bytes) {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} KB`;
+  return `${(bytes / 1024 / 1024).toFixed(1)} MB`;
+}
+
+  const [fileError, setFileError] = useState("");
+
+  const onFileChange2 = (e) => {
+    const f = e.target.files[0];
+    if (!f) return;
+    if (!ALLOWED_FILE_TYPES.includes(f.type)) {
+      setFileError("Please upload a JPEG, PNG, WEBP image or a PDF.");
+      return;
+    }
+    if (f.size > MAX_FILE_SIZE) {
+      setFileError("File must be 5MB or smaller.");
+      return;
+    }
+    setFileError("");
+    setForm({ ...form, file2: f });
+  };
+  const onFileChange = (e) => {
+    const f = e.target.files[0];
+    if (!f) return;
+    if (!ALLOWED_FILE_TYPES.includes(f.type)) {
+      setFileError("Please upload a JPEG, PNG, WEBP image or a PDF.");
+      return;
+    }
+    if (f.size > MAX_FILE_SIZE) {
+      setFileError("File must be 5MB or smaller.");
+      return;
+    }
+    setFileError("");
+    setForm({ ...form, file: f });
+  };
+
+  const removeFile = () => {
+    setForm({ ...form, file: null });
+    setFileError("");
+  };
+
   return (
     <div
       className="vd-overlay fixed inset-0 z-50 flex items-center justify-center p-4"
       style={{ background: "rgba(0,20,5,0.55)" }}
       onClick={onClose}
     >
+   
       <div
         className="vd-modal w-full max-w-md rounded-2xl bg-white p-7 relative"
         style={{ maxHeight: "90vh", overflowY: "auto" }}
@@ -90,7 +167,7 @@ export default function NERDModal({ service, onClose }) {
           aria-label="Close"
           className="absolute top-4 right-4 opacity-50 hover:opacity-100 transition-opacity"
         >
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={""} strokeWidth="2">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={INK} strokeWidth="2">
             <line x1="18" y1="6" x2="6" y2="18" />
             <line x1="6" y1="6" x2="18" y2="18" />
           </svg>
@@ -127,6 +204,7 @@ export default function NERDModal({ service, onClose }) {
  
             {step === 0 && (
               <div className="space-y-4 vd-fade">
+                <h1>Personal Data</h1>
                 <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Name</label>
                   <input value={form.name} onChange={update("name")} placeholder="Your full name" className={inputClass} style={selectStyle} />
@@ -136,16 +214,67 @@ export default function NERDModal({ service, onClose }) {
                   <input value={form.email} onChange={update("email")} placeholder="you@example.com" className={inputClass} style={selectStyle} />
                 </div>
                 <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Phone</label>
-                  <input value={form.phone} onChange={update("phone")} placeholder="080X XXX XXXX" className={inputClass} style={selectStyle} />
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">JAMB Registration Number</label>
+                  <input value={form.registration} onChange={update("registration")} placeholder="" className={inputClass} style={selectStyle} />
+                </div>
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Matriculation Number</label>
+                  <input value={form.matric} onChange={update("matric")} placeholder="" className={inputClass} style={selectStyle} />
+                </div>
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">NIN</label>
+                  <input value={form.nin} onChange={update("nin")} placeholder="" className={inputClass} style={selectStyle} />
                 </div>
                 <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Preferred contact method</label>
-                  <select value={form.contactMethod} onChange={update("contactMethod")} className={selectClass} style={selectStyle}>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">State of Origin</label>
+                  <input value={form.state} onChange={update("state")} placeholder=" " className={inputClass} style={selectStyle} />
+                </div>
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">L.G.O</label>
+                  <input value={form.lgo} onChange={update("lgo")} placeholder=" " className={inputClass} style={selectStyle} />
+                </div>
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Place of Birth</label>
+                  <input value={form.place} onChange={update("place")} placeholder=" " className={inputClass} style={selectStyle} />
+                </div>
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Home Address</label>
+                  <input value={form.address} onChange={update("address")} placeholder=" " className={inputClass} style={selectStyle} />
+                </div>
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Date of Birth</label>
+                  <input value={form.dob} onChange={update("dob")} placeholder=" " className={inputClass} style={selectStyle} />
+                </div>
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Nigeria Language</label>
+                  <input value={form.language} onChange={update("language")} placeholder=" " className={inputClass} style={selectStyle} />
+                </div>
+                  <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Phone Number</label>
+                  <input value={form.phone} onChange={update("phone")} placeholder="" className={inputClass} style={selectStyle} />
+                </div>
+                <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5"> Genotype</label>
+                  <select value={form.genotype} onChange={update("genotype")} className={selectClass} style={selectStyle}>
                     <option value="">Select an option</option>
-                    <option value="Email">Email</option>
-                    <option value="Phone call">Phone call</option>
-                    <option value="WhatsApp">WhatsApp</option>
+                    <option value="AA">AA</option>
+                    <option value="AS">AS</option>
+                    <option value="AC">AC</option>
+                    <option value="SS">SS</option>
+                    <option value="SC">SC</option>
+                  </select>
+                </div>
+                <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5"> Blood Group</label>
+                  <select value={form.bloodgroup} onChange={update("bloodgroup")} className={selectClass} style={selectStyle}>
+                    <option value="">Select an option</option>
+                    <option value="A+">A+</option>
+                    <option value="A-">A-</option>
+                    <option value="B+">B+</option>
+                    <option value="B-">B-</option>
+                    <option value="AB+">AB+</option>
+                    <option value="O+">O+</option>
+                    <option value="O-">O-</option>
                   </select>
                 </div>
               </div>
@@ -153,49 +282,149 @@ export default function NERDModal({ service, onClose }) {
  
             {step === 1 && (
               <div className="space-y-4 vd-fade">
-                <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Farm / business size</label>
-                  <select value={form.farmSize} onChange={update("farmSize")} className={selectClass} style={selectStyle}>
-                    <option value="">Select an option</option>
-                    <option value="Smallholder (under 5 hectares)">Smallholder (under 5 hectares)</option>
-                    <option value="Medium (5–50 hectares)">Medium (5–50 hectares)</option>
-                    <option value="Large enterprise (50+ hectares)">Large enterprise (50+ hectares)</option>
-                  </select>
+                <h1>Education Background</h1>
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Primary School Attended</label>
+                  <div style={{
+                    marginBottom:"10px"
+                  }}>
+
+                  <input className="mb-1.5"
+                 value={form.prifrom} onChange={update("prifrom")} placeholder="From:" className={inputClass} style={selectStyle} />
+                 </div>
+                  <input value={form.prito} onChange={update("prito")} placeholder="To:" className={inputClass} style={selectStyle} />
+
+                </div>
+
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Secondary School Attended</label>
+                  <div style={{
+                    marginBottom:"10px"
+                  }}>
+
+                  <input className="mb-1.5"
+                 value={form.secfrom} onChange={update("secfrom")} placeholder="From:" className={inputClass} style={selectStyle} />
+                 </div>
+                  <input value={form.secto} onChange={update("secto")} placeholder="To:" className={inputClass} style={selectStyle} />
+
+                </div>
+
+
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Tertiary School Attended</label>
+                  <div style={{
+                    marginBottom:"10px"
+                  }}>
+
+                  <input className="mb-1.5"
+                 value={form.tetfrom} onChange={update("tetfrom")} placeholder="From:" className={inputClass} style={selectStyle} />
+                 </div>
+                  <input value={form.tetto} onChange={update("tetto")} placeholder="To:" className={inputClass} style={selectStyle} />
+
+                </div>
+                  <input value={form.level} onChange={update("level")} placeholder="O level Result (WAEC OR NECO)" className={inputClass} style={selectStyle} />
+                <h1>Next of kin</h1>
+                  <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Name</label>
+                  <input value={form.kinName} onChange={update("kinName")} placeholder="Your full name" className={inputClass} style={selectStyle} />
                 </div>
                 <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Timeline</label>
-                  <select value={form.timeline} onChange={update("timeline")} className={selectClass} style={selectStyle}>
-                    <option value="">Select an option</option>
-                    <option value="This week">This week</option>
-                    <option value="This month">This month</option>
-                    <option value="Just exploring">Just exploring</option>
-                  </select>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Email</label>
+                  <input value={form.kinEmail} onChange={update("kinEmail")} placeholder="you@example.com" className={inputClass} style={selectStyle} />
                 </div>
                 <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Location (state)</label>
-                  <input value={form.location} onChange={update("location")} placeholder="e.g. Oyo State" className={inputClass} style={selectStyle} />
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Phone Number</label>
+                  <input value={form.kinPhone} onChange={update("kinPhone")} placeholder="" className={inputClass} style={selectStyle} />
                 </div>
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Relationship</label>
+                  <input value={form.kinRelationship} onChange={update("kinRelationship")} placeholder="" className={inputClass} style={selectStyle} />
+                </div>
+                <h1>NYSC Kits</h1>
+                  <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Size of Shirt</label>
+                  <input value={form.shirt} onChange={update("shirt")} placeholder="Your full name" className={inputClass} style={selectStyle} />
+                </div>
+                <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Size of Trouser</label>
+                  <input value={form.trouser} onChange={update("trouser")} placeholder="you@example.com" className={inputClass} style={selectStyle} />
+                </div>
+                <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Size of Shoe</label>
+                  <input value={form.shoe} onChange={update("shoe")} placeholder="" className={inputClass} style={selectStyle} />
+                </div>
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">State visited before</label>
+                  <input value={form.stateBefore} onChange={update("stateBefore")} placeholder="" className={inputClass} style={selectStyle} />
+                </div>
+                
               </div>
             )}
  
             {step === 2 && (
               <div className="space-y-4 vd-fade">
+                <h1>Documents Upload</h1>
                 <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">How did you hear about us?</label>
-                  <select value={form.source} onChange={update("source")} className={selectClass} style={selectStyle}>
-                    <option value="">Select an option</option>
-                    <option value="Referral">Referral</option>
-                    <option value="Search">Search</option>
-                    <option value="Social media">Social media</option>
-                    <option value="Event / conference">Event / conference</option>
-                    <option value="Other">Other</option>
-                  </select>
-                </div>
-                <div className="rounded-lg p-4 text-sm" style={{ backgroundColor: "#eef3e6" }}>
-                  <p className="font-semibold vd-text-green-dark mb-1">{service.title}</p>
-                  <p className="opacity-70">{form.name} · {form.email}</p>
-                  <p className="opacity-70">{form.location} · {form.farmSize}</p>
-                </div>
+  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">
+    Statement of Result 
+  </label>
+  {form.file ? (
+    <div className="flex items-center justify-between gap-3 rounded-lg px-4 py-3" style={{ border: "1px solid #00751833", backgroundColor: "#eef3e6" }}>
+      <div className="min-w-0">
+        <p className="text-sm font-medium truncate">{form.file.name}</p>
+        <p className="text-xs opacity-60">{formatBytes(form.file.size)}</p>
+      </div>
+      <button type="button" onClick={removeFile} className="text-xs font-semibold vd-text-green shrink-0">
+        Remove
+      </button>
+    </div>
+
+    
+  ) : (
+    <label className="vd-upload block">
+      <input type="file" accept={ALLOWED_FILE_TYPES.join(",")} onChange={onFileChange} className="hidden" />
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={GREEN} strokeWidth="2" className="mx-auto mb-1.5">
+        <path d="M12 3v12" />
+        <path d="M7 8l5-5 5 5" />
+        <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" />
+      </svg>
+      <p className="text-xs font-semibold vd-text-green">Click to upload</p>
+      <p className="text-xs opacity-50 mt-0.5">JPEG, PNG, WEBP or PDF · up to 5MB</p>
+    </label>
+  )}
+  {fileError && <p className="text-xs text-red-600 mt-1.5">{fileError}</p>}
+</div>
+               <div>
+  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">
+    Signature
+  </label>
+  {form.file2 ? (
+    <div className="flex items-center justify-between gap-3 rounded-lg px-4 py-3" style={{ border: "1px solid #00751833", backgroundColor: "#eef3e6" }}>
+      <div className="min-w-0">
+        <p className="text-sm font-medium truncate">{form.file2.name}</p>
+        <p className="text-xs opacity-60">{formatBytes(form.file2.size)}</p>
+      </div>
+      <button type="button" onClick={removeFile} className="text-xs font-semibold vd-text-green shrink-0">
+        Remove
+      </button>
+    </div>
+
+    
+  ) : (
+    <label className="vd-upload block">
+      <input type="file" accept={ALLOWED_FILE_TYPES.join(",")} onChange={onFileChange2} className="hidden" />
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={GREEN} strokeWidth="2" className="mx-auto mb-1.5">
+        <path d="M12 3v12" />
+        <path d="M7 8l5-5 5 5" />
+        <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" />
+      </svg>
+      <p className="text-xs font-semibold vd-text-green">Click to upload</p>
+      <p className="text-xs opacity-50 mt-0.5">JPEG, PNG, WEBP or PDF · up to 5MB</p>
+    </label>
+  )}
+  {fileError && <p className="text-xs text-red-600 mt-1.5">{fileError}</p>}
+</div>
+
               </div>
             )}
  
@@ -215,7 +444,7 @@ export default function NERDModal({ service, onClose }) {
                 </button>
               ) : (
                 <button
-                  onClick={pay}
+                  onClick={()=>makePayment(service)}
                   disabled={!step2Valid || status === "paying"}
                   className="vd-btn-primary flex-1 px-6 py-3 rounded-full text-sm font-semibold flex items-center justify-center gap-2"
                 >
@@ -236,4 +465,4 @@ export default function NERDModal({ service, onClose }) {
     </div>
   );
 }
- 
+

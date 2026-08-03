@@ -1,6 +1,4 @@
-
 const BOOKING_STEPS = ["Your details", "Your operation", "Confirm & pay"];
- const GREEN = "#007518";
 const GREEN_DARK = "#003d0c";
 const GOLD = "#ffba00";
 const CREAM = "#fcfbfe";
@@ -31,3 +29,4 @@ export default function ProgressBar({ step }) {
 }
  
  
+
