@@ -728,7 +728,7 @@ function HomePage({
                 <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
                 <p className="font-semibold vd-text-green-dark mb-2">Visa Processing (Personal Statement)</p>
                 <p className="text-sm opacity-75 leading-relaxed mb-3">Professional assistance in preparing and processing visa documents for a smooth application experience.</p>
-                <p className="text-xs font-semibold vd-text-green">Book-{naira("5000")} →</p>
+                <p className="text-xs font-semibold vd-text-green">Book-{naira("20000")} →</p>
               </div>
             </Reveal>
 
