@@ -9,6 +9,10 @@ import { TbRuler } from "react-icons/tb";
 import makePayment from "./components/paystack";
 import NERDModal from "./components/nerdModal";
 import NYSCModal from "./components/nyscModal";
+import CACModal from "./components/cacModal";
+import NGOModal from "./components/ngoModal";
+import ResumeModal from "./components/resumeModal";
+import PersonalModal from "./components/personalModal";
 
 
 const GREEN = "#007518";
@@ -513,7 +517,70 @@ function Stat({ number, label, suffix = "", prefix = "" }) {
   );
 }
 
-function HomePage({ setPage, openBooking,openNerd }) {
+function HomePage({ 
+  setPage, 
+  openBooking,
+  openNerd,
+  openCac,
+  openNgo,
+  openCV,
+  openPersonal }) {
+    const [cac,setCac]=useState(
+      {
+    id: "CAC Registration",
+    image: "https://picsum.photos/seed/verdant-reporting/800/600",
+    eyebrow: "MEGANET",
+   
+    title: "CAC Registration (Naming a Company)",
+    desc: "Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.",
+    items: ["Business Name: N45,000",
+      "Company Registration: N65,000",
+       "NGO/Association/Club/Church Registration: N130,000"],
+    price:"10000",
+  })
+   const [ngo,setNgo]=useState(
+      {
+    id: "CAC Registration",
+    image: "https://picsum.photos/seed/verdant-reporting/800/600",
+    eyebrow: "MEGANET",
+   
+    title: "CAC Registration (NGO)",
+    desc: "Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.",
+    items: ["Business Name: N45,000",
+      "Company Registration: N65,000",
+       "NGO/Association/Club/Church Registration: N130,000"],
+    price:"130000",
+  })
+    const [visa,setVisa]=useState(
+        {
+    id: "Processing of Visa Documents",
+    image: "https://picsum.photos/seed/verdant-partnerships/800/600",
+    eyebrow: "MEGANET",
+    
+    title:"Processing of Visa Documents (CV/RESUME)",
+    desc: "Professional assistance in preparing and processing visa documents for a smooth application experience.",
+    items: ["CV/Resume: N5,000",
+       "Personal Statement/Statement of Purpose: N20,000",
+      "Work Reference/Recommendation Letter: N5,000"],
+    price: 5000,
+  }
+    )
+
+     const [visa2,setVisa2]=useState(
+        {
+    id: "Processing of Visa Documents",
+    image: "https://picsum.photos/seed/verdant-partnerships/800/600",
+    eyebrow: "MEGANET",
+    
+    title:"Processing of Visa Documents (Personal Statement)",
+    desc: "Professional assistance in preparing and processing visa documents for a smooth application experience.",
+    items: ["CV/Resume: N5,000",
+       "Personal Statement/Statement of Purpose: N20,000",
+      "Work Reference/Recommendation Letter: N5,000"],
+    price: 20000,
+  }
+    )
+
     const [nerd,setNerd]=useState({
     id: "NERD Registration",
     image: "https://www.nairaland.com/attachments/8298792_img20181130wa0024_jpegfcb0806aefb31292076f356d42f7f61a",
@@ -557,12 +624,6 @@ function HomePage({ setPage, openBooking,openNerd }) {
               </button>
             </div>
           </div>
-          {/* <div className="max-w-xs mx-auto">
-            <img src={logo} style={{
-              borderRadius:"30px",
-              boxShadow:"2px 4px rgba(0,0,0,0,3)"
-            }}/>
-          </div> */}
         </div>
       </section>
 
@@ -620,13 +681,13 @@ function HomePage({ setPage, openBooking,openNerd }) {
              
             <Reveal  delay={80}>
               <div
-                onClick={() => openBooking(nysc)}
+                onClick={() => openCac(cac)}
                 className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
                 style={{ borderWidth: 1, borderColor: "#00751822" }}
               >
                 <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
-                <p className="font-semibold vd-text-green-dark mb-2">NYSC Registration</p>
-                <p className="text-sm opacity-75 leading-relaxed mb-3">Hassle-free NYSC registration with accurate biometric capturing for a smooth and successful process.</p>
+                <p className="font-semibold vd-text-green-dark mb-2">CAC Registration (Naming a company)</p>
+                <p className="text-sm opacity-75 leading-relaxed mb-3">Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.</p>
                 <p className="text-xs font-semibold vd-text-green">Book-{naira("1000")} →</p>
               </div>
             </Reveal>
@@ -634,14 +695,40 @@ function HomePage({ setPage, openBooking,openNerd }) {
              
             <Reveal  delay={80}>
               <div
-                onClick={() => openBooking(nysc)}
+                onClick={() => openNgo(ngo)}
                 className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
                 style={{ borderWidth: 1, borderColor: "#00751822" }}
               >
                 <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
-                <p className="font-semibold vd-text-green-dark mb-2">NYSC Registration</p>
-                <p className="text-sm opacity-75 leading-relaxed mb-3">Hassle-free NYSC registration with accurate biometric capturing for a smooth and successful process.</p>
-                <p className="text-xs font-semibold vd-text-green">Book-{naira("1000")} →</p>
+                <p className="font-semibold vd-text-green-dark mb-2">CAC Registration (NGO)</p>
+                <p className="text-sm opacity-75 leading-relaxed mb-3">Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.</p>
+                <p className="text-xs font-semibold vd-text-green">Book-{naira("130000")} →</p>
+              </div>
+            </Reveal>
+
+             <Reveal  delay={80}>
+              <div
+                onClick={() => openCV(visa)}
+                className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
+                style={{ borderWidth: 1, borderColor: "#00751822" }}
+              >
+                <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
+                <p className="font-semibold vd-text-green-dark mb-2">Visa Processing (CV / Resume)</p>
+                <p className="text-sm opacity-75 leading-relaxed mb-3">Professional assistance in preparing and processing visa documents for a smooth application experience.</p>
+                <p className="text-xs font-semibold vd-text-green">Book-{naira("5000")} →</p>
+              </div>
+            </Reveal>
+
+            <Reveal  delay={80}>
+              <div
+                onClick={() => openPersonal(visa2)}
+                className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
+                style={{ borderWidth: 1, borderColor: "#00751822" }}
+              >
+                <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
+                <p className="font-semibold vd-text-green-dark mb-2">Visa Processing (Personal Statement)</p>
+                <p className="text-sm opacity-75 leading-relaxed mb-3">Professional assistance in preparing and processing visa documents for a smooth application experience.</p>
+                <p className="text-xs font-semibold vd-text-green">Book-{naira("5000")} →</p>
               </div>
             </Reveal>
 
@@ -1047,8 +1134,15 @@ function ContactPage() {
 
 export default function App() {
   const [page, setPage] = useState("Home");
+  const [openCac, setOpenCac] = useState(null);
   const [openNysc, setOpenNysc] = useState(null);
   const [openNerd, setOpenNerd] = useState(null);
+  const [openNgo, setOpenNgo] = useState(null);
+  const [openCV, setOpenCV] = useState(null);
+  const [openPersonal, setOpenPersonal] = useState(null);
+
+
+
 
   const [scrollProgress, setScrollProgress] = useState(0);
 
@@ -1080,7 +1174,19 @@ export default function App() {
       />
 
       <Nav page={page} setPage={setPage} />
-      {page === "Home" && <HomePage setPage={setPage} openBooking={setOpenNysc} openNerd={setOpenNerd} />}
+      {page === "Home" && <HomePage
+       setPage={setPage} 
+        openBooking={setOpenNysc}
+        openNerd={setOpenNerd}
+        openCac={setOpenCac} 
+        openNgo={setOpenNgo}
+        openCV={setOpenCV}
+        openPersonal={setOpenPersonal}
+
+
+        />
+        
+        }
       {page === "Services" && <ServicesPage openBooking={setOpenNerd} />}
       {page === "About" && <AboutPage />}
       {page === "Contact" && <ContactPage />}
@@ -1090,6 +1196,21 @@ export default function App() {
       )}
        {openNerd && (
         <NERDModal service={openNerd} onClose={() => setOpenNerd(null)} />
+      )}
+
+      {openCac && (
+        <CACModal service={openCac} onClose={() => setOpenCac(null)} />
+      )}
+
+        {openNgo && (
+        <NGOModal service={openNgo} onClose={() => setOpenNgo(null)} />
+      )}
+
+         {openCV && (
+        <ResumeModal service={openCV} onClose={() => setOpenCV(null)} />
+      )}
+      {openPersonal && (
+        <PersonalModal service={openPersonal} onClose={() => setOpenPersonal(null)} />
       )}
 
        <div style={{
