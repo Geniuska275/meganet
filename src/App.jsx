@@ -793,7 +793,104 @@ function HomePage({
   );
 }
 
-function ServicesPage({ openBooking }) {
+function ServicesPage({ openBooking,
+  openNerd,
+  openCac,
+  openNgo,
+  openCV,
+  openPersonal,
+  openBusiness
+ }) {
+    const [cac,setCac]=useState(
+      {
+    id: "CAC Registration",
+    image: "https://picsum.photos/seed/verdant-reporting/800/600",
+    eyebrow: "MEGANET",
+   
+    title: "CAC Registration (Naming a Company)",
+    desc: "Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.",
+    items: ["Business Name: N45,000",
+      "Company Registration: N65,000",
+       "NGO/Association/Club/Church Registration: N130,000"],
+    price:"10000",
+  })
+
+  const [business,setBusiness]=useState(
+      {
+    id: "CAC Registration",
+    image: "https://picsum.photos/seed/verdant-reporting/800/600",
+    eyebrow: "MEGANET",
+   
+    title: "CAC Registration (Business Name)",
+    desc: "Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.",
+    items: ["Business Name: N45,000",
+      "Company Registration: N65,000",
+       "NGO/Association/Club/Church Registration: N130,000"],
+    price:"45000",
+  })
+   const [ngo,setNgo]=useState(
+      {
+    id: "CAC Registration",
+    image: "https://picsum.photos/seed/verdant-reporting/800/600",
+    eyebrow: "MEGANET",
+   
+    title: "CAC Registration (NGO)",
+    desc: "Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.",
+    items: ["Business Name: N45,000",
+      "Company Registration: N65,000",
+       "NGO/Association/Club/Church Registration: N130,000"],
+    price:"130000",
+  })
+    const [visa,setVisa]=useState(
+        {
+    id: "Processing of Visa Documents",
+    image: "https://picsum.photos/seed/verdant-partnerships/800/600",
+    eyebrow: "MEGANET",
+    
+    title:"Processing of Visa Documents (CV/RESUME)",
+    desc: "Professional assistance in preparing and processing visa documents for a smooth application experience.",
+    items: ["CV/Resume: N5,000",
+       "Personal Statement/Statement of Purpose: N20,000",
+      "Work Reference/Recommendation Letter: N5,000"],
+    price: 5000,
+  }
+    )
+
+     const [visa2,setVisa2]=useState(
+        {
+    id: "Processing of Visa Documents",
+    image: "https://picsum.photos/seed/verdant-partnerships/800/600",
+    eyebrow: "MEGANET",
+    
+    title:"Processing of Visa Documents (Personal Statement)",
+    desc: "Professional assistance in preparing and processing visa documents for a smooth application experience.",
+    items: ["CV/Resume: N5,000",
+       "Personal Statement/Statement of Purpose: N20,000",
+      "Work Reference/Recommendation Letter: N5,000"],
+    price: 20000,
+  }
+    )
+
+    const [nerd,setNerd]=useState({
+    id: "NERD Registration",
+    image: "https://www.nairaland.com/attachments/8298792_img20181130wa0024_jpegfcb0806aefb31292076f356d42f7f61a",
+    eyebrow: "MEGANET",
+    title: "NERD Registration",
+    desc: "Seamless uploading of academic research projects on the NERD platform as a mandatory requirement for successful NYSC registration.",
+    items: [],
+    price: 13000,
+  } )
+    const [nysc,setNysc]=useState( {
+    id: "Nysc",
+    image: "https://picsum.photos/seed/verdant-compliance/800/600",
+    eyebrow: "MEGANET",
+    
+    title: "NYSC Registration",
+    desc: "Hassle-free NYSC registration with accurate biometric capturing for a smooth and successful process.",
+    items: [],
+    price: 10000,
+  })
+
   return (
     <div className="vd-fade">
       <PageHero src="https://images.unsplash.com/photo-1675434303097-210c75b61d3f?w=400&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8b2ZmaWNlJTIwd2l0aCUyMHBlb3BsZSUyMGJhY2tncm91bmR8ZW58MHx8MHx8fDA%3D" alt="Rows of crops on a working farm" height="34vh" minHeight={220} />
@@ -810,156 +907,106 @@ function ServicesPage({ openBooking }) {
       </section>
  
             <section className="max-w-5xl mx-auto px-6 pb-20 space-y-6">
-             <Reveal >
-               <div
-              onClick={() =>{}}
-              className="vd-card rounded-2xl bg-white/60 overflow-hidden"
-              style={{ border: "1px solid #00751822" }}
-               >
-              <div className="vd-card-img h-40 sm:h-48">
-                <img src={"https://www.nairaland.com/attachments/8298792_img20181130wa0024_jpegfcb0806aefb31292076f356d42f7f61a"} alt={s.title} className="w-full h-full object-cover" loading="lazy" />
+
+                  <Reveal  delay={80}>
+              <div
+                onClick={() => openBooking(nysc)}
+                className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
+                style={{ borderWidth: 1, borderColor: "#00751822" }}
+              >
+                <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
+                <p className="font-semibold vd-text-green-dark mb-2">NYSC Registration</p>
+                <p className="text-sm opacity-75 leading-relaxed mb-3">Hassle-free NYSC registration with accurate biometric capturing for a smooth and successful process.</p>
+                <p className="text-xs font-semibold vd-text-green">Book-{naira("1000")} →</p>
               </div>
-              <div className="grid md:grid-cols-[160px_1fr] gap-6 p-8">
-                <div>
-                  <p className="text-xs uppercase tracking-widest vd-text-gold font-semibold">MEGANET</p>
-                  <p className="vd-display text-xl font-semibold vd-text-green-dark mt-2">NERD Registration</p>
-                  <p className="text-sm font-semibold vd-text-green mt-3">{naira("13000")}</p>
-                </div>
-                <div>
-                  <p className="opacity-80 leading-relaxed mb-4">{s.desc}</p>
-                  <ul className="grid sm:grid-cols-3 gap-3 mb-4">
-                    {/* {s.items.map((it) => (
-                      <li key={it} className="text-sm flex items-start gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full vd-bg-green mt-1.5 shrink-0" />
-                        <span className="opacity-80">{it}</span>
-                      </li>
-                    ))} */}
-                  </ul>
-                  <span
-                    onClick={(e) => {  }}
-                    className="vd-link-underline text-sm font-semibold vd-text-green inline-block"
-                  >
-                    Book this service →
-                  </span>
-                </div>
+            </Reveal>
+
+             
+            <Reveal  delay={80}>
+              <div
+                onClick={() => openNerd(nerd)}
+                className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
+                style={{ borderWidth: 1, borderColor: "#00751822" }}
+              >
+                <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
+                <p className="font-semibold vd-text-green-dark mb-2">NERD Registration</p>
+                <p className="text-sm opacity-75 leading-relaxed mb-3">Seamless uploading of academic research projects on the NERD platform as a mandatory requirement for successful NYSC registration.</p>
+                <p className="text-xs font-semibold vd-text-green">Book-{naira("1300")} →</p>
               </div>
-            </div>
-          </Reveal>
+            </Reveal>
 
 
-          <Reveal delay={ 70}>
-            <div
-              onClick={() =>{}}
-              className="vd-card rounded-2xl bg-white/60 overflow-hidden"
-              style={{ border: "1px solid #00751822" }}
-            >
-              <div className="vd-card-img h-40 sm:h-48">
-                <img src={"https://www.nairaland.com/attachments/8298792_img20181130wa0024_jpegfcb0806aefb31292076f356d42f7f61a"} alt={s.title} className="w-full h-full object-cover" loading="lazy" />
+             
+            <Reveal  delay={80}>
+              <div
+                onClick={() => openCac(cac)}
+                className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
+                style={{ borderWidth: 1, borderColor: "#00751822" }}
+              >
+                <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
+                <p className="font-semibold vd-text-green-dark mb-2">CAC Registration (Naming a company)</p>
+                <p className="text-sm opacity-75 leading-relaxed mb-3">Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.</p>
+                <p className="text-xs font-semibold vd-text-green">Book-{naira("1000")} →</p>
               </div>
-              <div className="grid md:grid-cols-[160px_1fr] gap-6 p-8">
-                <div>
-                  <p className="text-xs uppercase tracking-widest vd-text-gold font-semibold">MEGANET</p>
-                  <p className="vd-display text-xl font-semibold vd-text-green-dark mt-2">NERD Registration</p>
-                  <p className="text-sm font-semibold vd-text-green mt-3">{naira("13000")}</p>
-                </div>
-                <div>
-                  <p className="opacity-80 leading-relaxed mb-4">{s.desc}</p>
-                  <ul className="grid sm:grid-cols-3 gap-3 mb-4">
-                    {/* {s.items.map((it) => (
-                      <li key={it} className="text-sm flex items-start gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full vd-bg-green mt-1.5 shrink-0" />
-                        <span className="opacity-80">{it}</span>
-                      </li>
-                    ))} */}
-                  </ul>
-                  <span
-                    onClick={(e) => {  }}
-                    className="vd-link-underline text-sm font-semibold vd-text-green inline-block"
-                  >
-                    Book this service →
-                  </span>
-                </div>
+            </Reveal>
+
+             <Reveal  delay={80}>
+              <div
+                onClick={() => openBusiness(business)}
+                className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
+                style={{ borderWidth: 1, borderColor: "#00751822" }}
+              >
+                <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
+                <p className="font-semibold vd-text-green-dark mb-2">CAC Registration (Business Name)</p>
+                <p className="text-sm opacity-75 leading-relaxed mb-3">Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.</p>
+                <p className="text-xs font-semibold vd-text-green">Book-{naira("45000")} →</p>
               </div>
-            </div>
-          </Reveal>
+            </Reveal>
 
-
-
-          <Reveal delay>
-            <div
-              onClick={() =>{}}
-              className="vd-card rounded-2xl bg-white/60 overflow-hidden"
-              style={{ border: "1px solid #00751822" }}
-            >
-              <div className="vd-card-img h-40 sm:h-48">
-                <img src={"https://www.nairaland.com/attachments/8298792_img20181130wa0024_jpegfcb0806aefb31292076f356d42f7f61a"} alt={s.title} className="w-full h-full object-cover" loading="lazy" />
+             
+            <Reveal  delay={80}>
+              <div
+                onClick={() => openNgo(ngo)}
+                className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
+                style={{ borderWidth: 1, borderColor: "#00751822" }}
+              >
+                <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
+                <p className="font-semibold vd-text-green-dark mb-2">CAC Registration (NGO)</p>
+                <p className="text-sm opacity-75 leading-relaxed mb-3">Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.</p>
+                <p className="text-xs font-semibold vd-text-green">Book-{naira("130000")} →</p>
               </div>
-              <div className="grid md:grid-cols-[160px_1fr] gap-6 p-8">
-                <div>
-                  <p className="text-xs uppercase tracking-widest vd-text-gold font-semibold">MEGANET</p>
-                  <p className="vd-display text-xl font-semibold vd-text-green-dark mt-2">NERD Registration</p>
-                  <p className="text-sm font-semibold vd-text-green mt-3">{naira("13000")}</p>
-                </div>
-                <div>
-                  <p className="opacity-80 leading-relaxed mb-4">{s.desc}</p>
-                  <ul className="grid sm:grid-cols-3 gap-3 mb-4">
-                    {/* {s.items.map((it) => (
-                      <li key={it} className="text-sm flex items-start gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full vd-bg-green mt-1.5 shrink-0" />
-                        <span className="opacity-80">{it}</span>
-                      </li>
-                    ))} */}
-                  </ul>
-                  <span
-                    onClick={(e) => {  }}
-                    className="vd-link-underline text-sm font-semibold vd-text-green inline-block"
-                  >
-                    Book this service →
-                  </span>
-                </div>
-              </div>
-            </div>
-          </Reveal>
+            </Reveal>
 
-
-
-          <Reveal>
-            <div
-              onClick={() =>{}}
-              className="vd-card rounded-2xl bg-white/60 overflow-hidden"
-              style={{ border: "1px solid #00751822" }}
-            >
-              <div className="vd-card-img h-40 sm:h-48">
-                <img src={"https://www.nairaland.com/attachments/8298792_img20181130wa0024_jpegfcb0806aefb31292076f356d42f7f61a"} alt={s.title} className="w-full h-full object-cover" loading="lazy" />
+             <Reveal  delay={80}>
+              <div
+                onClick={() => openCV(visa)}
+                className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
+                style={{ borderWidth: 1, borderColor: "#00751822" }}
+              >
+                <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
+                <p className="font-semibold vd-text-green-dark mb-2">Visa Processing (CV / Resume)</p>
+                <p className="text-sm opacity-75 leading-relaxed mb-3">Professional assistance in preparing and processing visa documents for a smooth application experience.</p>
+                <p className="text-xs font-semibold vd-text-green">Book-{naira("5000")} →</p>
               </div>
-              <div className="grid md:grid-cols-[160px_1fr] gap-6 p-8">
-                <div>
-                  <p className="text-xs uppercase tracking-widest vd-text-gold font-semibold">MEGANET</p>
-                  <p className="vd-display text-xl font-semibold vd-text-green-dark mt-2">NERD Registration</p>
-                  <p className="text-sm font-semibold vd-text-green mt-3">{naira("13000")}</p>
-                </div>
-                <div>
-                  <p className="opacity-80 leading-relaxed mb-4">{s.desc}</p>
-                  <ul className="grid sm:grid-cols-3 gap-3 mb-4">
-                    {/* {s.items.map((it) => (
-                      <li key={it} className="text-sm flex items-start gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full vd-bg-green mt-1.5 shrink-0" />
-                        <span className="opacity-80">{it}</span>
-                      </li>
-                    ))} */}
-                  </ul>
-                  <span
-                    onClick={(e) => {  }}
-                    className="vd-link-underline text-sm font-semibold vd-text-green inline-block"
-                  >
-                    Book this service →
-                  </span>
-                </div>
+            </Reveal>
+
+            <Reveal  delay={80}>
+              <div
+                onClick={() => openPersonal(visa2)}
+                className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
+                style={{ borderWidth: 1, borderColor: "#00751822" }}
+              >
+                <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
+                <p className="font-semibold vd-text-green-dark mb-2">Visa Processing (Personal Statement)</p>
+                <p className="text-sm opacity-75 leading-relaxed mb-3">Professional assistance in preparing and processing visa documents for a smooth application experience.</p>
+                <p className="text-xs font-semibold vd-text-green">Book-{naira("20000")} →</p>
               </div>
-            </div>
-          </Reveal>
+            </Reveal>
+
+        
+           
     
-      </section>
+            </section>
 
 
 
@@ -1221,7 +1268,19 @@ export default function App() {
         />
         
         }
-      {page === "Services" && <ServicesPage openBooking={setOpenNerd} />}
+      {page === "Services" && <ServicesPage 
+           openBooking={setOpenNerd} 
+           openBooking={setOpenNysc}
+    
+        openCac={setOpenCac} 
+        openNgo={setOpenNgo}
+        openCV={setOpenCV}
+
+        openPersonal={setOpenPersonal}
+        openBusiness={setOpenBusiness}
+      />
+      
+      }
       {page === "About" && <AboutPage />}
       {page === "Contact" && <ContactPage />}
       <Footer setPage={setPage} />
