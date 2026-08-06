@@ -13,6 +13,7 @@ import CACModal from "./components/cacModal";
 import NGOModal from "./components/ngoModal";
 import ResumeModal from "./components/resumeModal";
 import PersonalModal from "./components/personalModal";
+import BusinessModal from "./components/BusinessModal";
 
 
 const GREEN = "#007518";
@@ -524,7 +525,9 @@ function HomePage({
   openCac,
   openNgo,
   openCV,
-  openPersonal }) {
+  openPersonal,
+  openBusiness
+ }) {
     const [cac,setCac]=useState(
       {
     id: "CAC Registration",
@@ -537,6 +540,20 @@ function HomePage({
       "Company Registration: N65,000",
        "NGO/Association/Club/Church Registration: N130,000"],
     price:"10000",
+  })
+
+  const [business,setBusiness]=useState(
+      {
+    id: "CAC Registration",
+    image: "https://picsum.photos/seed/verdant-reporting/800/600",
+    eyebrow: "MEGANET",
+   
+    title: "CAC Registration (Business Name)",
+    desc: "Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.",
+    items: ["Business Name: N45,000",
+      "Company Registration: N65,000",
+       "NGO/Association/Club/Church Registration: N130,000"],
+    price:"45000",
   })
    const [ngo,setNgo]=useState(
       {
@@ -689,6 +706,19 @@ function HomePage({
                 <p className="font-semibold vd-text-green-dark mb-2">CAC Registration (Naming a company)</p>
                 <p className="text-sm opacity-75 leading-relaxed mb-3">Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.</p>
                 <p className="text-xs font-semibold vd-text-green">Book-{naira("1000")} →</p>
+              </div>
+            </Reveal>
+
+             <Reveal  delay={80}>
+              <div
+                onClick={() => openBusiness(business)}
+                className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
+                style={{ borderWidth: 1, borderColor: "#00751822" }}
+              >
+                <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
+                <p className="font-semibold vd-text-green-dark mb-2">CAC Registration (Business Name)</p>
+                <p className="text-sm opacity-75 leading-relaxed mb-3">Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.</p>
+                <p className="text-xs font-semibold vd-text-green">Book-{naira("45000")} →</p>
               </div>
             </Reveal>
 
@@ -1140,6 +1170,8 @@ export default function App() {
   const [openNgo, setOpenNgo] = useState(null);
   const [openCV, setOpenCV] = useState(null);
   const [openPersonal, setOpenPersonal] = useState(null);
+  const [openBusiness, setOpenBusiness] = useState(null);
+
 
 
 
@@ -1175,13 +1207,15 @@ export default function App() {
 
       <Nav page={page} setPage={setPage} />
       {page === "Home" && <HomePage
-       setPage={setPage} 
+         setPage={setPage} 
         openBooking={setOpenNysc}
         openNerd={setOpenNerd}
         openCac={setOpenCac} 
         openNgo={setOpenNgo}
         openCV={setOpenCV}
+
         openPersonal={setOpenPersonal}
+        openBusiness={setOpenBusiness}
 
 
         />
@@ -1211,6 +1245,10 @@ export default function App() {
       )}
       {openPersonal && (
         <PersonalModal service={openPersonal} onClose={() => setOpenPersonal(null)} />
+      )}
+
+       {openBusiness && (
+        <BusinessModal service={openBusiness} onClose={() => setOpenBusiness(null)} />
       )}
 
        <div style={{

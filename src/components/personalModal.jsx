@@ -45,13 +45,13 @@ function ProgressBar({ step }) {
   const [step, setStep] = useState(0);
   const [form, setForm] = useState({
   
-    fullname:"6",
-    Email_address:"y",
-    phone_number:"y",
-    institution:"y", 
-    study:"g",
-    destination:"h", 
-    website:"f", 
+    fullname:"",
+    Email_address:"",
+    phone_number:"",
+    institution:"", 
+    study:"",
+    destination:"", 
+    website:"", 
     file:"",
   });
 

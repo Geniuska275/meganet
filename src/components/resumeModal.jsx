@@ -44,30 +44,30 @@ function ProgressBar({ step }) {
   
   const [step, setStep] = useState(0);
   const [form, setForm] = useState({
-    pto:"e",
-    pfrom:"e",
-    sfrom:"e",
-    sto:"e",
-    tfrom:"e",
-    tto:"e",
+    pto:"",
+    pfrom:"",
+    sfrom:"",
+    sto:"",
+    tfrom:"",
+    tto:"",
     qualification:"",
     tqualification:"",
-    company: "8",
-    fullname:"y",
-    gender:"u",
-    l_origin:"y",
-    dob:"t",
-    to: "9",
-    te: "g",
-    hobby: "u",
-    post: "d",
-    phone_number: "t",
-    origin: "i",
-    card_number: "g",
-    home_address: "0",
-    phone_number: "0",
-    email_address: "0",
-    spoken: "0",
+    company: "",
+    fullname:"",
+    gender:"",
+    l_origin:"",
+    dob:"",
+    to: "",
+    te: "",
+    hobby: "",
+    post: "",
+    phone_number: "",
+    origin: "",
+    card_number: "",
+    home_address: "",
+    phone_number: "",
+    email_address: "",
+    spoken: "",
   });
 
   const [status, setStatus] = useState("form"); // form | paying | paid
@@ -77,11 +77,11 @@ function ProgressBar({ step }) {
  
   const update = (k) => (e) => setForm({ ...form, [k]: e.target.value });
  
-  const step0Valid = "y"
+  const step0Valid =form.fullname && form.home_address && form.dob  && form.origin && form.spoken && form.l_origin && form.email_address
   
-  const step1Valid = form.address 
+  const step1Valid = form.pto && form.pfrom && form.tto && form.tfrom && form.sfrom && form.sto && form.tqualification
   
-  const step2Valid = form.company && form.post && form.to && form.te && form.cert && form.hobby
+  const step2Valid = form.company && form.post && form.cert && form.hobby  && form.responsibility && form.to && form.te
   const stepValid = [step0Valid, step1Valid, step2Valid][step];
 
   const next = () => { if (stepValid) setStep((s) => Math.min(s + 1, BOOKING_STEPS.length - 1)); };
@@ -306,11 +306,11 @@ function formatBytes(bytes) {
                 </div>
                  <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Professional Certificates (if any)</label>
-                  <input value={form.cert} onChange={update("s_origin")} placeholder=" " className={inputClass} style={selectStyle} />
+                  <input value={form.cert} onChange={update("cert")} placeholder=" " className={inputClass} style={selectStyle} />
                 </div>
                 <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Hobbies</label>
-                  <input value={form.hobby} onChange={update("s_origin")} placeholder=" " className={inputClass} style={selectStyle} />
+                  <input value={form.hobby} onChange={update("hobby")} placeholder=" " className={inputClass} style={selectStyle} />
                 </div>        
               </div>     
                 </div>

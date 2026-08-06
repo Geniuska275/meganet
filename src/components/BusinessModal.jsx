@@ -39,39 +39,22 @@ function ProgressBar({ step }) {
  
 
 
- export default function NGOModal({ service, onClose }) {
+ export default function    BusinessModal({ service, onClose }) {
 //   const paystackReady = usePaystackScript();
   
   const [step, setStep] = useState(0);
   const [form, setForm] = useState({
     first_choice: "",
     second_choice: "",
-    third_choice: "",
-    aim1:"",
-    aim2:"",
-
-    company_address: "",
-    company_does: "",
+    business_address: "",
     company_nature: "",
     dob: "",
-    address: "",
+    email_address: "",
     phone_number: "",
     origin: "",
     card_number: "",
     home_address: "",
-    ngo_address:"",
-    d_address: "",
-    d_dob: "",
-    d_fullname:"",
-    d_phone_number:"",
-    d_origin:"",
-    s_address: "",
-    s_dob: "",
-    s_fullname:"",
-    s_phone_number:"",
-    s_card_number:"",
-    s_home_address:"",
-    s_origin:"",
+    l_origin:"",
     file:"",
     file2:"",
     file3:""
@@ -85,17 +68,13 @@ function ProgressBar({ step }) {
  
   const update = (k) => (e) => setForm({ ...form, [k]: e.target.value });
  
-  const step0Valid = form.first_choice.trim()  
-   && form.second_choice.trim()
-   && form.third_choice 
-    && form.ngo_address && form.aim1  && form.aim2  && form.fullname  && form.phone_number
-   && form.address && form.card_number && form.dob && form.home_address
+  const step0Valid =
+     form.fullname && form.phone_number && form.l_origin && form.email_address
+   && form.origin && form.card_number && form.dob && form.home_address
   
-  const step1Valid = form.d_address && form.d_fullname && form.d_phone_number
-   && form.d_origin && form.card_number && form.dob && form.home_address  && form.l_origin
+  const step1Valid = form.business_address && form.company_nature && form.first_choice && form.second_choice
    
-  const step2Valid = form.s_address && form.s_fullname && form.s_phone_number
-   && form.s_origin && form.s_card_number && form.s_dob && form.home_address  && form.l_originform.file && form.file2 && form.file3;
+  const step2Valid = form.file && form.file2 && form.file3;
   const stepValid = [step0Valid, step1Valid, step2Valid][step];
 
   const next = () => { if (stepValid) setStep((s) => Math.min(s + 1, BOOKING_STEPS.length - 1)); };
@@ -217,34 +196,7 @@ function formatBytes(bytes) {
  
             {step === 0 && (
               <div className="space-y-4 vd-fade">
-                <h1>Preferred Name</h1>
-                <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">First Choice</label>
-                  <input value={form.first_choice} onChange={update("First_choice")} placeholder="Enter First Choice" className={inputClass} style={selectStyle} />
-                </div>
-                <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Second Choice</label>
-                  <input value={form.second_choice} onChange={update("second_choice")} placeholder="Enter Second Choice" className={inputClass} style={selectStyle} />
-                </div>
-                <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Third Choice</label>
-                  <input value={form.third_choice} onChange={update("third_choice")} placeholder="Enter Third Choice" className={inputClass} style={selectStyle} />
-                </div>
-                <h1>Aims and objects</h1>
-                <div>
-                    <div className="mb-2">
-                   <input
-                 value={form.aim1} onChange={update("aim1")} placeholder="" className={inputClass} style={selectStyle} />
-                    </div>
-                 <input value={form.aim2} onChange={update("aim2")} placeholder="" className={inputClass} style={selectStyle} />
-                </div>
-                 <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">NGO Address</label>
-                  <input value={form.ngo_address} onChange={update("ngo_address")} placeholder="" className={inputClass} style={selectStyle} />
-                </div>
-                <h1>Board of Trustees Details</h1>
-
-                <h2>First Board of Trustee (Chairman)</h2>
+                <h1>BUSINESS NAME REGISTRATION</h1>
                 <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Full Name</label>
                   <input value={form.fullname} onChange={update("fullname")} placeholder=" " className={inputClass} style={selectStyle} />
@@ -260,6 +212,10 @@ function formatBytes(bytes) {
                  <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">State of Origin</label>
                   <input value={form.origin} onChange={update("origin")} placeholder=" " className={inputClass} style={selectStyle} />
+                </div>
+                <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Local Govt  of Origin</label>
+                  <input value={form.l_origin} onChange={update("l_origin")} placeholder=" " className={inputClass} style={selectStyle} />
                 </div>
                  <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Date of Birth</label>
@@ -279,89 +235,34 @@ function formatBytes(bytes) {
  
             {step === 1 && (
               <div className="space-y-4 vd-fade">
-                <h2>Second Board of Trustee </h2>
-                
+                <h1>Business Name</h1>
               
                 <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Full Name</label>
-                  <input value={form.d_fullname} onChange={update("d_fullname")} placeholder=" " className={inputClass} style={selectStyle} />
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">First Choice</label>
+                  <input value={form.first_choice} onChange={update("first_choice")} placeholder=" " className={inputClass} style={selectStyle} />
                 </div>
                  <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Email Address</label>
-                  <input value={form.d_address} onChange={update("d_address")} placeholder=" " className={inputClass} style={selectStyle} />
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Second Choice</label>
+                  <input value={form.second_choice} onChange={update("second_choice")} placeholder=" " className={inputClass} style={selectStyle} />
                 </div>
                  <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Phone Number</label>
-                  <input value={form.d_phone_number} onChange={update("d_phone_number")} placeholder=" " className={inputClass} style={selectStyle} />
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Nature of Business</label>
+                  <input value={form.company_nature} onChange={update("company_nature")} placeholder=" " className={inputClass} style={selectStyle} />
                 </div>
                  <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">State of Origin</label>
-                  <input value={form.d_origin} onChange={update("d_origin")} placeholder=" " className={inputClass} style={selectStyle} />
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Business Address</label>
+                  <input value={form.business_address} onChange={update("business_address")} placeholder=" " className={inputClass} style={selectStyle} />
                 </div>
-                <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Local Govt of Origin</label>
-                  <input value={form.l_origin} onChange={update("l_origin")} placeholder=" " className={inputClass} style={selectStyle} />
-                </div>
-                 <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Date of Birth</label>
-                  <input value={form.d_dob} onChange={update("d_dob")} placeholder=" " className={inputClass} style={selectStyle} />
-                </div>
-                 <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">National ID Card Number</label>
-                  <input value={form.card_number} onChange={update("card_number")} placeholder=" " className={inputClass} style={selectStyle} />
-                </div>
-                  <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Home Address</label>
-                  <input value={form.home_address} onChange={update("home_address")} placeholder="" className={inputClass} style={selectStyle} />
-                </div> 
-              </div>
+             </div>
             )}
  
             {step === 2 && (
               <div className="space-y-4 vd-fade">
-
-                  <div className="space-y-4 vd-fade">
-                <h2>Secretary Details </h2>
-              
-                <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Full Name</label>
-                  <input value={form.s_fullname} onChange={update("s_fullname")} placeholder=" " className={inputClass} style={selectStyle} />
-                </div>
-                 <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Email Address</label>
-                  <input value={form.s_address} onChange={update("s_address")} placeholder=" " className={inputClass} style={selectStyle} />
-                </div>
-                 <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Phone Number</label>
-                  <input value={form.s_phone_number} onChange={update("s_phone_number")} placeholder=" " className={inputClass} style={selectStyle} />
-                </div>
-                 <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">State of Origin</label>
-                  <input value={form.s_origin} onChange={update("s_origin")} placeholder=" " className={inputClass} style={selectStyle} />
-                </div>
-                <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Local Govt of Origin</label>
-                  <input value={form.s_origin} onChange={update("s_origin")} placeholder=" " className={inputClass} style={selectStyle} />
-                </div>
-                 <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Date of Birth</label>
-                  <input value={form.s_dob} onChange={update("s_dob")} placeholder=" " className={inputClass} style={selectStyle} />
-                </div>
-                 <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">National ID Card Number</label>
-                  <input value={form.s_card_number} onChange={update("s_card_number")} placeholder=" " className={inputClass} style={selectStyle} />
-                </div>
-                  <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Home Address</label>
-                  <input value={form.s_home_address} onChange={update("s_home_address")} placeholder="" className={inputClass} style={selectStyle} />
-                </div> 
-              </div>
-
                 <h1>Documents Upload</h1>
                 <div>
-             <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">
-             Passport Photograph
-              </label>
+  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">
+    Passport Photograph
+  </label>
   {form.file ? (
     <div className="flex items-center justify-between gap-3 rounded-lg px-4 py-3" style={{ border: "1px solid #00751833", backgroundColor: "#eef3e6" }}>
       <div className="min-w-0">
