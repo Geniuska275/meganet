@@ -77,8 +77,6 @@ if (form.file) {
   }
 }
  function makePayment(data,form) {
-
-
   paystack.newTransaction({
     key: "pk_live_cefbe9ab88fb9568291b2bccb8c837d481207a22",
     email: form.Email_address,
@@ -89,7 +87,7 @@ if (form.file) {
 
     onSuccess: (transaction) => {
       console.log(transaction);
-      alert("Payment Successful!");
+      toast.success("payment made successfully");  
       handleSubmit(form)
     },
     onCancel: () => {
