@@ -1,5 +1,13 @@
 import { useState } from "react";
-import makePayment from "./paystack";
+import axios from "axios";
+import  Paystack  from "@paystack/inline-js";
+import { toast } from "react-toastify";
+
+
+
+
+
+
 const GREEN = "#007518";
 const GREEN_DARK = "#003d0c";
 const GOLD = "#ffba00";
@@ -10,6 +18,8 @@ function naira(amount) {
   return `₦${amount?.toLocaleString("en-NG")}`;
 }
 const BOOKING_STEPS = ["Your details", "Your operation", "Confirm & pay"];
+
+
 
 function ProgressBar({ step }) {
   const pct = (step / (BOOKING_STEPS.length - 1)) * 100;
@@ -40,7 +50,57 @@ function ProgressBar({ step }) {
 
 
  export default function PersonalModal({ service, onClose }) {
-//   const paystackReady = usePaystackScript();
+
+ const paystack = new Paystack();
+ const handleSubmit=async (form)=>{
+  try{
+
+const formData = new FormData();
+formData.append("fullname", form.fullname);
+formData.append("Email_address", form.Email_address);
+formData.append("phone_number", form.phone_number);
+formData.append("institution", form.institution);
+formData.append("study", form.study);
+formData.append("destination", form.destination);
+formData.append("website", form.website);
+
+if (form.file) {
+  formData.append("file", form.file);
+}
+   
+    await axios.post("https://meganet-backend-q2fi.onrender.com/api/personal", formData).then(()=>{
+      onClose()
+     toast.success("Form successfully submitted!");
+    })
+  } catch(err){
+    console.log(err)
+  }
+}
+ function makePayment(data,form) {
+
+
+  paystack.newTransaction({
+    key: "pk_live_cefbe9ab88fb9568291b2bccb8c837d481207a22",
+    email: form.Email_address,
+    amount: 50 * 100, // Kobo (₦5000)
+    currency: "NGN",
+    firstname: "John",
+    lastname: "Doe",
+
+    onSuccess: (transaction) => {
+      console.log(transaction);
+      alert("Payment Successful!");
+      handleSubmit(form)
+    },
+    onCancel: () => {
+      alert("Payment Cancelled");
+    },
+
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+}
   
   const [step, setStep] = useState(0);
   const [form, setForm] = useState({
@@ -51,7 +111,7 @@ function ProgressBar({ step }) {
     study:"",
     destination:"", 
     website:"", 
-    file:"",
+    file:null,
   });
 
   const [status, setStatus] = useState("form"); // form | paying | paid
@@ -276,7 +336,7 @@ function formatBytes(bytes) {
                 </button>
               ) : (
                 <button
-                  onClick={()=>makePayment(service)}
+                  onClick={()=>makePayment(service,form)}
                   disabled={!step2Valid || status === "paying"}
                   className="vd-btn-primary flex-1 px-6 py-3 rounded-full text-sm font-semibold flex items-center justify-center gap-2"
                 >

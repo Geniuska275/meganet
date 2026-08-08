@@ -14,6 +14,8 @@ import NGOModal from "./components/ngoModal";
 import ResumeModal from "./components/resumeModal";
 import PersonalModal from "./components/personalModal";
 import BusinessModal from "./components/BusinessModal";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 
 const GREEN = "#007518";
@@ -1246,6 +1248,7 @@ export default function App() {
 
   return (
     <div className="vd-root min-h-screen">
+      <ToastContainer/>
       <style>{tokens}</style>
             <div
         className="scroll-progress"
@@ -1269,13 +1272,11 @@ export default function App() {
         
         }
       {page === "Services" && <ServicesPage 
-           openBooking={setOpenNerd} 
+         openBooking={setOpenNerd} 
            openBooking={setOpenNysc}
-    
         openCac={setOpenCac} 
         openNgo={setOpenNgo}
         openCV={setOpenCV}
-
         openPersonal={setOpenPersonal}
         openBusiness={setOpenBusiness}
       />
