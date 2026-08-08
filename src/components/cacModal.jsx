@@ -83,7 +83,8 @@ if (form.file3) {
    console.log(formData)
     await axios.post("https://meganet-backend-q2fi.onrender.com/api/forms", formData).then(()=>{
       onClose()
-      alert("form submitted!")
+ 
+      
      toast.success("Form successfully submitted!");
      makePayment(data,form)
     })
