@@ -279,7 +279,7 @@ function formatBytes(bytes) {
                 <h1>Company Data</h1>
                 <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">First Choice</label>
-                  <input value={form.first_choice} onChange={update("First_choice")} placeholder="Enter First Choice" className={inputClass} style={selectStyle} />
+                  <input value={form.first_choice} onChange={update("first_choice")} placeholder="Enter First Choice" className={inputClass} style={selectStyle} />
                 </div>
                 <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Second Choice</label>
