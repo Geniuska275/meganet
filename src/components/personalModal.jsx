@@ -82,7 +82,7 @@ if (form.file) {
   paystack.newTransaction({
     key: "pk_live_cefbe9ab88fb9568291b2bccb8c837d481207a22",
     email: form.Email_address,
-    amount: 50 * 100, // Kobo (₦5000)
+    amount: 100 * 100, // Kobo (₦5000)
     currency: "NGN",
     firstname: "John",
     lastname: "Doe",
