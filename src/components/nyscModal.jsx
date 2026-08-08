@@ -1,6 +1,8 @@
 import { useState } from "react";
-import makePayment from "./paystack";
 import ProgressBar from "./progressBar";
+import axios from "axios";
+import  Paystack  from "@paystack/inline-js";
+import { toast } from "react-toastify";
 import naira from "./naira";
 const GREEN = "#007518";
 const GREEN_DARK = "#003d0c";
@@ -11,11 +13,86 @@ const BOOKING_STEPS = ["Your details", "Your operation", "Confirm & pay"];
 
  export default function NYSCModal({ service, onClose }) {
 //   const paystackReady = usePaystackScript();
+ const paystack = new Paystack();
+ const handleSubmit=async (form)=>{
+  try{
+
+const formData = new FormData();
+formData.append("name", form.name);
+formData.append("Email_address", form.Email_address);
+formData.append("bloodgroup", form.bloodgroup);
+formData.append("address", form.address);
+formData.append("dob", form.dob);
+formData.append("lgo", form.lgo);
+formData.append("state", form.state);
+formData.append("nin", form.nin);
+formData.append("genotype", form.genotype);
+formData.append("registration", form.registration);
+formData.append("matric", form.matric);
+formData.append("place", form.place);
+formData.append("language", form.language);
+formData.append("kinRelationship", form.kinRelationship);
+formData.append("kinName", form.kinName);
+formData.append("kinEmail", form.kinEmail);
+formData.append("kinPhone", form.kinPhone);
+formData.append("shirt", form.shirt);
+formData.append("trouser", form.trouser);
+formData.append("shoe", form.shoe);
+formData.append("stateBefore", form.stateBefore);
+formData.append("prifrom", form.prifrom);
+formData.append("prito", form.prito);
+formData.append("sectfrom", form.secfrom);
+formData.append("secto", form.secto);
+formData.append("tetfrom", form.tetfrom);
+formData.append("tetto", form.tetto);
+formData.append("level", form.level);
+
+if (form.file) {
+  formData.append("file", form.file);
+}
+if (form.file2) {
+  formData.append("file2", form.file2);
+}
+ 
+   console.log(formData)
+    await axios.post("https://meganet-backend-q2fi.onrender.com/api/nysc", formData).then(()=>{
+      onClose()
+     toast.success("Form successfully submitted!");
+    })
+  } catch(err){
+    console.log(err)
+     toast.error("CHECK YOUR INPUTS AND TRY AGAIN!");
+
+  }
+}
+ function makePayment(data,form) {
+  paystack.newTransaction({
+    key: "pk_live_cefbe9ab88fb9568291b2bccb8c837d481207a22",
+    email: form.Email_address,
+    amount: 100 * 100, // Kobo (₦5000)
+    currency: "NGN",
+    
+
+    onSuccess: (transaction) => {
+      console.log(transaction);
+      toast.success("payment made successfully");  
+      handleSubmit(form)
+    },
+    onCancel: () => {
+      alert("Payment Cancelled");
+    },
+
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+}
+  
   
   const [step, setStep] = useState(0);
   const [form, setForm] = useState({
     name: "",
-    email: "",
+    Email_address: "",
     phone: "",
     nin: "",
     state: "",
@@ -43,8 +120,8 @@ const BOOKING_STEPS = ["Your details", "Your operation", "Confirm & pay"];
     tetfrom:"",
     tetto:"",
     level:"",
-    file:"",
-    file2:""
+    file:null,
+    file2:null
 
   });
 
@@ -56,7 +133,7 @@ const BOOKING_STEPS = ["Your details", "Your operation", "Confirm & pay"];
   const update = (k) => (e) => setForm({ ...form, [k]: e.target.value });
  
   const step0Valid = form.name.trim() 
-   && /\S+@\S+\.\S+/.test(form.email) 
+   && /\S+@\S+\.\S+/.test(form.Email_address) 
    && form.phone.trim()
    && form.address && form.lgo && form.nin
    && form.matric && form.genotype && form.language 
@@ -181,7 +258,7 @@ function formatBytes(bytes) {
                 </div>
                 <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Email</label>
-                  <input value={form.email} onChange={update("email")} placeholder="you@example.com" className={inputClass} style={selectStyle} />
+                  <input value={form.Email_address} onChange={update("Email_address")} placeholder="you@example.com" className={inputClass} style={selectStyle} />
                 </div>
                 <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">JAMB Registration Number</label>
@@ -213,7 +290,7 @@ function formatBytes(bytes) {
                 </div>
                  <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Date of Birth</label>
-                  <input value={form.dob} onChange={update("dob")} placeholder=" " className={inputClass} style={selectStyle} />
+                  <input value={form.dob} onChange={update("dob")} placeholder="DD/MM/YYYY" className={inputClass} style={selectStyle} />
                 </div>
                  <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Nigeria Language</label>
