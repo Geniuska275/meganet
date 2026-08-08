@@ -24,9 +24,7 @@ const GOLD = "#ffba00";
 const CREAM = "#fcfbfe";
 const INK = "#12200f";
 
-// Replace with your real Paystack public key (starts with pk_test_ or pk_live_).
-// Never put a secret key (sk_...) in frontend code.
-const PAYSTACK_PUBLIC_KEY = "pk_test_00000000000000000000000000000000000";
+
 
 const tokens = `
   @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Karla:wght@400;500;600;700&display=swap');

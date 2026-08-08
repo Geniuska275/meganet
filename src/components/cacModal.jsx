@@ -7,6 +7,7 @@ const GREEN_DARK = "#003d0c";
 const GOLD = "#ffba00";
 const CREAM = "#fcfbfe";
 const INK = "#12200f";
+import { useCallback } from "react";
 
 function naira(amount) {
   return `₦${amount?.toLocaleString("en-NG")}`;
@@ -81,6 +82,7 @@ if (form.file3) {
    console.log(formData)
     await axios.post("https://meganet-backend-q2fi.onrender.com/api/forms", formData).then(()=>{
       onClose()
+      alert("form submitted!")
      toast.success("Form successfully submitted!");
     })
   } catch(err){
@@ -89,6 +91,7 @@ if (form.file3) {
 
   }
 }
+
  function makePayment(data,form) {
   paystack.newTransaction({
     key: "pk_live_cefbe9ab88fb9568291b2bccb8c837d481207a22",
@@ -112,6 +115,33 @@ if (form.file3) {
   });
 }
   
+
+
+// const makePayment = useCallback(
+//   (data, form) => {
+//     paystack.newTransaction({
+//       key: "pk_live_cefbe9ab88fb9568291b2bccb8c837d481207a22",
+//       email: form.Email_address,
+//       amount: 100 * 100, // ₦100 = 10,000 kobo
+//       currency: "NGN",
+
+//       onSuccess: (transaction) => {
+//         console.log(transaction);
+//         toast.success("Payment made successfully");
+//         handleSubmit(form);
+//       },
+
+//       onCancel: () => {
+//         alert("Payment Cancelled");
+//       },
+
+//       onError: (error) => {
+//         console.log(error);
+//       },
+//     });
+//   },
+//   [paystack, handleSubmit]
+// );
   const [step, setStep] = useState(0);
   const [form, setForm] = useState({
     first_choice: "",
