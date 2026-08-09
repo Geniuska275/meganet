@@ -52,7 +52,7 @@ function ProgressBar({ step }) {
  export default function PersonalModal({ service, onClose }) {
 
  const paystack = new Paystack();
- const handleSubmit=async (form)=>{
+ const handleSubmit=async (data,form)=>{
   try{
 
 const formData = new FormData();
@@ -71,6 +71,7 @@ if (form.file) {
     await axios.post("https://meganet-backend-q2fi.onrender.com/api/personal", formData).then(()=>{
       onClose()
      toast.success("Form successfully submitted!");
+     makePayment(data,form)
     })
   } catch(err){
     console.log(err)
@@ -334,7 +335,7 @@ function formatBytes(bytes) {
                 </button>
               ) : (
                 <button
-                  onClick={()=>makePayment(service,form)}
+                  onClick={()=>handleSubmit(service,form)}
                   disabled={!step2Valid || status === "paying"}
                   className="vd-btn-primary flex-1 px-6 py-3 rounded-full text-sm font-semibold flex items-center justify-center gap-2"
                 >

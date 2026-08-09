@@ -84,7 +84,7 @@ if (form.file3) {
     await axios.post("https://meganet-backend-q2fi.onrender.com/api/forms", formData).then(()=>{
       onClose()
  
-      
+
      toast.success("Form successfully submitted!");
      makePayment(data,form)
     })
@@ -120,31 +120,6 @@ if (form.file3) {
   
 
 
-// const makePayment = useCallback(
-//   (data, form) => {
-//     paystack.newTransaction({
-//       key: "pk_live_cefbe9ab88fb9568291b2bccb8c837d481207a22",
-//       email: form.Email_address,
-//       amount: 100 * 100, // ₦100 = 10,000 kobo
-//       currency: "NGN",
-
-//       onSuccess: (transaction) => {
-//         console.log(transaction);
-//         toast.success("Payment made successfully");
-//         handleSubmit(form);
-//       },
-
-//       onCancel: () => {
-//         alert("Payment Cancelled");
-//       },
-
-//       onError: (error) => {
-//         console.log(error);
-//       },
-//     });
-//   },
-//   [paystack, handleSubmit]
-// );
   const [step, setStep] = useState(0);
   const [form, setForm] = useState({
     first_choice: "",
