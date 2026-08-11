@@ -1,5 +1,8 @@
 import { useState } from "react";
-import makePayment from "./paystack";
+import  Paystack  from "@paystack/inline-js";
+import axios from "axios";
+import { toast } from "react-toastify";
+
 const GREEN = "#007518";
 const GREEN_DARK = "#003d0c";
 const GOLD = "#ffba00";
@@ -36,11 +39,89 @@ function ProgressBar({ step }) {
   );
 }
  
- 
 
 
  export default function ResumeModal({ service, onClose }) {
 //   const paystackReady = usePaystackScript();
+
+const paystack = new Paystack();
+const handleSubmit=async (data,form)=>{
+  try{
+const formData = new FormData();
+formData.append("pto", form.pto);
+formData.append("post", form.post);
+formData.append("hobby", form.hobby);
+formData.append("te", form.te);
+formData.append("to", form.to);
+formData.append("l_origin", form.l_origin);
+formData.append("dob", form.dob);
+formData.append("gender", form.gender);
+formData.append("fullname", form.fullname);
+formData.append("company", form.company);
+formData.append("tqualification", form.tqualification);
+formData.append("qualification", form.qualification);
+formData.append("pfrom", form.pfrom);
+formData.append("sfrom", form.sfrom);
+formData.append("sto", form.sto);
+formData.append("tfrom", form.tfrom);
+formData.append("tto", form.tto);
+formData.append("phone_number", form.phone_number);
+formData.append("origin", form.origin);
+formData.append("card_number", form.card_number);
+formData.append("home_address", form.home_address);
+formData.append("email_address", form.email_address);
+formData.append("spoken", form.spoken);
+
+if (form.file) {
+  formData.append("file", form.file);
+}
+if (form.file2) {
+  formData.append("file2", form.file2);
+}
+if (form.file3) {
+  formData.append("file3", form.file3);
+}
+
+   console.log(formData)
+     await axios.post("https://meganet-backend-q2fi.onrender.com/api/resume", formData).then(()=>{
+     onClose()
+     toast.success("Form successfully submitted!");
+     makePayment(data,form)
+    })
+  } catch(err){
+    console.log(err)
+     toast.error("CHECK YOUR INPUTS AND TRY AGAIN!");
+
+  }
+}
+
+ function makePayment(data,form) {
+   paystack.newTransaction({
+     key: "pk_live_cefbe9ab88fb9568291b2bccb8c837d481207a22",
+     email: form.Email_address,
+     amount: 100 * 100, // Kobo (₦5000)
+     currency: "NGN",
+     
+ 
+     onSuccess: (transaction) => {
+       console.log(transaction);
+       toast.success("payment made successfully");  
+      
+     },
+     onCancel: () => {
+       alert("Payment Cancelled");
+     },
+ 
+     onError: (error) => {
+       console.log(error);
+     },
+   });
+ }
+   
+ 
+ 
+
+
   
   const [step, setStep] = useState(0);
   const [form, setForm] = useState({
@@ -216,7 +297,7 @@ function formatBytes(bytes) {
                 </div>
                  <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Date of Birth</label>
-                  <input value={form.dob} onChange={update("dob")} placeholder=" " className={inputClass} style={selectStyle} />
+                  <input type="date" value={form.dob} onChange={update("dob")} placeholder=" " className={inputClass} style={selectStyle} />
                 </div>
                  <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">State of Origin</label>
@@ -240,7 +321,7 @@ function formatBytes(bytes) {
                 </div>
                  <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Home Address</label>
-                  <input value={form.home_address} onChange={update("email_address")} placeholder="" className={inputClass} style={selectStyle} />
+                  <input value={form.home_address} onChange={update("home_address")} placeholder="" className={inputClass} style={selectStyle} />
                 </div>
                 
               </div>
@@ -296,9 +377,9 @@ function formatBytes(bytes) {
                   <input value={form.post} onChange={update("post")} placeholder=" " className={inputClass} style={selectStyle} />
                 </div>
                  <div className="mb-2">
-                  <input value={form.te} onChange={update("te")} placeholder="From (MONTH/YEAR) " className={inputClass} style={selectStyle} />
+                  <input type="month" value={form.te} onChange={update("te")} placeholder="From (MONTH/YEAR) " className={inputClass} style={selectStyle} />
                   </div>
-                  <input value={form.to} onChange={update("to")} placeholder=" To (MONTH/YEAR)" className={inputClass} style={selectStyle} />
+                  <input type="month" value={form.to} onChange={update("to")} placeholder=" To (MONTH/YEAR)" className={inputClass} style={selectStyle} />
                   <div></div>
                  <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Responsibilities</label>
@@ -333,7 +414,7 @@ function formatBytes(bytes) {
                 </button>
               ) : (
                 <button
-                  onClick={()=>makePayment(service)}
+                  onClick={()=>handleSubmit(service,form)}
                   disabled={!step2Valid || status === "paying"}
                   className="vd-btn-primary flex-1 px-6 py-3 rounded-full text-sm font-semibold flex items-center justify-center gap-2"
                 >
