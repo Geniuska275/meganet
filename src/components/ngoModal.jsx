@@ -1,5 +1,9 @@
 import { useState } from "react";
-import makePayment from "./paystack";
+
+
+import axios from "axios";
+import  Paystack  from "@paystack/inline-js";
+import { toast } from "react-toastify";
 const GREEN = "#007518";
 const GREEN_DARK = "#003d0c";
 const GOLD = "#ffba00";
@@ -40,7 +44,83 @@ function ProgressBar({ step }) {
 
 
  export default function NGOModal({ service, onClose }) {
-//   const paystackReady = usePaystackScript();
+    
+   const paystack = new Paystack();
+   const handleSubmit=async (data,form)=>{
+    try{
+  const formData = new FormData();
+  formData.append("first_choice", form.first_choice);
+  formData.append("second_choice", form.second_choice);
+  formData.append("third_choice", form.third_choice);
+  formData.append("aim1", form.aim1);
+  formData.append("aim2", form.aim2);
+  formData.append("company_address", form.company_address);
+  formData.append("company_does", form.company_does);
+  formData.append("company_nature", form.company_nature);
+  formData.append("dob", form.dob);
+  formData.append("Email_address", form.Email_address);
+  formData.append("phone_number", form.phone_number);
+  formData.append("origin", form.origin);
+  formData.append("card_number", form.card_number);
+  formData.append("home_address", form.home_address);
+  formData.append("d_address", form.d_address);
+  formData.append("d_dob", form.d_dob);
+  formData.append("d_fullname", form.d_fullname);
+  formData.append("d_phone_number", form.d_phone_number);
+  formData.append("d_origin", form.d_origin);
+  formData.append("s_address", form.s_address);
+  formData.append("s_dob", form.s_dob);
+  formData.append("s_fullname", form.s_fullname);
+  formData.append("s_phone_number", form.s_phone_number);
+  formData.append("s_origin", form.s_origin);
+
+  
+  
+  if (form.file) {
+    formData.append("file", form.file);
+  }
+  if (form.file2) {
+    formData.append("file2", form.file2);
+  }
+  if (form.file3) {
+    formData.append("file3", form.file3);
+  }
+  
+     console.log(formData)
+      await axios.post("https://meganet-backend-q2fi.onrender.com/api/ngo", formData).then(()=>{
+        onClose()
+       toast.success("Form successfully submitted!");
+       makePayment(data,form)
+      })
+    } catch(err){
+       console.log(err)
+       toast.error("CHECK YOUR INPUTS AND TRY AGAIN!");
+    }
+  }
+  
+   function makePayment(data,form) {
+    paystack.newTransaction({
+      key: "pk_live_cefbe9ab88fb9568291b2bccb8c837d481207a22",
+      email: form.Email_address,
+      amount: 100 * 100, // Kobo (₦5000)
+      currency: "NGN",
+      
+  
+      onSuccess: (transaction) => {
+        console.log(transaction);
+        toast.success("payment made successfully");  
+       
+      },
+      onCancel: () => {
+        alert("Payment Cancelled");
+      },
+  
+      onError: (error) => {
+        console.log(error);
+      },
+    });
+  }
+    
   
   const [step, setStep] = useState(0);
   const [form, setForm] = useState({
@@ -54,7 +134,7 @@ function ProgressBar({ step }) {
     company_does: "",
     company_nature: "",
     dob: "",
-    address: "",
+    Email_address: "",
     phone_number: "",
     origin: "",
     card_number: "",
@@ -89,13 +169,13 @@ function ProgressBar({ step }) {
    && form.second_choice.trim()
    && form.third_choice 
     && form.ngo_address && form.aim1  && form.aim2  && form.fullname  && form.phone_number
-   && form.address && form.card_number && form.dob && form.home_address
+   && form.Email_address && form.card_number && form.dob && form.home_address
   
   const step1Valid = form.d_address && form.d_fullname && form.d_phone_number
    && form.d_origin && form.card_number && form.dob && form.home_address  && form.l_origin
    
   const step2Valid = form.s_address && form.s_fullname && form.s_phone_number
-   && form.s_origin && form.s_card_number && form.s_dob && form.home_address  && form.l_originform.file && form.file2 && form.file3;
+   && form.s_origin && form.s_card_number && form.s_dob && form.home_address  && form.l_origin && form.file && form.file2 && form.file3;
   const stepValid = [step0Valid, step1Valid, step2Valid][step];
 
   const next = () => { if (stepValid) setStep((s) => Math.min(s + 1, BOOKING_STEPS.length - 1)); };
@@ -220,7 +300,7 @@ function formatBytes(bytes) {
                 <h1>Preferred Name</h1>
                 <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">First Choice</label>
-                  <input value={form.first_choice} onChange={update("First_choice")} placeholder="Enter First Choice" className={inputClass} style={selectStyle} />
+                  <input value={form.first_choice} onChange={update("first_choice")} placeholder="Enter First Choice" className={inputClass} style={selectStyle} />
                 </div>
                 <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Second Choice</label>
@@ -251,7 +331,7 @@ function formatBytes(bytes) {
                 </div>
                  <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Email Address</label>
-                  <input value={form.address} onChange={update("address")} placeholder=" " className={inputClass} style={selectStyle} />
+                  <input value={form.Email_address} onChange={update("Email_address")} placeholder=" " className={inputClass} style={selectStyle} />
                 </div>
                  <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Phone Number</label>
@@ -263,7 +343,7 @@ function formatBytes(bytes) {
                 </div>
                  <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Date of Birth</label>
-                  <input value={form.dob} onChange={update("dob")} placeholder=" " className={inputClass} style={selectStyle} />
+                  <input type="date" value={form.dob} onChange={update("dob")} placeholder=" " className={inputClass} style={selectStyle} />
                 </div>
                  <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">National ID Card Number</label>
@@ -304,7 +384,7 @@ function formatBytes(bytes) {
                 </div>
                  <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Date of Birth</label>
-                  <input value={form.d_dob} onChange={update("d_dob")} placeholder=" " className={inputClass} style={selectStyle} />
+                  <input type="date" value={form.d_dob} onChange={update("d_dob")} placeholder=" " className={inputClass} style={selectStyle} />
                 </div>
                  <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">National ID Card Number</label>
@@ -341,11 +421,11 @@ function formatBytes(bytes) {
                 </div>
                 <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Local Govt of Origin</label>
-                  <input value={form.s_origin} onChange={update("s_origin")} placeholder=" " className={inputClass} style={selectStyle} />
+                  <input value={form.l_origin} onChange={update("l_origin")} placeholder=" " className={inputClass} style={selectStyle} />
                 </div>
                  <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Date of Birth</label>
-                  <input value={form.s_dob} onChange={update("s_dob")} placeholder=" " className={inputClass} style={selectStyle} />
+                  <input type="date" value={form.s_dob} onChange={update("s_dob")} placeholder=" " className={inputClass} style={selectStyle} />
                 </div>
                  <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">National ID Card Number</label>
@@ -471,7 +551,7 @@ function formatBytes(bytes) {
                 </button>
               ) : (
                 <button
-                  onClick={()=>makePayment(service)}
+                  onClick={()=>handleSubmit(service,form)}
                   disabled={!step2Valid || status === "paying"}
                   className="vd-btn-primary flex-1 px-6 py-3 rounded-full text-sm font-semibold flex items-center justify-center gap-2"
                 >

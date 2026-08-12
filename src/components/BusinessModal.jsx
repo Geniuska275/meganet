@@ -1,5 +1,7 @@
 import { useState } from "react";
-import makePayment from "./paystack";
+import axios from "axios";
+import  Paystack  from "@paystack/inline-js";
+import { toast } from "react-toastify";
 const GREEN = "#007518";
 const GREEN_DARK = "#003d0c";
 const GOLD = "#ffba00";
@@ -42,6 +44,73 @@ function ProgressBar({ step }) {
  export default function    BusinessModal({ service, onClose }) {
 //   const paystackReady = usePaystackScript();
   
+ const paystack = new Paystack();
+ const handleSubmit=async (data,form)=>{
+  try{
+const formData = new FormData();
+formData.append("first_choice", form.first_choice);
+formData.append("Email_address", form.Email_address);
+formData.append("second_choice", form.second_choice);
+   
+   
+  
+   
+  
+formData.append("business_address", form.business_address);
+formData.append("company_nature", form.company_nature);
+formData.append("dob", form.dob);
+
+formData.append("phone_number", form.phone_number);
+formData.append("origin", form.origin);
+formData.append("card_number", form.card_number);
+formData.append("home_address", form.home_address);
+formData.append("l_origin", form.l_origin);
+
+
+if (form.file) {
+  formData.append("file", form.file);
+}
+if (form.file2) {
+  formData.append("file2", form.file2);
+}
+if (form.file3) {
+  formData.append("file3", form.file3);
+}
+
+   console.log(formData)
+    await axios.post("https://meganet-backend-q2fi.onrender.com/api/business", formData).then(()=>{
+      onClose()
+     toast.success("Form successfully submitted!");
+     makePayment(data,form)
+    })
+  } catch(err){
+     console.log(err.message)
+     toast.error("CHECK YOUR INPUTS AND TRY AGAIN!");
+  }
+}
+
+ function makePayment(data,form) {
+  paystack.newTransaction({
+    key: "pk_live_cefbe9ab88fb9568291b2bccb8c837d481207a22",
+    email: form.Email_address,
+    amount: 100 * 100, // Kobo (₦5000)
+    currency: "NGN",
+    
+
+    onSuccess: (transaction) => {
+      console.log(transaction);
+      toast.success("payment made successfully");  
+     
+    },
+    onCancel: () => {
+      alert("Payment Cancelled");
+    },
+
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+}
   const [step, setStep] = useState(0);
   const [form, setForm] = useState({
     first_choice: "",
@@ -49,7 +118,7 @@ function ProgressBar({ step }) {
     business_address: "",
     company_nature: "",
     dob: "",
-    email_address: "",
+    Email_address: "",
     phone_number: "",
     origin: "",
     card_number: "",
@@ -68,8 +137,7 @@ function ProgressBar({ step }) {
  
   const update = (k) => (e) => setForm({ ...form, [k]: e.target.value });
  
-  const step0Valid =
-     form.fullname && form.phone_number && form.l_origin && form.email_address
+  const step0Valid =form.fullname && form.phone_number && form.l_origin && form.Email_address
    && form.origin && form.card_number && form.dob && form.home_address
   
   const step1Valid = form.business_address && form.company_nature && form.first_choice && form.second_choice
@@ -203,7 +271,7 @@ function formatBytes(bytes) {
                 </div>
                  <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Email Address</label>
-                  <input value={form.address} onChange={update("address")} placeholder=" " className={inputClass} style={selectStyle} />
+                  <input value={form.Email_address} onChange={update("Email_address")} placeholder=" " className={inputClass} style={selectStyle} />
                 </div>
                  <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Phone Number</label>
@@ -219,7 +287,7 @@ function formatBytes(bytes) {
                 </div>
                  <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Date of Birth</label>
-                  <input value={form.dob} onChange={update("dob")} placeholder=" " className={inputClass} style={selectStyle} />
+                  <input type="date" value={form.dob} onChange={update("dob")} placeholder=" " className={inputClass} style={selectStyle} />
                 </div>
                  <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">National ID Card Number</label>
@@ -372,7 +440,7 @@ function formatBytes(bytes) {
                 </button>
               ) : (
                 <button
-                  onClick={()=>makePayment(service)}
+                  onClick={()=>handleSubmit(service,form)}
                   disabled={!step2Valid || status === "paying"}
                   className="vd-btn-primary flex-1 px-6 py-3 rounded-full text-sm font-semibold flex items-center justify-center gap-2"
                 >

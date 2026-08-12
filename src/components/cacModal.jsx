@@ -49,7 +49,6 @@ function ProgressBar({ step }) {
  const paystack = new Paystack();
  const handleSubmit=async (data,form)=>{
   try{
-
 const formData = new FormData();
 formData.append("first_choice", form.first_choice);
 formData.append("Email_address", form.Email_address);
@@ -83,15 +82,12 @@ if (form.file3) {
    console.log(formData)
     await axios.post("https://meganet-backend-q2fi.onrender.com/api/forms", formData).then(()=>{
       onClose()
- 
-
      toast.success("Form successfully submitted!");
      makePayment(data,form)
     })
   } catch(err){
-    console.log(err)
+     console.log(err)
      toast.error("CHECK YOUR INPUTS AND TRY AGAIN!");
-
   }
 }
 
