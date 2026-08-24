@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { FaWhatsapp } from "react-icons/fa";
 // import { Button } from "./ui/button";
-import logo from "./megalogo.png"
+import logo from "./miwas.png"
 import hero from "./hero.avif"
 
 import MapComponent from "./components/map";
@@ -16,6 +16,7 @@ import PersonalModal from "./components/personalModal";
 import BusinessModal from "./components/BusinessModal";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Carousel from "./components/herosection";
 
 
 const GREEN = "#007518";
@@ -393,16 +394,11 @@ function Nav({ page, setPage }) {
           alignItems:"center"
         }}>
           <img src={logo} style={{
-          width:"30px",
-            height:"30px",
+          width:"120px",
+            height:"50px",
             borderRadius:"15px"
           }}/>
-        <button
-          onClick={() => { setPage("Home"); setOpen(false); }}
-          className="vd-display vd-text-green-dark text-xl font-semibold tracking-tight"
-          >
-         Meganet
-        </button>
+      
           </div>
 
         <nav className="hidden md:flex items-center gap-8">
@@ -619,7 +615,7 @@ function HomePage({
   })
   return (
     <div className="vd-fade">
-      <PageHero src={hero} alt="Green farmland under an open sky" height="52vh" minHeight={320} />
+     <Carousel/>
       <section className="vd-texture" style={{ marginTop: "-3rem" }}>
         <div className="max-w-6xl mx-auto px-6 pt-10 pb-20 grid md:grid-cols-2 gap-12 items-center">
           <div>
