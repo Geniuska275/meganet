@@ -482,11 +482,11 @@ function Footer({ setPage }) {
         <div>
           <p className="text-xs uppercase tracking-widest vd-text-gold mb-3">Reach us</p>
           <ul className="space-y-2 text-sm opacity-90">
-            <li> Mega-Net Computers,</li>
-            <li>Along Poultry Road,</li>
-            <li>Adjacent to Nicson,</li>
-            <li>Ujemen,AAU,Ekpoma</li>
-            <li>Edo State,Nigeria</li>
+            <li> Mega-Net Computers, </li>
+            <li>Along Poultry Road, </li>
+            <li>Adjacent to Nicson, </li>
+            <li>Ujemen, AAU, Ekpoma</li>
+            <li>Edo State, Nigeria</li>
 
 
 
@@ -1055,9 +1055,9 @@ function ServicesPage({ openBooking,
 
 function AboutPage() {
   const values = [
-    { t: "Ground truth first", d: "We visit before we advise. Spreadsheets don't replace soil under your boots." },
-    { t: "Plain language", d: "Contracts, reports and plans you can explain to your own team without a translator." },
-    { t: "Built to last", d: "We measure success in seasons survived, not slides presented." },
+    { t: "Innovation", d:"We embrace innovative ideas and modern technology to deliver smarter, faster, and more effective solutions to our clients." },
+    { t: "Consistency", d: "We maintain consistent quality and professionalism in every service we provide, regardless of the sector or client." },
+    { t: "Reliability", d: "We build trust by delivering timely and high-quality services that our clients can confidently rely on" },
   ];
 
   const team = [
