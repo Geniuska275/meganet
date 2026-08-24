@@ -120,7 +120,7 @@ export default function visaModal({ service, onClose }) {
             <p className="text-xs uppercase tracking-widest vd-text-gold font-semibold mb-1">{service.eyebrow}</p>
             <p className="vd-display text-xl font-semibold vd-text-green-dark mb-1">{service.title}</p>
             <p className="text-sm opacity-70 mb-5">
-              Consultation fee: <span className="font-semibold vd-text-green-dark">{naira(service.price)}</span>
+              Fee: <span className="font-semibold vd-text-green-dark">{naira(service.price)}</span>
             </p>
  
             <ProgressBar step={step} />

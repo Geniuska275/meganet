@@ -626,7 +626,7 @@ function HomePage({
               Welcome to Mega Integrated Works and Services
             </h1>
             <p className="vd-hero-body mt-6 text-base leading-relaxed max-w-md opacity-80">
-             MEGA INTEGRATED WORKS AND SERVICES is a one-stop digital and administrative solutions hub, delivering fast, reliable, and professional support in NIN services, JAMB processing, NYSC Registration, NERD Enrolment, CAC Business and Company registration, Academic Project and Seminar writing, Processing of Visa Documents, online registration services, school payment services, and general computer services.
+             MEGA INTEGRATED WORKS AND SERVICES Your one-stop digital and administrative solutions hub, delivering fast, reliable, and professional support in NIN services, JAMB processing, NYSC Registration, NERD Enrolment, CAC Business and Company registration, Academic Project and Seminar writing, Processing of Visa Documents, online registration services, school payment services, and general computer services.
             </p>
             <div className="vd-hero-cta mt-8 flex flex-wrap gap-4">
               <button onClick={() => setPage("Services")} className="vd-btn-primary px-6 py-3 rounded-full text-sm font-semibold">
@@ -642,10 +642,10 @@ function HomePage({
 
       <section className="vd-bg-green-dark">
         <div className="max-w-6xl mx-auto px-6 py-10 grid grid-cols-2 md:grid-cols-4 gap-8 vd-text-cream">
-          <Stat number={3000} label="NERD / NYSC Registrations" suffix="+" />
+          <Stat number={5000} label="NERD / NYSC Registrations" suffix="+" />
           <Stat number={36} label="States covered including FCT across 7 countries." />
           <Stat number={9} label="Years in service" suffix="+" />
-          <Stat number={500} label="CAC Registrations" suffix="+" />
+          <Stat number={1000} label="CAC Registrations" suffix="+" />
         </div>
       </section>
 
@@ -767,7 +767,7 @@ function HomePage({
             <p className="vd-display text-2xl md:text-3xl leading-relaxed">
               "Delivering premium online services with speed, accuracy, and reliability you can trust."
             </p>
-            <p className="mt-6 text-sm uppercase tracking-widest vd-text-gold">Meganet Integrated Works &amp; Services.</p>
+            <p className="mt-6 text-sm uppercase tracking-widest vd-text-gold">Mega Integrated Works &amp; Services.</p>
           </div>
         </Reveal>
       </section>
