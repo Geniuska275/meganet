@@ -727,9 +727,11 @@ function HomePage({
               <p className="text-xs uppercase tracking-widest vd-text-gold font-semibold mb-2">What we do</p>
               <h2 className="vd-display text-3xl font-semibold vd-text-green-dark">Services</h2>
             </div>
-            <button onClick={() => setPage("Services")} className="vd-link-underline text-sm font-semibold vd-text-green">
+            <a href="/services">
+            <button className="vd-link-underline text-sm font-semibold vd-text-green">
               View all services
             </button>
+            </a>
           </div>
         </Reveal>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
