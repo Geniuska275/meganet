@@ -19,6 +19,10 @@ import "react-toastify/dist/ReactToastify.css";
 import Carousel from "./components/herosection";
 import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import { Link, useLocation } from "react-router-dom";
+import nerd from "./nerd.webp"
+import nysc from "./nysc.webp"
+import jamb from "./nerd.jpg"
+
 
 
 
@@ -936,7 +940,7 @@ function ServicesPage({ openBooking,
 
     const [nerd,setNerd]=useState({
     id: "NERD Registration",
-    image: "https://www.nairaland.com/attachments/8298792_img20181130wa0024_jpegfcb0806aefb31292076f356d42f7f61a",
+    image: nerd,
     eyebrow: "MEGANET",
     title: "NERD Registration",
     desc: "Seamless uploading of academic research projects on the NERD platform as a mandatory requirement for successful NYSC registration.",
@@ -945,7 +949,7 @@ function ServicesPage({ openBooking,
   } )
     const [nysc,setNysc]=useState( {
     id: "Nysc",
-    image: "https://picsum.photos/seed/verdant-compliance/800/600",
+    image: nysc,
     eyebrow: "MEGANET",
     
     title: "NYSC Registration",
