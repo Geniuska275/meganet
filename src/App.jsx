@@ -1074,7 +1074,7 @@ function ServicesPage({ openBooking,
 
              <Reveal  delay={80}>
               <div
-                onClick={() => openPersonal(visa2)}
+              
                 className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
                 style={{ borderWidth: 1, borderColor: "#00751822" }}
               >
@@ -1089,7 +1089,7 @@ function ServicesPage({ openBooking,
 
               <Reveal  delay={80}>
               <div
-                onClick={() => openPersonal(visa2)}
+           
                 className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
                 style={{ borderWidth: 1, borderColor: "#00751822" }}
               >
@@ -1104,7 +1104,7 @@ function ServicesPage({ openBooking,
 
                <Reveal  delay={80}>
               <div
-                onClick={() => openPersonal(visa2)}
+              
                 className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
                 style={{ borderWidth: 1, borderColor: "#00751822" }}
               >
@@ -1122,7 +1122,7 @@ function ServicesPage({ openBooking,
 
                 <Reveal  delay={80}>
               <div
-                onClick={() => openPersonal(visa2)}
+             
                 className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
                 style={{ borderWidth: 1, borderColor: "#00751822" }}
               >
@@ -1137,7 +1137,7 @@ function ServicesPage({ openBooking,
 
                 <Reveal  delay={80}>
               <div
-                onClick={() => openPersonal(visa2)}
+            
                 className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
                 style={{ borderWidth: 1, borderColor: "#00751822" }}
               >
