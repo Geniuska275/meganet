@@ -32,7 +32,7 @@ const SLIDES = [
     place: "Personal",
     country: "Statement",
    
-    img: img5
+    img: img5}
 ];
 
 const SLIDE_DURATION = 5500; // ms each slide stays before auto-advancing
