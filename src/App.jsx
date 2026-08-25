@@ -757,7 +757,7 @@ function HomePage({
                 <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
                 <p className="font-semibold vd-text-green-dark mb-2">NERD Registration</p>
                 <p className="text-sm opacity-75 leading-relaxed mb-3">Seamless uploading of academic research projects on the NERD platform as a mandatory requirement for successful NYSC registration.</p>
-                <p className="text-xs font-semibold vd-text-green">Book-{naira("1300")} →</p>
+                <p className="text-xs font-semibold vd-text-green">Book-{naira("13000")} →</p>
               </div>
             </Reveal>
 
