@@ -479,22 +479,40 @@ function Nav({ page, setPage }) {
 
       {open && (
         <div className="md:hidden px-6 pb-4 flex flex-col gap-3 vd-menu-open">
-          <Link to="/"
-             className="vd-navlink text-sm font-medium tracking-wide uppercase pb-1 border-b-2"
+         <Link to="/"
+            
              onClick={()=>setActive("home")}
               style={{
-                color: active=="home"  ? GREEN_DARK : "#4b5c47",
-                borderColor: active=="home" ? GOLD : "transparent",
+                color: pathname === "/"  ? GREEN_DARK : "#4b5c47",
+                borderColor: pathname === "/"   ? GOLD : "transparent",
               }}
-             className={pathname === "/" ? "active" : ""}>Home</Link>
+      className="vd-navlink text-sm font-medium tracking-wide uppercase pb-1 border-b-2"
+
+             >Home</Link>
          <Link to="/services"
         style={{
                 color: pathname === "/services"  ? GREEN_DARK : "#4b5c47",
                 borderColor: pathname === "/services"? "red" : "transparent",
               }}
-        className={pathname === "/services" ? "active" : ""}>Services</Link>
-        <Link to="/about" className={pathname === "/about" ? "active" : ""}>About</Link>
-     <Link to="/contact" className={pathname === "/contact" ? "active" : ""}>Contact</Link>
+      className="vd-navlink text-sm font-medium tracking-wide uppercase pb-1 border-b-2"
+       >Services</Link>
+        <Link to="/about"
+      className="vd-navlink text-sm font-medium tracking-wide uppercase pb-1 border-b-2"
+       style={{
+                color: pathname === "/about"  ? GREEN_DARK : "#4b5c47",
+                borderColor: pathname === "/about"? "red" : "transparent",
+              }}
+         >About</Link>
+     <Link to="/contact"
+         style={{
+                color: pathname === "/contact"  ? GREEN_DARK : "#4b5c47",
+                borderColor: pathname === "/contact"? "red" : "transparent",
+              }}
+      
+      className="vd-navlink text-sm font-medium tracking-wide uppercase pb-1 border-b-2"
+
+      >Contact</Link>
+          
           
          
         </div>
