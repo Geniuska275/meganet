@@ -46,6 +46,8 @@ formData.append("secto", form.secto);
 formData.append("tetfrom", form.tetfrom);
 formData.append("tetto", form.tetto);
 formData.append("level", form.level);
+formData.append("cost", form.cost);
+
 
 if (form.file) {
   formData.append("file", form.file);
@@ -120,6 +122,7 @@ if (form.file2) {
     secto:"",
     tetfrom:"",
     tetto:"",
+    cost:10000,
     level:"",
     file:null,
     file2:null

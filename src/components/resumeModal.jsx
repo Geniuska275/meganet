@@ -71,6 +71,8 @@ formData.append("card_number", form.card_number);
 formData.append("home_address", form.home_address);
 formData.append("email_address", form.email_address);
 formData.append("spoken", form.spoken);
+formData.append("cost", form.cost);
+
 
 if (form.file) {
   formData.append("file", form.file);
@@ -149,6 +151,7 @@ if (form.file3) {
     phone_number: "",
     email_address: "",
     spoken: "",
+    cost:5000
   });
 
   const [status, setStatus] = useState("form"); // form | paying | paid

@@ -1,29 +1,32 @@
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import img1 from "./1st.jpg"
+import img2 from "./2nd.jpg"
+import img3 from "./3rd.jpg"
+import img4 from "./4th.jpg"
+import img5 from "./5th.jpg"
 
 const SLIDES = [
   {
     place: "NYSC",
     country: "Registration",
-    img: "https://plus.unsplash.com/premium_vector-1682309270309-bc01eee5d33a?w=352&dpr=1&h=367&auto=format&fit=crop&q=60&ixlib=rb-4.1.0",
+    img: img1
   },
   {
     place: "NERD",
     country: "Registration",
-
-    img: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDF8MHxzZWFyY2h8MTV8fGxhcHRvcHxlbnwwfHwwfHx8MA%3D%3D",
+    img:img3
   },
   {
     place: "CAC",
     country: "Registration",
-
-    img: "https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTZ8fGxhcHRvcHxlbnwwfHwwfHx8MA%3D%3D",
+    img: img4
   },
   {
     place: "Cv/Resume",
     country: "Registration",
     
-    img: "https://images.unsplash.com/photo-1530893609608-32a9af3aa95c?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjd8fGxhcHRvcHxlbnwwfHwwfHx8MA%3D%3D",
+    img: img5
   },
   {
     place: "Personal",

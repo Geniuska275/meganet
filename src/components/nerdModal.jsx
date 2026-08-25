@@ -41,6 +41,88 @@ function ProgressBar({ step }) {
 
  export default function NERDModal({ service, onClose }) {
 //   const paystackReady = usePaystackScript();
+
+
+
+const paystack = new Paystack();
+ const handleSubmit=async (data,form)=>{
+  try{
+const formData = new FormData();
+formData.append("name", form.name);
+formData.append("email", form.email);
+formData.append("phone", form.phone);
+formData.append("nin", form.nin);
+formData.append("state", form.state);
+formData.append("lgo", form.lgo);
+formData.append("address", form.address);
+formData.append("bloodgroup", form.bloodgroup);
+formData.append("genotype", form.genotype);
+formData.append("registration", form.registration);
+formData.append("matric", form.matric);
+formData.append("place", form.place);
+formData.append("language", form.language);
+formData.append("kinRelationship", form.kinRelationship);
+formData.append("kinName", form.kinName);
+formData.append("kinEmail", form.kinEmail);
+formData.append("shirt", form.shirt);
+formData.append("trouser", form.trouser);
+formData.append("shoe", form.shoe);
+formData.append("stateBefore", form.stateBefore);
+formData.append("prifrom", form.prifrom);
+formData.append("prito", form.prito);
+formData.append("secfrom", form.secfrom);
+formData.append("secto", form.secto);
+formData.append("tetfrom", form.tetfrom);
+formData.append("tetto", form.tetto);
+formData.append("level", form.level);
+formData.append("cost", form.cost);
+
+
+
+if (form.file) {
+  formData.append("file", form.file);
+}
+if (form.file2) {
+  formData.append("file2", form.file2);
+}
+if (form.file3) {
+  formData.append("file3", form.file3);
+}
+
+   console.log(formData)
+    await axios.post("https://meganet-backend-q2fi.onrender.com/api/forms", formData).then(()=>{
+      onClose()
+     toast.success("Form successfully submitted!");
+     makePayment(data,form)
+    })
+  } catch(err){
+     console.log(err)
+     toast.error("CHECK YOUR INPUTS AND TRY AGAIN!");
+  }
+}
+
+ function makePayment(data,form) {
+  paystack.newTransaction({
+    key: "pk_live_cefbe9ab88fb9568291b2bccb8c837d481207a22",
+    email: form.Email_address,
+    amount: 100 * 100, // Kobo (₦5000)
+    currency: "NGN",
+    
+
+    onSuccess: (transaction) => {
+      console.log(transaction);
+      toast.success("payment made successfully");  
+     
+    },
+    onCancel: () => {
+      alert("Payment Cancelled");
+    },
+
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+}
   
   const [step, setStep] = useState(0);
   const [form, setForm] = useState({
@@ -73,6 +155,7 @@ function ProgressBar({ step }) {
     tetfrom:"",
     tetto:"",
     level:"",
+    cost:13000,
     file:"",
     file2:""
 

@@ -530,12 +530,12 @@ function HomePage({
     image: "https://picsum.photos/seed/verdant-reporting/800/600",
     eyebrow: "MEGANET",
    
-    title: "CAC Registration (Naming a Company)",
+    title: "CAC Registration (Company Name)",
     desc: "Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.",
     items: ["Business Name: N45,000",
       "Company Registration: N65,000",
        "NGO/Association/Club/Church Registration: N130,000"],
-    price:"10000",
+    price:"65000",
   })
 
   const [business,setBusiness]=useState(
@@ -557,7 +557,7 @@ function HomePage({
     image: "https://picsum.photos/seed/verdant-reporting/800/600",
     eyebrow: "MEGANET",
    
-    title: "CAC Registration (NGO)",
+    title: "CAC Registration (NGO/Church)",
     desc: "Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.",
     items: ["Business Name: N45,000",
       "Company Registration: N65,000",
@@ -613,6 +613,7 @@ function HomePage({
     items: [],
     price: 10000,
   })
+
   return (
     <div className="vd-fade">
      <Carousel/>
@@ -699,9 +700,9 @@ function HomePage({
                 style={{ borderWidth: 1, borderColor: "#00751822" }}
               >
                 <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
-                <p className="font-semibold vd-text-green-dark mb-2">CAC Registration (Naming a company)</p>
+                <p className="font-semibold vd-text-green-dark mb-2">CAC Registration (Company Name)</p>
                 <p className="text-sm opacity-75 leading-relaxed mb-3">Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.</p>
-                <p className="text-xs font-semibold vd-text-green">Book-{naira("1000")} →</p>
+                <p className="text-xs font-semibold vd-text-green">Book-{naira("65000")} →</p>
               </div>
             </Reveal>
 
@@ -803,12 +804,12 @@ function ServicesPage({ openBooking,
     image: "https://picsum.photos/seed/verdant-reporting/800/600",
     eyebrow: "MEGANET",
    
-    title: "CAC Registration (Naming a Company)",
+    title: "CAC Registration (Company Name)",
     desc: "Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.",
     items: ["Business Name: N45,000",
       "Company Registration: N65,000",
        "NGO/Association/Club/Church Registration: N130,000"],
-    price:"10000",
+    price:"65000",
   })
 
   const [business,setBusiness]=useState(
@@ -830,7 +831,7 @@ function ServicesPage({ openBooking,
     image: "https://picsum.photos/seed/verdant-reporting/800/600",
     eyebrow: "MEGANET",
    
-    title: "CAC Registration (NGO)",
+    title: "CAC Registration (NGO/Church)",
     desc: "Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.",
     items: ["Business Name: N45,000",
       "Company Registration: N65,000",
@@ -940,9 +941,9 @@ function ServicesPage({ openBooking,
                 style={{ borderWidth: 1, borderColor: "#00751822" }}
               >
                 <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
-                <p className="font-semibold vd-text-green-dark mb-2">CAC Registration (Naming a company)</p>
+                <p className="font-semibold vd-text-green-dark mb-2">CAC Registration (Company Name)</p>
                 <p className="text-sm opacity-75 leading-relaxed mb-3">Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.</p>
-                <p className="text-xs font-semibold vd-text-green">Book-{naira("1000")} →</p>
+                <p className="text-xs font-semibold vd-text-green">Book-{naira("65000")} →</p>
               </div>
             </Reveal>
 
@@ -999,55 +1000,85 @@ function ServicesPage({ openBooking,
               </div>
             </Reveal>
 
-        
-           
-    
+             <Reveal  delay={80}>
+              <div
+                onClick={() => openPersonal(visa2)}
+                className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
+                style={{ borderWidth: 1, borderColor: "#00751822" }}
+              >
+                <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
+                <p className="font-semibold vd-text-green-dark mb-2">School Fees Payment and Related Services.</p>
+                <p className="text-sm opacity-75 leading-relaxed mb-3">Convenient and secure school fees payment assitance and other academic related services</p>
+                   <a href="https://wa.me/+2348077810089">  
+                   <p className="text-xs font-semibold vd-text-green">Contact Us</p>
+                   </a>
+              </div>
+            </Reveal>
+
+              <Reveal  delay={80}>
+              <div
+                onClick={() => openPersonal(visa2)}
+                className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
+                style={{ borderWidth: 1, borderColor: "#00751822" }}
+              >
+                <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
+                <p className="font-semibold vd-text-green-dark mb-2">Jamb Processing Services</p>
+                <p className="text-sm opacity-75 leading-relaxed mb-3">Reliable JAMB Processing services including admission status checking,printing of admission letters and original results,available for both candidates with and without email addresses</p>
+                   <a href="https://wa.me/+2348077810089">  
+                   <p className="text-xs font-semibold vd-text-green">Contact Us</p>
+                   </a>
+              </div>
+            </Reveal>
+
+               <Reveal  delay={80}>
+              <div
+                onClick={() => openPersonal(visa2)}
+                className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
+                style={{ borderWidth: 1, borderColor: "#00751822" }}
+              >
+                <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
+                <p className="font-semibold vd-text-green-dark mb-2">NIN Services</p>
+                <p className="text-sm opacity-75 leading-relaxed mb-3">Fast and reliable NIN reprinting services,offering both plastic card and normal slip options for 
+                quick and hassle-free delivery
+                </p>
+                   <a href="https://wa.me/+2348077810089">  
+                   <p className="text-xs font-semibold vd-text-green">Contact Us</p>
+                   </a>
+              </div>
+            </Reveal>
+
+
+                <Reveal  delay={80}>
+              <div
+                onClick={() => openPersonal(visa2)}
+                className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
+                style={{ borderWidth: 1, borderColor: "#00751822" }}
+              >
+                <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
+                <p className="font-semibold vd-text-green-dark mb-2">Research Project / Seminar Writing</p>
+                <p className="text-sm opacity-75 leading-relaxed mb-3">Expert research project and seminar wrting services tailored to meet academic standards</p>
+                   <a href="https://wa.me/+2348077810089">  
+                   <p className="text-xs font-semibold vd-text-green">Contact Us</p>
+                   </a>
+              </div>
+            </Reveal>
+
+                <Reveal  delay={80}>
+              <div
+                onClick={() => openPersonal(visa2)}
+                className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
+                style={{ borderWidth: 1, borderColor: "#00751822" }}
+              >
+                <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
+                <p className="font-semibold vd-text-green-dark mb-2">Computer Works</p>
+                <p className="text-sm opacity-75 leading-relaxed mb-3">General Computer services including typing,printing,scanning and online registrations done efficiently and accurately.</p>
+                   <a href="https://wa.me/+2348077810089">  
+                   <p className="text-xs font-semibold vd-text-green">Contact Us</p>
+                   </a>
+              </div>
+            </Reveal>
+            
             </section>
-
-
-
-      <section className="max-w-5xl mx-auto px-6 pb-20 space-y-6">
-        {SERVICE.map((s, i) => (
-          <Reveal key={s.id} delay={i * 70}>
-            <div
-           
-              className="vd-card rounded-2xl bg-white/60 overflow-hidden"
-              style={{ border: "1px solid #00751822" }}
-            >
-              <div className="vd-card-img h-40 sm:h-48">
-                <img src={s.image} alt={s.title} className="w-full h-full object-cover" loading="lazy" />
-              </div>
-              <div className="grid md:grid-cols-[160px_1fr] gap-6 p-8">
-                <div>
-                  <p className="text-xs uppercase tracking-widest vd-text-gold font-semibold">{s.eyebrow}</p>
-                  <p className="vd-display text-xl font-semibold vd-text-green-dark mt-2">{s.title}</p>
-                  <p className="text-sm font-semibold vd-text-green mt-3">{naira(s.price)}</p>
-                </div>
-                <div>
-                  <p className="opacity-80 leading-relaxed mb-4">{s.desc}</p>
-                  <ul className="grid sm:grid-cols-3 gap-3 mb-4">
-                    {s.items.map((it) => (
-                      <li key={it} className="text-sm flex items-start gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full vd-bg-green mt-1.5 shrink-0" />
-                        <span className="opacity-80">{it}</span>
-                      </li>
-                    ))}
-                  </ul>
-                  <a href="https://wa.me/+2348077810089">     
-                  <span
-                    
-                    className="vd-link-underline text-sm font-semibold vd-text-green inline-block"
-                  >
-                    Contact Us →
-                  </span>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </Reveal>
-        ))}
-      </section>
-
 
     </div>
   );

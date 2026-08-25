@@ -152,6 +152,7 @@ function ProgressBar({ step }) {
     s_card_number:"",
     s_home_address:"",
     s_origin:"",
+    cost:130000,
     file:"",
     file2:"",
     file3:""
