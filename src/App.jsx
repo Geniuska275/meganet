@@ -17,6 +17,9 @@ import BusinessModal from "./components/BusinessModal";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Carousel from "./components/herosection";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+
 
 
 const GREEN = "#007518";
@@ -384,7 +387,10 @@ function VineGraphic() {
 
 function Nav({ page, setPage }) {
   const [open, setOpen] = useState(false);
-  const links = ["Home", "Services", "About", "Contact"];
+  const [active,setActive]=useState("")
+ 
+   const { pathname } = useLocation();
+   console.log(pathname==="/services")
   return (
     <header className="vd-bg-cream sticky top-0 z-20 border-b vd-border-green/10" style={{ borderBottomWidth: 1, borderBottomColor: "#00751822" }}>
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
@@ -402,7 +408,7 @@ function Nav({ page, setPage }) {
           </div>
 
         <nav className="hidden md:flex items-center gap-8">
-          {links.map((l) => (
+          {/* {links.map((l) => (
             <button
               key={l}
               onClick={() => setPage(l)}
@@ -413,8 +419,42 @@ function Nav({ page, setPage }) {
               }}
             >
               {l}
-            </button>
-          ))}
+            </button> */}
+
+             <Link to="/"
+            
+             onClick={()=>setActive("home")}
+              style={{
+                color: pathname === "/"  ? GREEN_DARK : "#4b5c47",
+                borderColor: pathname === "/"   ? GOLD : "transparent",
+              }}
+      className="vd-navlink text-sm font-medium tracking-wide uppercase pb-1 border-b-2"
+
+             >Home</Link>
+         <Link to="/services"
+        style={{
+                color: pathname === "/services"  ? GREEN_DARK : "#4b5c47",
+                borderColor: pathname === "/services"? "red" : "transparent",
+              }}
+      className="vd-navlink text-sm font-medium tracking-wide uppercase pb-1 border-b-2"
+       >Services</Link>
+        <Link to="/about"
+      className="vd-navlink text-sm font-medium tracking-wide uppercase pb-1 border-b-2"
+       style={{
+                color: pathname === "/about"  ? GREEN_DARK : "#4b5c47",
+                borderColor: pathname === "/about"? "red" : "transparent",
+              }}
+         >About</Link>
+     <Link to="/contact"
+         style={{
+                color: pathname === "/contact"  ? GREEN_DARK : "#4b5c47",
+                borderColor: pathname === "/contact"? "red" : "transparent",
+              }}
+      
+      className="vd-navlink text-sm font-medium tracking-wide uppercase pb-1 border-b-2"
+
+      >Contact</Link>
+          
         </nav>
 
         <button
@@ -439,16 +479,24 @@ function Nav({ page, setPage }) {
 
       {open && (
         <div className="md:hidden px-6 pb-4 flex flex-col gap-3 vd-menu-open">
-          {links.map((l) => (
-            <button
-              key={l}
-              onClick={() => { setPage(l); setOpen(false); }}
-              className="text-left text-sm font-semibold uppercase tracking-wide py-1"
-              style={{ color: page === l ? GREEN_DARK : "#4b5c47" }}
-            >
-              {l}
-            </button>
-          ))}
+          <Link to="/"
+             className="vd-navlink text-sm font-medium tracking-wide uppercase pb-1 border-b-2"
+             onClick={()=>setActive("home")}
+              style={{
+                color: active=="home"  ? GREEN_DARK : "#4b5c47",
+                borderColor: active=="home" ? GOLD : "transparent",
+              }}
+             className={pathname === "/" ? "active" : ""}>Home</Link>
+         <Link to="/services"
+        style={{
+                color: pathname === "/services"  ? GREEN_DARK : "#4b5c47",
+                borderColor: pathname === "/services"? "red" : "transparent",
+              }}
+        className={pathname === "/services" ? "active" : ""}>Services</Link>
+        <Link to="/about" className={pathname === "/about" ? "active" : ""}>About</Link>
+     <Link to="/contact" className={pathname === "/contact" ? "active" : ""}>Contact</Link>
+          
+         
         </div>
       )}
     </header>
@@ -1236,8 +1284,21 @@ function ContactPage() {
   );
 }
 
-export default function App() {
-  const [page, setPage] = useState("Home");
+// function Nav() {
+//   const { pathname } = useLocation();
+
+//   return (
+//     <nav>
+//       <Link to="/" className={pathname === "/" ? "active" : ""}>Home</Link>
+//       <Link to="/services" className={pathname === "/services" ? "active" : ""}>Services</Link>
+//       <Link to="/about" className={pathname === "/about" ? "active" : ""}>About</Link>
+//       <Link to="/contact" className={pathname === "/contact" ? "active" : ""}>Contact</Link>
+//     </nav>
+//   );
+// }
+
+
+function AppRoutes() {
   const [openCac, setOpenCac] = useState(null);
   const [openNysc, setOpenNysc] = useState(null);
   const [openNerd, setOpenNerd] = useState(null);
@@ -1246,11 +1307,8 @@ export default function App() {
   const [openPersonal, setOpenPersonal] = useState(null);
   const [openBusiness, setOpenBusiness] = useState(null);
 
-
-
-
-
   const [scrollProgress, setScrollProgress] = useState(0);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -1258,119 +1316,128 @@ export default function App() {
         document.documentElement.scrollHeight -
         document.documentElement.clientHeight;
 
-      const progress =
-        (window.scrollY / totalHeight) * 100;
-
+      const progress = (window.scrollY / totalHeight) * 100;
       setScrollProgress(progress);
     };
 
     window.addEventListener("scroll", handleScroll);
-
-    return () =>
-      window.removeEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
 
   return (
     <div className="vd-root min-h-screen">
-      <ToastContainer/>
+      <ToastContainer />
       <style>{tokens}</style>
-            <div
+      <div
         className="scroll-progress"
-        style={{ width: `${scrollProgress}%`, }}
+        style={{ width: `${scrollProgress}%` }}
       />
 
-      <Nav page={page} setPage={setPage} />
-      {page === "Home" && <HomePage
-         setPage={setPage} 
-        openBooking={setOpenNysc}
-        openNerd={setOpenNerd}
-        openCac={setOpenCac} 
-        openNgo={setOpenNgo}
-        openCV={setOpenCV}
+      <Nav/>
 
-        openPersonal={setOpenPersonal}
-        openBusiness={setOpenBusiness}
-
-
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <HomePage
+              openBooking={setOpenNysc}
+              openNerd={setOpenNerd}
+              openCac={setOpenCac}
+              openNgo={setOpenNgo}
+              openCV={setOpenCV}
+              openPersonal={setOpenPersonal}
+              openBusiness={setOpenBusiness}
+            />
+          }
         />
-        
-        }
-      {page === "Services" && <ServicesPage 
-         openBooking={setOpenNerd} 
-           openBooking={setOpenNysc}
-        openCac={setOpenCac} 
-        openNgo={setOpenNgo}
-        openCV={setOpenCV}
-        openPersonal={setOpenPersonal}
-        openBusiness={setOpenBusiness}
-      />
-      
-      }
-      {page === "About" && <AboutPage />}
-      {page === "Contact" && <ContactPage />}
-      <Footer setPage={setPage} />
+        <Route
+          path="/services"
+          element={
+            <ServicesPage
+              openNerd={setOpenNerd}
+              openBooking={setOpenNysc}
+              openCac={setOpenCac}
+              openNgo={setOpenNgo}
+              openCV={setOpenCV}
+              openPersonal={setOpenPersonal}
+              openBusiness={setOpenBusiness}
+            />
+          }
+        />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        {/* <Route path="*" element={<NotFoundPage />} /> */}
+      </Routes>
+
+      <Footer />
+
       {openNysc && (
         <NYSCModal service={openNysc} onClose={() => setOpenNysc(null)} />
       )}
-       {openNerd && (
+      {openNerd && (
         <NERDModal service={openNerd} onClose={() => setOpenNerd(null)} />
       )}
-
       {openCac && (
         <CACModal service={openCac} onClose={() => setOpenCac(null)} />
       )}
-
-        {openNgo && (
+      {openNgo && (
         <NGOModal service={openNgo} onClose={() => setOpenNgo(null)} />
       )}
-
-         {openCV && (
+      {openCV && (
         <ResumeModal service={openCV} onClose={() => setOpenCV(null)} />
       )}
       {openPersonal && (
-        <PersonalModal service={openPersonal} onClose={() => setOpenPersonal(null)} />
+        <PersonalModal
+          service={openPersonal}
+          onClose={() => setOpenPersonal(null)}
+        />
+      )}
+      {openBusiness && (
+        <BusinessModal
+          service={openBusiness}
+          onClose={() => setOpenBusiness(null)}
+        />
       )}
 
-       {openBusiness && (
-        <BusinessModal service={openBusiness} onClose={() => setOpenBusiness(null)} />
-      )}
-
-       <div style={{
-        position:"fixed",
-        bottom:"70px",
-        background:" #37CA2A",
-        width:"55px",
-        height:"55px",
-        borderRadius:"50%",
-        right:"20px",
-        display:"flex",
-        alignItems:"center",
-        justifyContent:"center",
-        zIndex:1000
-       
-
-      }}>
-
-         <div
+      <div
         style={{
-          width:"45px",
-        height:"45px",
-        borderRadius:"50%",
-        borderWidth:"2px",
-        display:"flex",
-        alignItems:"center",
-        justifyContent:"center"
+          position: "fixed",
+          bottom: "70px",
+          background: " #37CA2A",
+          width: "55px",
+          height: "55px",
+          borderRadius: "50%",
+          right: "20px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          zIndex: 1000,
         }}
+      >
+        <div
+          style={{
+            width: "45px",
+            height: "45px",
+            borderRadius: "50%",
+            borderWidth: "2px",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
         >
-        <a href="https://wa.me/+2348077810089">     
-        <FaWhatsapp color='white' size={25} />
-      </a>
+          <a href="https://wa.me/+2348077810089">
+            <FaWhatsapp color="white" size={25} />
+          </a>
         </div>
       </div>
-
-
-
     </div>
+  );
+}
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
   );
 }
