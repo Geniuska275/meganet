@@ -531,7 +531,7 @@ function Footer({ setPage }) {
       <div className="max-w-6xl mx-auto px-6 py-14 grid gap-10 md:grid-cols-3">
         <div>
           <p className="vd-display text-xl font-semibold mb-3">
-            Meganet Integrated Works <span className="vd-text-gold">&</span> Services.
+            Mega Integrated Works <span className="vd-text-gold">&</span> Services.
           </p>
           <p className="text-sm opacity-80 leading-relaxed max-w-xs">
            Delivering premium online services with speed, accuracy, and reliability you can trust.
