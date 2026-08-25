@@ -15,25 +15,24 @@ const SLIDES = [
   {
     place: "NERD",
     country: "Registration",
-    img:img3
+    img:img2
   },
   {
     place: "CAC",
     country: "Registration",
-    img: img4
+    img: img3
   },
   {
     place: "Cv/Resume",
     country: "Registration",
     
-    img: img5
+    img: img4
   },
   {
     place: "Personal",
     country: "Statement",
    
-    img: "https://images.unsplash.com/photo-1593642634315-48f5414c3ad9?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MzF8fGxhcHRvcHxlbnwwfHwwfHx8MA%3D%3D",
-  },
+    img: img5
 ];
 
 const SLIDE_DURATION = 5500; // ms each slide stays before auto-advancing

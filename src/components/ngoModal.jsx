@@ -73,6 +73,8 @@ function ProgressBar({ step }) {
   formData.append("s_fullname", form.s_fullname);
   formData.append("s_phone_number", form.s_phone_number);
   formData.append("s_origin", form.s_origin);
+  formData.append("cost", form.cost);
+
 
   
   

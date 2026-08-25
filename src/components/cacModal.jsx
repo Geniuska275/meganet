@@ -67,6 +67,8 @@ formData.append("d_dob", form.d_dob);
 formData.append("d_fullname", form.d_fullname);
 formData.append("d_phone_number", form.d_phone_number);
 formData.append("d_origin", form.d_origin);
+formData.append("cost", form.cost);
+
 
 
 if (form.file) {
@@ -135,6 +137,7 @@ if (form.file3) {
     d_fullname:"",
     d_phone_number:"",
     d_origin:"",
+    cost:65000,
     file:"",
     file2:"",
     file3:""

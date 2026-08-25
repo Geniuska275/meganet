@@ -63,6 +63,8 @@ formData.append("institution", form.institution);
 formData.append("study", form.study);
 formData.append("destination", form.destination);
 formData.append("website", form.website);
+formData.append("cost", form.cost);
+
 
 if (form.file) {
   formData.append("file", form.file);
@@ -110,6 +112,7 @@ if (form.file) {
     study:"",
     destination:"", 
     website:"", 
+    cost:20000,
     file:null,
   });
 
