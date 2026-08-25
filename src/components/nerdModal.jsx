@@ -5,6 +5,8 @@ const GREEN_DARK = "#003d0c";
 const GOLD = "#ffba00";
 const CREAM = "#fcfbfe";
 const INK = "#12200f";
+import  Paystack  from "@paystack/inline-js";
+
 
 function naira(amount) {
   return `₦${amount?.toLocaleString("en-NG")}`;
