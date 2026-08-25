@@ -598,7 +598,7 @@ function HomePage({
       {
     id: "CAC Registration",
     image: "https://picsum.photos/seed/verdant-reporting/800/600",
-    eyebrow: "MEGANET",
+    eyebrow: "Miwas",
    
     title: "CAC Registration (Company Name)",
     desc: "Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.",
@@ -612,7 +612,7 @@ function HomePage({
       {
     id: "CAC Registration",
     image: "https://picsum.photos/seed/verdant-reporting/800/600",
-    eyebrow: "MEGANET",
+    eyebrow: "Miwas",
    
     title: "CAC Registration (Business Name)",
     desc: "Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.",
@@ -625,7 +625,7 @@ function HomePage({
       {
     id: "CAC Registration",
     image: "https://picsum.photos/seed/verdant-reporting/800/600",
-    eyebrow: "MEGANET",
+    eyebrow: "Miwas",
    
     title: "CAC Registration (NGO/Church)",
     desc: "Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.",
@@ -638,7 +638,7 @@ function HomePage({
         {
     id: "Processing of Visa Documents",
     image: "https://picsum.photos/seed/verdant-partnerships/800/600",
-    eyebrow: "MEGANET",
+    eyebrow: "Miwas",
     
     title:"Processing of Visa Documents (CV/RESUME)",
     desc: "Professional assistance in preparing and processing visa documents for a smooth application experience.",
@@ -653,7 +653,7 @@ function HomePage({
         {
     id: "Processing of Visa Documents",
     image: "https://picsum.photos/seed/verdant-partnerships/800/600",
-    eyebrow: "MEGANET",
+    eyebrow: "Miwas",
     
     title:"Processing of Visa Documents (Personal Statement)",
     desc: "Professional assistance in preparing and processing visa documents for a smooth application experience.",
@@ -667,7 +667,7 @@ function HomePage({
     const [nerd,setNerd]=useState({
     id: "NERD Registration",
     image: nerd1,
-    eyebrow: "MEGANET",
+    eyebrow: "Miwas",
     title: "NERD Registration",
     desc: "Seamless uploading of academic research projects on the NERD platform as a mandatory requirement for successful NYSC registration.",
     items: [],
@@ -676,7 +676,7 @@ function HomePage({
     const [nysc,setNysc]=useState( {
     id: "Nysc",
     image: nysc1,
-    eyebrow: "MEGANET",
+    eyebrow: "Miwas",
     
     title: "NYSC Registration",
     desc: "Hassle-free NYSC registration with accurate biometric capturing for a smooth and successful process.",
