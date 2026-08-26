@@ -688,17 +688,21 @@ function HomePage({
     <div className="vd-fade">
      <Carousel/>
       <section className="vd-texture" style={{ marginTop: "-3rem" }}>
-        <div className="max-w-6xl mx-auto px-6 pt-10 pb-20 grid md:grid-cols-2 gap-12 items-center">
-          <div>
+        {/* <div className="max-w-6xl lg:flex mx-auto px-6 pt-10 pb-20 grid md:grid-cols-2 gap-12 items-center">
+            <div>
             <p className="vd-hero-eyebrow text-xs uppercase tracking-[0.2em] vd-text-green font-semibold mb-4">
               Mega Services
             </p>
             <h1 className="vd-hero-title vd-display text-4xl md:text-5xl font-semibold leading-tight vd-text-green-dark">
               Welcome to Mega Integrated Works and Services
             </h1>
-            <p className="vd-hero-body mt-6 text-base leading-relaxed max-w-md opacity-80">
+
+            </div>
+            <div>
+            <p className="vd-hero-body mt-6 text-base leading-relaxed max-w-md opacity-80 ">
              MEGA INTEGRATED WORKS AND SERVICES Your one-stop digital and administrative solutions hub, delivering fast, reliable, and professional support in NIN services, JAMB processing, NYSC Registration, NERD Enrolment, CAC Business and Company registration, Academic Project and Seminar writing, Processing of Visa Documents, online registration services, school payment services, and general computer services.
             </p>
+
             <div className="vd-hero-cta mt-8 flex flex-wrap gap-4">
               <button onClick={() => setPage("Services")} className="vd-btn-primary px-6 py-3 rounded-full text-sm font-semibold">
                 See our services
@@ -707,8 +711,39 @@ function HomePage({
                 Talk to us
               </button>
             </div>
-          </div>
-        </div>
+          </div> */}
+        {/* </div> */}
+        <div className="max-w-6xl mx-auto px-6 pt-10 pb-20 flex flex-col md:flex-row gap-12 items-center">
+  <div className="flex-1">
+    <p className="vd-hero-eyebrow text-xs uppercase tracking-[0.2em] vd-text-green font-semibold mb-4">
+      Mega Services
+    </p>
+    <h1 className="vd-hero-title vd-display text-4xl md:text-5xl font-semibold leading-tight vd-text-green-dark">
+      Welcome to Mega Integrated Works and Services
+    </h1>
+  </div>
+
+  <div className="flex-1">
+    <p className="vd-hero-body mt-6 text-base leading-relaxed max-w-md opacity-80">
+      MEGA INTEGRATED WORKS AND SERVICES Your one-stop digital and administrative solutions hub, delivering fast, reliable, and professional support in NIN services, JAMB processing, NYSC Registration, NERD Enrolment, CAC Business and Company registration, Academic Project and Seminar writing, Processing of Visa Documents, online registration services, school payment services, and general computer services.
+    </p>
+
+    <div className="vd-hero-cta mt-8 flex flex-wrap gap-4">
+      <button
+        onClick={() => navigate("/services")}
+        className="vd-btn-primary px-6 py-3 rounded-full text-sm font-semibold"
+      >
+        See our services
+      </button>
+      <button
+        onClick={() => navigate("/contact")}
+        className="vd-btn-outline px-6 py-3 rounded-full text-sm font-semibold"
+      >
+        Talk to us
+      </button>
+    </div>
+  </div>
+</div>
       </section>
 
       <section className="vd-bg-green-dark">
