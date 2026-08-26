@@ -729,18 +729,20 @@ function HomePage({
     </p>
 
     <div className="vd-hero-cta mt-8 flex flex-wrap gap-4">
+      <a href="/services">
       <button
-        onClick={() => navigate("/services")}
         className="vd-btn-primary px-6 py-3 rounded-full text-sm font-semibold"
-      >
+        >
         See our services
       </button>
+        </a>
+      <a href="/contact">
       <button
-        onClick={() => navigate("/contact")}
         className="vd-btn-outline px-6 py-3 rounded-full text-sm font-semibold"
-      >
+        >
         Talk to us
       </button>
+        </a>
     </div>
   </div>
 </div>
@@ -888,9 +890,11 @@ function HomePage({
           <p className="opacity-75 max-w-lg mx-auto mb-8">
             Reach out to us now, we are your surest plug.
           </p>
+          <a href="https://wa.me/+2348077810089">
           <button onClick={() => setPage("Contact")} className="vd-btn-primary px-8 py-3 rounded-full text-sm font-semibold">
             Start a conversation
           </button>
+          </a>
         </Reveal>
       </section>
     </div>
