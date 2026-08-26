@@ -725,7 +725,7 @@ function HomePage({
 
   <div className="flex-1">
     <p className="vd-hero-body mt-6 text-base leading-relaxed max-w-md opacity-80">
-      MEGA INTEGRATED WORKS AND SERVICES Your one-stop digital and administrative solutions hub, delivering fast, reliable, and professional support in NIN services, JAMB processing, NYSC Registration, NERD Enrolment, CAC Business and Company registration, Academic Project and Seminar writing, Processing of Visa Documents, online registration services, school payment services, and general computer services.
+       Your one-stop digital and administrative solutions hub, delivering fast, reliable, and professional support in NIN services, JAMB processing, NYSC Registration, NERD Enrolment, CAC Business and Company registration, Academic Project and Seminar writing, Processing of Visa Documents, online registration services, school payment services, and general computer services.
     </p>
 
     <div className="vd-hero-cta mt-8 flex flex-wrap gap-4">
