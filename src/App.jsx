@@ -714,7 +714,7 @@ function HomePage({
           </div> */}
         {/* </div> */}
         <div className="max-w-6xl mx-auto px-6 pt-10 pb-20 flex flex-col md:flex-row gap-12 items-center">
-  <div className="flex-1">
+  <div className="flex-1 mt-10">
     <p className="vd-hero-eyebrow text-xs uppercase tracking-[0.2em] vd-text-green font-semibold mb-4">
       Mega Services
     </p>
