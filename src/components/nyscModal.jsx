@@ -48,7 +48,6 @@ formData.append("tetto", form.tetto);
 formData.append("level", form.level);
 formData.append("cost", form.cost);
 
-
 if (form.file) {
   formData.append("file", form.file);
 }
@@ -72,14 +71,13 @@ if (form.file2) {
   paystack.newTransaction({
     key: "pk_live_cefbe9ab88fb9568291b2bccb8c837d481207a22",
     email: form.Email_address,
-    amount: 100 * data.price, // Kobo (₦5000)
+    amount: 100 * data.price, 
     currency: "NGN",
     
 
     onSuccess: (transaction) => {
       console.log(transaction);
-      toast.success("payment made successfully");  
-   
+      toast.success("payment made successfully");     
     },
     onCancel: () => {
       alert("Payment Cancelled");
@@ -122,6 +120,9 @@ if (form.file2) {
     secto:"",
     tetfrom:"",
     tetto:"",
+    pschname:"",
+    sschname:"",
+    tschname:"",
     cost:10000,
     level:"",
     file:null,
@@ -142,8 +143,9 @@ if (form.file2) {
    && form.address && form.lgo && form.nin
    && form.matric && form.genotype && form.language 
    && form.bloodgroup && form.dob &&  form.place &&  form.state ;
-  const step1Valid = form.kinEmail && form.kinName
-   && form.kinRelationship && form.kinPhone  && form.level && form.prifrom 
+   const step1Valid = form.kinEmail && form.kinName
+   && form.kinRelationship && form.kinPhone  && form.level && form.prifrom  && form.sschname && form.pschname && form.tschname
+
    && form.prito && form.secfrom && form.secto && form.tetfrom && form.tetto ;
   const step2Valid = form.file && form.file2;
   const stepValid = [step0Valid, step1Valid, step2Valid][step];
@@ -339,7 +341,9 @@ function formatBytes(bytes) {
                   <div style={{
                     marginBottom:"10px"
                   }}>
-
+                    <input className="mb-1.5"
+                 value={form.pschname} onChange={update("pschname")} placeholder="School Name" className={inputClass} style={selectStyle} />
+                 
                   <input className="mb-1.5"
                  value={form.prifrom} onChange={update("prifrom")} placeholder="From:" className={inputClass} style={selectStyle} />
                  </div>
@@ -349,10 +353,13 @@ function formatBytes(bytes) {
 
                  <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Secondary School Attended</label>
+                  
                   <div style={{
                     marginBottom:"10px"
                   }}>
-
+                    
+                    <input className="mb-1.5"
+                 value={form.sschname} onChange={update("sschname")} placeholder="School Name" className={inputClass} style={selectStyle} />
                   <input className="mb-1.5"
                  value={form.secfrom} onChange={update("secfrom")} placeholder="From:" className={inputClass} style={selectStyle} />
                  </div>
@@ -366,6 +373,8 @@ function formatBytes(bytes) {
                   <div style={{
                     marginBottom:"10px"
                   }}>
+                  <input className="mb-1.5"
+                 value={form.tschname} onChange={update("tschname")} placeholder="School Name" className={inputClass} style={selectStyle} />
 
                   <input className="mb-1.5"
                  value={form.tetfrom} onChange={update("tetfrom")} placeholder="From:" className={inputClass} style={selectStyle} />
