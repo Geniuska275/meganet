@@ -296,7 +296,7 @@ function formatBytes(bytes) {
                 </div>
                  <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Date of Birth</label>
-                  <input value={form.dob} onChange={update("dob")} placeholder="DD/MM/YYYY" className={inputClass} style={selectStyle} />
+                  <input type="date" value={form.dob} onChange={update("dob")} placeholder="DD/MM/YYYY" className={inputClass} style={selectStyle} />
                 </div>
                  <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Nigeria Language</label>
