@@ -40,6 +40,9 @@ formData.append("trouser", form.trouser);
 formData.append("shoe", form.shoe);
 formData.append("stateBefore", form.stateBefore);
 formData.append("prifrom", form.prifrom);
+formData.append("pschname", form.pschname);
+formData.append("sschname", form.sschname);
+formData.append("tschname", form.tschname);
 formData.append("prito", form.prito);
 formData.append("sectfrom", form.secfrom);
 formData.append("secto", form.secto);
@@ -148,9 +151,7 @@ if (form.file2) {
 
    && form.prito && form.secfrom && form.secto && form.tetfrom && form.tetto ;
   const step2Valid = form.file && form.file2;
-  const stepValid = [step0Valid, step1Valid, step2Valid][step];
-  console.log("stepValid:",step1Valid)
- 
+  const stepValid = [step0Valid, step1Valid, step2Valid][step]; 
   const next = () => { if (stepValid) setStep((s) => Math.min(s + 1, BOOKING_STEPS.length - 1)); };
   const back = () => setStep((s) => Math.max(s - 1, 0));
  
@@ -341,8 +342,12 @@ function formatBytes(bytes) {
                   <div style={{
                     marginBottom:"10px"
                   }}>
+                  <div style={{
+                    marginBottom:"10px"
+                  }}>
                     <input className="mb-1.5"
                  value={form.pschname} onChange={update("pschname")} placeholder="School Name" className={inputClass} style={selectStyle} />
+                 </div>
                  
                   <input className="mb-1.5"
                  value={form.prifrom} onChange={update("prifrom")} placeholder="From:" className={inputClass} style={selectStyle} />
@@ -357,9 +362,12 @@ function formatBytes(bytes) {
                   <div style={{
                     marginBottom:"10px"
                   }}>
-                    
+                    <div style={{
+                    marginBottom:"10px"
+                  }}>
                     <input className="mb-1.5"
                  value={form.sschname} onChange={update("sschname")} placeholder="School Name" className={inputClass} style={selectStyle} />
+                 </div>
                   <input className="mb-1.5"
                  value={form.secfrom} onChange={update("secfrom")} placeholder="From:" className={inputClass} style={selectStyle} />
                  </div>
@@ -373,8 +381,12 @@ function formatBytes(bytes) {
                   <div style={{
                     marginBottom:"10px"
                   }}>
+                    <div style={{
+                    marginBottom:"10px"
+                  }}>
                   <input className="mb-1.5"
                  value={form.tschname} onChange={update("tschname")} placeholder="School Name" className={inputClass} style={selectStyle} />
+                 </div>
 
                   <input className="mb-1.5"
                  value={form.tetfrom} onChange={update("tetfrom")} placeholder="From:" className={inputClass} style={selectStyle} />
@@ -403,11 +415,11 @@ function formatBytes(bytes) {
                 <h1>NYSC Kits</h1>
                   <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Size of Shirt</label>
-                  <input value={form.shirt} onChange={update("shirt")} placeholder="Your full name" className={inputClass} style={selectStyle} />
+                  <input value={form.shirt} onChange={update("shirt")} placeholder="" className={inputClass} style={selectStyle} />
                 </div>
                 <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Size of Trouser</label>
-                  <input value={form.trouser} onChange={update("trouser")} placeholder="you@example.com" className={inputClass} style={selectStyle} />
+                  <input value={form.trouser} onChange={update("trouser")} placeholder="" className={inputClass} style={selectStyle} />
                 </div>
                 <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Size of Shoe</label>
