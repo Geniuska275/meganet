@@ -14,7 +14,7 @@ const BOOKING_STEPS = ["Your details", "Your operation", "Confirm & pay"];
  export default function NYSCModal({ service, onClose }) {
 //   const paystackReady = usePaystackScript();
  const paystack = new Paystack();
- const handleSubmit=async (data,form)=>{
+ const handleSubmit=async (data)=>{
   try{
 
 const formData = new FormData();
@@ -57,12 +57,11 @@ if (form.file) {
 if (form.file2) {
   formData.append("file2", form.file2);
 }
- 
-   console.log(formData)
+
     await axios.post("https://meganet-backend-q2fi.onrender.com/api/nysc", formData).then(()=>{
       onClose()
      toast.success("Form successfully submitted!");
-     makePayment(data,form)
+     
     })
   } catch(err){
     console.log(err)
@@ -74,13 +73,14 @@ if (form.file2) {
   paystack.newTransaction({
     key: "pk_live_cefbe9ab88fb9568291b2bccb8c837d481207a22",
     email: form.Email_address,
-    amount: 100 * data.price, 
+    amount: 100 * 100, 
     currency: "NGN",
     
 
     onSuccess: (transaction) => {
       console.log(transaction);
-      toast.success("payment made successfully");     
+      toast.success("payment made successfully"); 
+      handleSubmit(form)    
     },
     onCancel: () => {
       alert("Payment Cancelled");
@@ -516,7 +516,7 @@ function formatBytes(bytes) {
                 </button>
               ) : (
                 <button
-                  onClick={()=>handleSubmit(service,form)}
+                  onClick={()=>makePayment(service,form)}
                   disabled={!step2Valid || status === "paying"}
                   className="vd-btn-primary flex-1 px-6 py-3 rounded-full text-sm font-semibold flex items-center justify-center gap-2"
                 >

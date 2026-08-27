@@ -52,7 +52,7 @@ function ProgressBar({ step }) {
  export default function PersonalModal({ service, onClose }) {
 
  const paystack = new Paystack();
- const handleSubmit=async (data,form)=>{
+ const handleSubmit=async (form)=>{
   try{
 
 const formData = new FormData();
@@ -73,7 +73,7 @@ if (form.file) {
     await axios.post("https://meganet-backend-q2fi.onrender.com/api/personal", formData).then(()=>{
       onClose()
      toast.success("Form successfully submitted!");
-     makePayment(data,form)
+    //  makePayment(data,form)
     })
   } catch(err){
     console.log(err)
@@ -83,7 +83,7 @@ if (form.file) {
   paystack.newTransaction({
     key: "pk_live_cefbe9ab88fb9568291b2bccb8c837d481207a22",
     email: form.Email_address,
-    amount: 100 * data.price, // Kobo (₦5000)
+    amount: 100 * 100, // Kobo (₦5000)
     currency: "NGN",
     firstname: "John",
     lastname: "Doe",
@@ -105,13 +105,13 @@ if (form.file) {
   
   const [step, setStep] = useState(0);
   const [form, setForm] = useState({
-    fullname:"",
-    Email_address:"",
-    phone_number:"",
-    institution:"", 
-    study:"",
-    destination:"", 
-    website:"", 
+    fullname:"kings",
+    Email_address:"aigbojie2020@gmail.com",
+    phone_number:"09012892920",
+    institution:"uniben", 
+    study:"physics",
+    destination:"england", 
+    website:"www.uniben.com", 
     cost:20000,
     file:null,
   });
@@ -338,7 +338,7 @@ function formatBytes(bytes) {
                 </button>
               ) : (
                 <button
-                  onClick={()=>handleSubmit(service,form)}
+                  onClick={()=>makePayment(service,form)}
                   disabled={!step2Valid || status === "paying"}
                   className="vd-btn-primary flex-1 px-6 py-3 rounded-full text-sm font-semibold flex items-center justify-center gap-2"
                 >
