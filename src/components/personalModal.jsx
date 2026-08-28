@@ -53,6 +53,7 @@ function ProgressBar({ step }) {
 
  const paystack = new Paystack();
  const handleSubmit=async (form)=>{
+  console.log("fired")
   try{
 
 const formData = new FormData();
@@ -69,7 +70,6 @@ formData.append("cost", form.cost);
 if (form.file) {
   formData.append("file", form.file);
 }
-   
     await axios.post("https://meganet-backend-q2fi.onrender.com/api/personal", formData).then(()=>{
       onClose()
      toast.success("Form successfully submitted!");
@@ -77,6 +77,8 @@ if (form.file) {
     })
   } catch(err){
     console.log(err)
+     toast.error("Form submission failed,server error!");
+
   }
 }
  function makePayment(data,form) {
@@ -306,7 +308,7 @@ function formatBytes(bytes) {
     
   ) : (
     <label className="vd-upload block">
-      <input type="file" accept={ALLOWED_FILE_TYPES.join(",")} onChange={onFileChange} className="hidden" />
+      <input type="file" accept={ALLOWED_FILE_TYPES.join(",")} accept="application/pdf" onChange={onFileChange} className="hidden" />
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={GREEN} strokeWidth="2" className="mx-auto mb-1.5">
         <path d="M12 3v12" />
         <path d="M7 8l5-5 5 5" />
