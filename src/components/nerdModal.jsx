@@ -6,7 +6,7 @@ const GOLD = "#ffba00";
 const CREAM = "#fcfbfe";
 const INK = "#12200f";
 import  Paystack  from "@paystack/inline-js";
-
+import axios from "axios";
 
 function naira(amount) {
   return `₦${amount?.toLocaleString("en-NG")}`;
@@ -42,45 +42,34 @@ function ProgressBar({ step }) {
 
 
  export default function NERDModal({ service, onClose }) {
-//   const paystackReady = usePaystackScript();
 
-
-
-const paystack = new Paystack();
- const handleSubmit=async (data,form)=>{
-  try{
-const formData = new FormData();
-formData.append("name", form.name);
-formData.append("email", form.email);
-formData.append("phone", form.phone);
+ const paystack = new Paystack();
+ const handleSubmit=async (form)=>{
+try{
+ const formData = new FormData();
+formData.append("firstname", form.firstname);
+formData.append("middlename", form.middlename);
+formData.append("surname", form.surname);
+formData.append("sex", form.sex);
+formData.append("Dob", form.Dob);
+formData.append("MaritalStatus", form.MaritalStatus);
 formData.append("nin", form.nin);
-formData.append("state", form.state);
-formData.append("lgo", form.lgo);
+formData.append("nationality", form.nationality);
+formData.append("State", form.State);
+formData.append("Lga", form.Lga);
+formData.append("city", form.city);
 formData.append("address", form.address);
-formData.append("bloodgroup", form.bloodgroup);
-formData.append("genotype", form.genotype);
-formData.append("registration", form.registration);
-formData.append("matric", form.matric);
-formData.append("place", form.place);
-formData.append("language", form.language);
-formData.append("kinRelationship", form.kinRelationship);
-formData.append("kinName", form.kinName);
-formData.append("kinEmail", form.kinEmail);
-formData.append("shirt", form.shirt);
-formData.append("trouser", form.trouser);
-formData.append("shoe", form.shoe);
-formData.append("stateBefore", form.stateBefore);
-formData.append("prifrom", form.prifrom);
-formData.append("prito", form.prito);
-formData.append("secfrom", form.secfrom);
-formData.append("secto", form.secto);
-formData.append("tetfrom", form.tetfrom);
-formData.append("tetto", form.tetto);
-formData.append("level", form.level);
-formData.append("cost", form.cost);
-
-
-
+formData.append("Email_address", form.Email_address);
+formData.append("PhoneNumber", form.PhoneNumber);
+formData.append("FullName", form.FullName);
+formData.append("Phone", form.Phone);
+formData.append("Email_Address", form.Email_Address);
+formData.append("institution", form.institution);
+formData.append("faculty", form.faculty);
+formData.append("Department", form.Department);
+formData.append("programmeType", form.programmeType);
+formData.append("MatricNumber", form.MatricNumber);
+formData.append("Course", form.Course);
 if (form.file) {
   formData.append("file", form.file);
 }
@@ -90,12 +79,18 @@ if (form.file2) {
 if (form.file3) {
   formData.append("file3", form.file3);
 }
+if (form.file4) {
+  formData.append("file4", form.file4);
+}
+if (form.file5) {
+  formData.append("file5", form.file5);
+}
 
-   console.log(formData)
-    await axios.post("https://meganet-backend-q2fi.onrender.com/api/forms", formData).then(()=>{
+  console.log(formData)
+    await axios.post("https://meganet-backend-q2fi.onrender.com/api/nerd", formData).then(()=>{
       onClose()
      toast.success("Form successfully submitted!");
-     makePayment(data,form)
+    //  makePayment(data,form)
     })
   } catch(err){
      console.log(err)
@@ -110,11 +105,10 @@ if (form.file3) {
     amount: 100 * data.price, // Kobo (₦5000)
     currency: "NGN",
     
-
     onSuccess: (transaction) => {
       console.log(transaction);
       toast.success("payment made successfully");  
-     
+      handleSubmit(form)
     },
     onCancel: () => {
       alert("Payment Cancelled");
@@ -128,39 +122,35 @@ if (form.file3) {
   
   const [step, setStep] = useState(0);
   const [form, setForm] = useState({
-    name: "",
-    email: "",
-    phone: "",
+    firstname: "",
+    middlename: "",
+    surname: "",
+    Dob: "",
+    sex: "",
+    MaritalStatus: "",
     nin: "",
-    state: "",
-    lgo: "",
-    dob: "",
+    nationality: "",
+    State: "",
+    Lga: "",
+    city: "",
     address: "",
-    bloodgroup: "",
-    genotype: "",
-    registration: "",
-    matric: "",
-    place: "",
-    language: "",
-    kinRelationship:"",
-    kinName:"",
-    kinEmail:"",
-    kinPhone:"",
-    shirt:"",
-    trouser:"",
-    shoe:"",
-    stateBefore:"",
-    prifrom:"",
-    prito:"",
-    secfrom:"",
-    secto:"",
-    tetfrom:"",
-    tetto:"",
-    level:"",
+    Email_address: "",
+    Email_Address:"",
+    FullName:"",
+    PhoneNumber:"",
+    Phone:"",
+    institution:"",
+    faculty:"",
+    programmeType:"",
+    Department:"",
+    Course:"",
+    MatricNumber:"",
     cost:13000,
     file:"",
-    file2:""
-
+    file2:"",
+    file3:"",
+    file4:"",
+    file5:""
   });
 
   const [status, setStatus] = useState("form"); // form | paying | paid
@@ -170,18 +160,18 @@ if (form.file3) {
  
   const update = (k) => (e) => setForm({ ...form, [k]: e.target.value });
  
-  const step0Valid = form.name.trim() 
-   && /\S+@\S+\.\S+/.test(form.email) 
-   && form.phone.trim()
-   && form.address && form.lgo && form.nin
-   && form.matric && form.genotype && form.language 
-   && form.bloodgroup && form.dob &&  form.place &&  form.state ;
-  const step1Valid = form.kinEmail && form.kinName
-   && form.kinRelationship && form.kinPhone  && form.level && form.prifrom 
-   && form.prito && form.secfrom && form.secto && form.tetfrom && form.tetto ;
-  const step2Valid = form.file && form.file2;
+  const step0Valid = form.firstname.trim() 
+   && form.middlename.trim()
+   && form.nin && form.surname && form.sex
+   && form.MaritalStatus && form.Dob 
+  const step1Valid = form.nationality && form.State
+   && form.Lga && form.city  && form.address
+   && form.PhoneNumber && form.FullName && form.Email_Address && form.Phone
+  const step2Valid =form.institution && form.faculty
+   && form.Department && form.programmeType  && form.MatricNumber && form.Course 
+  form.file && form.file2  && form.file3  && form.file4 && form.file5;
   const stepValid = [step0Valid, step1Valid, step2Valid][step];
-  console.log("stepValid:",step1Valid)
+  
  
   const next = () => { if (stepValid) setStep((s) => Math.min(s + 1, BOOKING_STEPS.length - 1)); };
   const back = () => setStep((s) => Math.max(s - 1, 0));
@@ -214,6 +204,53 @@ function formatBytes(bytes) {
     }
     setFileError("");
     setForm({ ...form, file2: f });
+  };
+
+
+  const onFileChange3 = (e) => {
+    const f = e.target.files[0];
+    if (!f) return;
+    if (!ALLOWED_FILE_TYPES.includes(f.type)) {
+      setFileError("Please upload a JPEG, PNG, WEBP image or a PDF.");
+      return;
+    }
+    if (f.size > MAX_FILE_SIZE) {
+      setFileError("File must be 5MB or smaller.");
+      return;
+    }
+    setFileError("");
+    setForm({ ...form, file3: f });
+  };
+
+
+    const onFileChange5 = (e) => {
+    const f = e.target.files[0];
+    if (!f) return;
+    if (!ALLOWED_FILE_TYPES.includes(f.type)) {
+      setFileError("Please upload a JPEG, PNG, WEBP image or a PDF.");
+      return;
+    }
+    if (f.size > MAX_FILE_SIZE) {
+      setFileError("File must be 5MB or smaller.");
+      return;
+    }
+    setFileError("");
+    setForm({ ...form, file5: f });
+  };
+
+  const onFileChange4 = (e) => {
+    const f = e.target.files[0];
+    if (!f) return;
+    if (!ALLOWED_FILE_TYPES.includes(f.type)) {
+      setFileError("Please upload a JPEG, PNG, WEBP image or a PDF.");
+      return;
+    }
+    if (f.size > MAX_FILE_SIZE) {
+      setFileError("File must be 5MB or smaller.");
+      return;
+    }
+    setFileError("");
+    setForm({ ...form, file4: f });
   };
   const onFileChange = (e) => {
     const f = e.target.files[0];
@@ -289,170 +326,135 @@ function formatBytes(bytes) {
  
             {step === 0 && (
               <div className="space-y-4 vd-fade">
-                <h1>Personal Data</h1>
+                <h1>Personal Information</h1>
                 <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Name</label>
-                  <input value={form.name} onChange={update("name")} placeholder="Your full name" className={inputClass} style={selectStyle} />
-                </div>
-                <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Email</label>
-                  <input value={form.email} onChange={update("email")} placeholder="you@example.com" className={inputClass} style={selectStyle} />
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">FirstName</label>
+                  <input value={form.firstname} onChange={update("firstname")} placeholder="firstname" className={inputClass} style={selectStyle} />
                 </div>
                 <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">JAMB Registration Number</label>
-                  <input value={form.registration} onChange={update("registration")} placeholder="" className={inputClass} style={selectStyle} />
-                </div>
-                 <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Matriculation Number</label>
-                  <input value={form.matric} onChange={update("matric")} placeholder="" className={inputClass} style={selectStyle} />
-                </div>
-                 <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">NIN</label>
-                  <input value={form.nin} onChange={update("nin")} placeholder="" className={inputClass} style={selectStyle} />
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">MiddleName</label>
+                  <input value={form.middlename} onChange={update("middlename")} placeholder="middlename" className={inputClass} style={selectStyle} />
                 </div>
                 <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">State of Origin</label>
-                  <input value={form.state} onChange={update("state")} placeholder=" " className={inputClass} style={selectStyle} />
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Surname</label>
+                  <input value={form.surname} onChange={update("surname")} placeholder="" className={inputClass} style={selectStyle} />
                 </div>
                  <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">L.G.O</label>
-                  <input value={form.lgo} onChange={update("lgo")} placeholder=" " className={inputClass} style={selectStyle} />
-                </div>
-                 <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Place of Birth</label>
-                  <input value={form.place} onChange={update("place")} placeholder=" " className={inputClass} style={selectStyle} />
-                </div>
-                 <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Home Address</label>
-                  <input value={form.address} onChange={update("address")} placeholder=" " className={inputClass} style={selectStyle} />
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Gender</label>
+                    <select value={form.sex} onChange={update("sex")} className={selectClass} style={selectStyle}>
+                    <option value="">Select Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                  </select>
                 </div>
                  <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Date of Birth</label>
-                  <input value={form.dob} onChange={update("dob")} placeholder=" " className={inputClass} style={selectStyle} />
-                </div>
-                 <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Nigeria Language</label>
-                  <input value={form.language} onChange={update("language")} placeholder=" " className={inputClass} style={selectStyle} />
-                </div>
-                  <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Phone Number</label>
-                  <input value={form.phone} onChange={update("phone")} placeholder="" className={inputClass} style={selectStyle} />
+                  <input type="Date" value={form.Dob} onChange={update("Dob")} placeholder="" className={inputClass} style={selectStyle} />
                 </div>
                 <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5"> Genotype</label>
-                  <select value={form.genotype} onChange={update("genotype")} className={selectClass} style={selectStyle}>
-                    <option value="">Select an option</option>
-                    <option value="AA">AA</option>
-                    <option value="AS">AS</option>
-                    <option value="AC">AC</option>
-                    <option value="SS">SS</option>
-                    <option value="SC">SC</option>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Marital Status</label>
+                   <select value={form.MaritalStatus} onChange={update("MaritalStatus")} className={selectClass} style={selectStyle}>
+                    <option value="">Select</option>
+                    <option value="Single">Single</option>
+                    <option value="Married">Married</option>
                   </select>
                 </div>
-                <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5"> Blood Group</label>
-                  <select value={form.bloodgroup} onChange={update("bloodgroup")} className={selectClass} style={selectStyle}>
-                    <option value="">Select an option</option>
-                    <option value="A+">A+</option>
-                    <option value="A-">A-</option>
-                    <option value="B+">B+</option>
-                    <option value="B-">B-</option>
-                    <option value="AB+">AB+</option>
-                    <option value="O+">O+</option>
-                    <option value="O-">O-</option>
-                  </select>
-                </div>
-              </div>
-            )}
- 
-            {step === 1 && (
-              <div className="space-y-4 vd-fade">
-                <h1>Education Background</h1>
                  <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Primary School Attended</label>
-                  <div style={{
-                    marginBottom:"10px"
-                  }}>
-
-                  <input className="mb-1.5"
-                 value={form.prifrom} onChange={update("prifrom")} placeholder="From:" className={inputClass} style={selectStyle} />
-                 </div>
-                  <input value={form.prito} onChange={update("prito")} placeholder="To:" className={inputClass} style={selectStyle} />
-
-                </div>
-
-                 <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Secondary School Attended</label>
-                  <div style={{
-                    marginBottom:"10px"
-                  }}>
-
-                  <input className="mb-1.5"
-                 value={form.secfrom} onChange={update("secfrom")} placeholder="From:" className={inputClass} style={selectStyle} />
-                 </div>
-                  <input value={form.secto} onChange={update("secto")} placeholder="To:" className={inputClass} style={selectStyle} />
-
-                </div>
-
-
-                 <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Tertiary School Attended</label>
-                  <div style={{
-                    marginBottom:"10px"
-                  }}>
-
-                  <input className="mb-1.5"
-                 value={form.tetfrom} onChange={update("tetfrom")} placeholder="From:" className={inputClass} style={selectStyle} />
-                 </div>
-                  <input value={form.tetto} onChange={update("tetto")} placeholder="To:" className={inputClass} style={selectStyle} />
-
-                </div>
-                  <input value={form.level} onChange={update("level")} placeholder="O level Result (WAEC OR NECO)" className={inputClass} style={selectStyle} />
-                <h1>Next of kin</h1>
-                  <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Name</label>
-                  <input value={form.kinName} onChange={update("kinName")} placeholder="Your full name" className={inputClass} style={selectStyle} />
-                </div>
-                <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Email</label>
-                  <input value={form.kinEmail} onChange={update("kinEmail")} placeholder="you@example.com" className={inputClass} style={selectStyle} />
-                </div>
-                <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Phone Number</label>
-                  <input value={form.kinPhone} onChange={update("kinPhone")} placeholder="" className={inputClass} style={selectStyle} />
-                </div>
-                 <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Relationship</label>
-                  <input value={form.kinRelationship} onChange={update("kinRelationship")} placeholder="" className={inputClass} style={selectStyle} />
-                </div>
-                <h1>NYSC Kits</h1>
-                  <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Size of Shirt</label>
-                  <input value={form.shirt} onChange={update("shirt")} placeholder="Your full name" className={inputClass} style={selectStyle} />
-                </div>
-                <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Size of Trouser</label>
-                  <input value={form.trouser} onChange={update("trouser")} placeholder="you@example.com" className={inputClass} style={selectStyle} />
-                </div>
-                <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Size of Shoe</label>
-                  <input value={form.shoe} onChange={update("shoe")} placeholder="" className={inputClass} style={selectStyle} />
-                </div>
-                 <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">State visited before</label>
-                  <input value={form.stateBefore} onChange={update("stateBefore")} placeholder="" className={inputClass} style={selectStyle} />
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">NIN</label>
+                  <input value={form.nin} onChange={update("nin")} placeholder=" " className={inputClass} style={selectStyle} />
                 </div>
                 
               </div>
             )}
  
+            {step === 1 && (
+              <div className="space-y-4 vd-fade">
+                <h1>Contact Information</h1>
+                <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Nationality</label>
+                  <input value={form.nationaliy} onChange={update("nationality")} placeholder=" " className={inputClass} style={selectStyle} />
+                </div>
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">State of Origin</label>
+                  <input value={form.State} onChange={update("State")} placeholder=" " className={inputClass} style={selectStyle} />
+                </div>
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">LGA</label>
+                  <input value={form.Lga} onChange={update("Lga")} placeholder=" " className={inputClass} style={selectStyle} />
+                </div>
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Town/City</label>
+                  <input value={form.city} onChange={update("city")} placeholder=" " className={inputClass} style={selectStyle} />
+                </div>
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Residential Address</label>
+                  <input value={form.address} onChange={update("address")} placeholder="" className={inputClass} style={selectStyle} />
+                </div>
+                  <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Phone Number</label>
+                  <input value={form.PhoneNumber} onChange={update("PhoneNumber")} placeholder="" className={inputClass} style={selectStyle} />
+                </div>
+                
+                 <h1>Next of kin</h1>
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">FullName</label>
+                  <div style={{
+                    marginBottom:"10px"
+                  }}>
+                  <input className="mb-1.5"
+                 value={form.FullName} onChange={update("FullName")} placeholder="FullName" className={inputClass} style={selectStyle} />
+                 </div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">PhoneNumber</label>
+                  <input value={form.Phone} onChange={update("Phone")} placeholder="Phonenumber" className={inputClass} style={selectStyle} />
+                </div>
+
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Email Address</label>
+                  <div style={{
+                    marginBottom:"10px"
+                  }}>
+                  <input className="mb-1.5"
+                 value={form.Email_Address} onChange={update("Email_Address")} placeholder="Email_Address" className={inputClass} style={selectStyle} />
+                 </div>
+                </div>
+            </div>
+            )}
+ 
             {step === 2 && (
               <div className="space-y-4 vd-fade">
+                <h1>Academic Data</h1>
+
+                <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Institution</label>
+                  <input value={form.institution} onChange={update("institution")} placeholder=" " className={inputClass} style={selectStyle} />
+                </div>
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Faculty</label>
+                  <input value={form.faculty} onChange={update("faculty")} placeholder=" " className={inputClass} style={selectStyle} />
+                </div>
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Department</label>
+                  <input value={form.Department} onChange={update("Department")} placeholder=" " className={inputClass} style={selectStyle} />
+                </div>
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Programme Type</label>
+                  <input value={form.programmeType} onChange={update("programmeType")} placeholder=" " className={inputClass} style={selectStyle} />
+                </div>
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Matric Number</label>
+                  <input value={form.MatricNumber} onChange={update("MatricNumber")} placeholder="" className={inputClass} style={selectStyle} />
+                </div>
+                  <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Course</label>
+                  <input value={form.Course} onChange={update("Course")} placeholder="" className={inputClass} style={selectStyle} />
+                </div>
+
+
                 <h1>Documents Upload</h1>
                 <div>
-  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">
-    Statement of Result 
-  </label>
+           <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">
+             Passport Photograph
+             </label>
   {form.file ? (
     <div className="flex items-center justify-between gap-3 rounded-lg px-4 py-3" style={{ border: "1px solid #00751833", backgroundColor: "#eef3e6" }}>
       <div className="min-w-0">
@@ -479,9 +481,10 @@ function formatBytes(bytes) {
   )}
   {fileError && <p className="text-xs text-red-600 mt-1.5">{fileError}</p>}
 </div>
-               <div>
+
+  <div>
   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">
-    Signature
+    Nin Slip or Card
   </label>
   {form.file2 ? (
     <div className="flex items-center justify-between gap-3 rounded-lg px-4 py-3" style={{ border: "1px solid #00751833", backgroundColor: "#eef3e6" }}>
@@ -510,6 +513,101 @@ function formatBytes(bytes) {
   {fileError && <p className="text-xs text-red-600 mt-1.5">{fileError}</p>}
 </div>
 
+<div>
+  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">
+    Statement of Result
+  </label>
+  {form.file3 ? (
+    <div className="flex items-center justify-between gap-3 rounded-lg px-4 py-3" style={{ border: "1px solid #00751833", backgroundColor: "#eef3e6" }}>
+      <div className="min-w-0">
+        <p className="text-sm font-medium truncate">{form.file3.name}</p>
+        <p className="text-xs opacity-60">{formatBytes(form.file3.size)}</p>
+      </div>
+      <button type="button" onClick={removeFile} className="text-xs font-semibold vd-text-green shrink-0">
+        Remove
+      </button>
+    </div>
+
+    
+  ) : (
+    <label className="vd-upload block">
+      <input type="file" accept={ALLOWED_FILE_TYPES.join(",")} onChange={onFileChange3} className="hidden" />
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={GREEN} strokeWidth="2" className="mx-auto mb-1.5">
+        <path d="M12 3v12" />
+        <path d="M7 8l5-5 5 5" />
+        <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" />
+      </svg>
+      <p className="text-xs font-semibold vd-text-green">Click to upload</p>
+      <p className="text-xs opacity-50 mt-0.5">JPEG, PNG, WEBP or PDF · up to 5MB</p>
+    </label>
+  )}
+  {fileError && <p className="text-xs text-red-600 mt-1.5">{fileError}</p>}
+</div>
+
+
+<div>
+  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">
+    Project Soft Copy (pdf/doc)
+  </label>
+  {form.file4 ? (
+    <div className="flex items-center justify-between gap-3 rounded-lg px-4 py-3" style={{ border: "1px solid #00751833", backgroundColor: "#eef3e6" }}>
+      <div className="min-w-0">
+        <p className="text-sm font-medium truncate">{form.file4.name}</p>
+        <p className="text-xs opacity-60">{formatBytes(form.file4.size)}</p>
+      </div>
+      <button type="button" onClick={removeFile} className="text-xs font-semibold vd-text-green shrink-0">
+        Remove
+      </button>
+    </div>
+
+    
+  ) : (
+    <label className="vd-upload block">
+      <input type="file" accept={ALLOWED_FILE_TYPES.join(",")} onChange={onFileChange4} className="hidden" />
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={GREEN} strokeWidth="2" className="mx-auto mb-1.5">
+        <path d="M12 3v12" />
+        <path d="M7 8l5-5 5 5" />
+        <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" />
+      </svg>
+      <p className="text-xs font-semibold vd-text-green">Click to upload</p>
+      <p className="text-xs opacity-50 mt-0.5">JPEG, PNG, WEBP or PDF · up to 5MB</p>
+    </label>
+  )}
+  {fileError && <p className="text-xs text-red-600 mt-1.5">{fileError}</p>}
+</div>
+
+<div>
+  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">
+    Signed Project Certificate Page
+  </label>
+  {form.file5 ? (
+    <div className="flex items-center justify-between gap-3 rounded-lg px-4 py-3" style={{ border: "1px solid #00751833", backgroundColor: "#eef3e6" }}>
+      <div className="min-w-0">
+        <p className="text-sm font-medium truncate">{form.file5.name}</p>
+        <p className="text-xs opacity-60">{formatBytes(form.file5.size)}</p>
+      </div>
+      <button type="button" onClick={removeFile} className="text-xs font-semibold vd-text-green shrink-0">
+        Remove
+      </button>
+    </div>
+
+    
+  ) : (
+    <label className="vd-upload block">
+      <input type="file" accept={ALLOWED_FILE_TYPES.join(",")} onChange={onFileChange5} className="hidden" />
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={GREEN} strokeWidth="2" className="mx-auto mb-1.5">
+        <path d="M12 3v12" />
+        <path d="M7 8l5-5 5 5" />
+        <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" />
+      </svg>
+      <p className="text-xs font-semibold vd-text-green">Click to upload</p>
+      <p className="text-xs opacity-50 mt-0.5">JPEG, PNG, WEBP or PDF · up to 5MB</p>
+    </label>
+  )}
+  {fileError && <p className="text-xs text-red-600 mt-1.5">{fileError}</p>}
+</div>
+
+
               </div>
             )}
  
@@ -529,7 +627,7 @@ function formatBytes(bytes) {
                 </button>
               ) : (
                 <button
-                  onClick={()=>makePayment(service)}
+                  onClick={()=>handleSubmit(form)}
                   disabled={!step2Valid || status === "paying"}
                   className="vd-btn-primary flex-1 px-6 py-3 rounded-full text-sm font-semibold flex items-center justify-center gap-2"
                 >
@@ -543,7 +641,9 @@ function formatBytes(bytes) {
                 </button>
               )}
             </div>
-            <p className="text-center text-xs opacity-45 mt-3">Secured by Paystack. Test key in use.</p>
+            <p className="text-center text-xs opacity-45 mt-3">Service Charge:#13000</p>
+            <p className="text-center text-xs opacity-45 mt-3">Note:Extra #5000 for those with scanned hard copy pdf (for retyping/extraction of texts)</p>
+
           </>
         )}
       </div>

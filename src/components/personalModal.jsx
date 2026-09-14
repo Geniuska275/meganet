@@ -53,7 +53,7 @@ function ProgressBar({ step }) {
 
  const paystack = new Paystack();
  const handleSubmit=async (form)=>{
-  console.log("fired")
+ 
   try{
 
 const formData = new FormData();
@@ -201,7 +201,7 @@ function formatBytes(bytes) {
     <div
       className="vd-overlay fixed inset-0 z-50 flex items-center justify-center p-4"
       style={{ background: "rgba(0,20,5,0.55)" }}
-      onClick={onClose}
+    
     >
    
       <div

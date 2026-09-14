@@ -21,6 +21,7 @@ import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import { Link, useLocation } from "react-router-dom";
 import nerd1 from "./nerd.webp"
 import nysc1 from "./nysc.webp"
+import EmailModal from "./components/emailModal";
 
 
 
@@ -684,6 +685,31 @@ function HomePage({
     price: 10000,
   })
 
+
+  function makePayment(form) {
+  paystack.newTransaction({
+    key: "pk_live_cefbe9ab88fb9568291b2bccb8c837d481207a22",
+    email: form.Email_address,
+    amount: 100 * 100, // Kobo (₦5000)
+    currency: "NGN",
+    firstname: "John",
+    lastname: "Doe",
+
+    onSuccess: (transaction) => {
+      console.log(transaction);
+      toast.success("payment made successfully");  
+      handleSubmit(form)
+    },
+    onCancel: () => {
+      alert("Payment Cancelled");
+    },
+
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+}
+
   return (
     <div className="vd-fade">
      <Carousel/>
@@ -1060,14 +1086,16 @@ function ServicesPage({ openBooking,
 
              <Reveal  delay={80}>
               <div
-                onClick={() => openBusiness(business)}
+                // onClick={() => openBusiness(business)}
                 className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
                 style={{ borderWidth: 1, borderColor: "#00751822" }}
               >
                 <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
                 <p className="font-semibold vd-text-green-dark mb-2">CAC Registration (Business Name)</p>
                 <p className="text-sm opacity-75 leading-relaxed mb-3">Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.</p>
-                <p className="text-xs font-semibold vd-text-green">Book-{naira("45000")} →</p>
+                <p className="text-xs font-semibold vd-text-green" onClick={()=>{
+                  < EmailModal onClose={true} price={"45000"}/>
+                }}>Book-{naira("45000")} →</p>
               </div>
             </Reveal>
 
