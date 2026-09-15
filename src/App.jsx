@@ -1051,7 +1051,7 @@ function ServicesPage({ openBooking,
                 <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
                 <p className="font-semibold vd-text-green-dark mb-2">NYSC Registration</p>
                 <p className="text-sm opacity-75 leading-relaxed mb-3">Hassle-free NYSC registration with accurate biometric capturing for a smooth and successful process.</p>
-                <p className="text-xs font-semibold vd-text-green">Book-{naira("1000")} →</p>
+                <p className="text-xs font-semibold vd-text-green">Book-{naira("10000")} →</p>
               </div>
             </Reveal>
 
