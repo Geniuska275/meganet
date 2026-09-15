@@ -47,13 +47,16 @@ function ProgressBar({ step }) {
 //   const paystackReady = usePaystackScript();
   
  const paystack = new Paystack();
- const handleSubmit=async (data,form)=>{
+ const handleSubmit=async (form)=>{
   try{
 const formData = new FormData();
 formData.append("first_choice", form.first_choice);
 formData.append("Email_address", form.Email_address);
+formData.append("Email_address2", form.Email_address2);
+formData.append("fullname", form.fullname);
+formData.append("fullname2", form.fullname2);
 formData.append("second_choice", form.second_choice);
-formData.append("company_address", form.company_address);
+formData.append("business_address", form.business_address);
 formData.append("company_does", form.company_does);
 formData.append("company_nature", form.company_nature);
 formData.append("dob", form.dob);
@@ -62,6 +65,12 @@ formData.append("phone_number", form.phone_number);
 formData.append("origin", form.origin);
 formData.append("card_number", form.card_number);
 formData.append("home_address", form.home_address);
+formData.append("dob2", form.dob);
+formData.append("address2", form.address);
+formData.append("phone_number2", form.phone_number);
+formData.append("origin2", form.origin);
+formData.append("card_number2", form.card_number);
+formData.append("home_address2", form.home_address);
 formData.append("d_address", form.d_address);
 formData.append("d_dob", form.d_dob);
 formData.append("d_fullname", form.d_fullname);
@@ -85,7 +94,7 @@ if (form.file3) {
     await axios.post("https://meganet-backend-q2fi.onrender.com/api/forms", formData).then(()=>{
       onClose()
      toast.success("Form successfully submitted!");
-     makePayment(data,form)
+    //  makePayment(data,form)
     })
   } catch(err){
      console.log(err)
@@ -97,13 +106,14 @@ if (form.file3) {
   paystack.newTransaction({
     key: "pk_live_cefbe9ab88fb9568291b2bccb8c837d481207a22",
     email: form.Email_address,
-    amount: 100 * data.price, // Kobo (₦5000)
+    amount: 100 * 100, // Kobo (₦5000)
     currency: "NGN",
     
 
     onSuccess: (transaction) => {
       console.log(transaction);
       toast.success("payment made successfully");  
+      handleSubmit(form)
      
     },
     onCancel: () => {
@@ -123,7 +133,8 @@ if (form.file3) {
     first_choice: "",
     second_choice: "",
     Email_address:"",
-    company_address: "",
+    Email_address2:"",
+    business_address: "",
     company_does: "",
     company_nature: "",
     dob: "",
@@ -132,6 +143,14 @@ if (form.file3) {
     origin: "",
     card_number: "",
     home_address: "",
+    dob2: "",
+    address2: "",
+    phone_number2: "",
+    origin2: "",
+    card_number2: "",
+    home_address2: "",
+    fullname2:"",
+    fullname:"",
     d_address: "",
     d_dob: "",
     d_fullname:"",
@@ -153,10 +172,13 @@ if (form.file3) {
  
   const step0Valid = form.first_choice.trim()  
    && form.second_choice.trim()
-   && form.company_address && form.Email_address
+   && form.business_address && form.Email_address
    form.company_does 
    && form.company_nature && form.fullname && form.phone_number
    && form.origin && form.card_number && form.dob && form.home_address
+    && form.fullname2 && form.phone_number2
+   && form.origin2 && form.card_number2 && form.dob2 && form.home_address2 && form.Email_address2
+  
   
   const step1Valid = form.d_address && form.d_fullname && form.d_phone_number
    && form.d_origin && form.card_number && form.dob && form.home_address  && form.l_origin
@@ -298,7 +320,7 @@ function formatBytes(bytes) {
                 </div>
                 <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Company Address</label>
-                  <input value={form.company_address} onChange={update("company_address")} placeholder="" className={inputClass} style={selectStyle} />
+                  <input value={form.business_address} onChange={update("business_address")} placeholder="" className={inputClass} style={selectStyle} />
                 </div>
                  <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">General Nature of Company</label>
@@ -308,7 +330,7 @@ function formatBytes(bytes) {
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">What the company is into</label>
                   <input value={form.company_does} onChange={update("company_does")} placeholder="" className={inputClass} style={selectStyle} />
                 </div>
-                <h1>Director Details</h1>
+                <h1>Director1 Details</h1>
                 <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Full Name</label>
                   <input value={form.fullname} onChange={update("fullname")} placeholder=" " className={inputClass} style={selectStyle} />
@@ -327,7 +349,7 @@ function formatBytes(bytes) {
                 </div>
                  <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Date of Birth</label>
-                  <input value={form.dob} onChange={update("dob")} placeholder=" MM/DD/YYYY" className={inputClass} style={selectStyle} />
+                  <input value={form.dob} type="date" onChange={update("dob")}  className={inputClass} style={selectStyle} />
                 </div>
                  <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">National ID Card Number</label>
@@ -336,6 +358,37 @@ function formatBytes(bytes) {
                   <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Home Address</label>
                   <input value={form.home_address} onChange={update("home_address")} placeholder="" className={inputClass} style={selectStyle} />
+                </div>
+                
+
+                 <h1>Director2 Details</h1>
+                <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Full Name</label>
+                  <input value={form.fullname2} onChange={update("fullname2")} placeholder=" " className={inputClass} style={selectStyle} />
+                </div>
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Email Address</label>
+                  <input value={form. Email_address2} onChange={update("Email_address2")} placeholder=" " className={inputClass} style={selectStyle} />
+                </div>
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Phone Number</label>
+                  <input value={form.phone_number2} onChange={update("phone_number2")} placeholder=" " className={inputClass} style={selectStyle} />
+                </div>
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">State of Origin</label>
+                  <input value={form.origin2} onChange={update("origin2")} placeholder=" " className={inputClass} style={selectStyle} />
+                </div>
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Date of Birth</label>
+                  <input value={form.dob2} type="date" onChange={update("dob2")}  className={inputClass} style={selectStyle} />
+                </div>
+                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">National ID Card Number</label>
+                  <input value={form.card_number2} onChange={update("card_number2")} placeholder=" " className={inputClass} style={selectStyle} />
+                </div>
+                  <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Home Address</label>
+                  <input value={form.home_address2} onChange={update("home_address2")} placeholder="" className={inputClass} style={selectStyle} />
                 </div>
                 
               </div>
@@ -367,7 +420,6 @@ function formatBytes(bytes) {
                 </div>
                  <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Date of Birth</label>
-                  <input value={form.d_dob} onChange={update("d_dob")} placeholder=" MM/DD/YYYY" className={inputClass} style={selectStyle} />
                 </div>
                  <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">National ID Card Number</label>
@@ -498,7 +550,7 @@ function formatBytes(bytes) {
                 </button>
               ) : (
                 <button
-                  onClick={()=>handleSubmit(service,form)}
+                  onClick={()=>makePayment(service,form)}
                   disabled={!step2Valid || status === "paying"}
                   className="vd-btn-primary flex-1 px-6 py-3 rounded-full text-sm font-semibold flex items-center justify-center gap-2"
                 >
