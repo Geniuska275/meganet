@@ -21,6 +21,7 @@ import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import { Link, useLocation } from "react-router-dom";
 import nerd1 from "./nerd.webp"
 import nysc1 from "./nysc.webp"
+import cac1 from "./cac.webp"
 import EmailModal from "./components/emailModal";
 
 
@@ -598,7 +599,7 @@ function HomePage({
     const [cac,setCac]=useState(
       {
     id: "CAC Registration",
-    image: "https://picsum.photos/seed/verdant-reporting/800/600",
+    image: cac1,
     eyebrow: "Miwas",
    
     title: "CAC Registration (Company Name)",
@@ -612,7 +613,7 @@ function HomePage({
   const [business,setBusiness]=useState(
       {
     id: "CAC Registration",
-    image: "https://picsum.photos/seed/verdant-reporting/800/600",
+    image: cac1,
     eyebrow: "Miwas",
    
     title: "CAC Registration (Business Name)",
@@ -625,7 +626,7 @@ function HomePage({
    const [ngo,setNgo]=useState(
       {
     id: "CAC Registration",
-    image: "https://picsum.photos/seed/verdant-reporting/800/600",
+    image: cac1,
     eyebrow: "Miwas",
    
     title: "CAC Registration (NGO/Church)",
@@ -938,7 +939,7 @@ function ServicesPage({ openBooking,
     const [cac,setCac]=useState(
       {
     id: "CAC Registration",
-    image: "https://picsum.photos/seed/verdant-reporting/800/600",
+    image: cac1,
     eyebrow: "MEGANET",
    
     title: "CAC Registration (Company Name)",
@@ -952,7 +953,7 @@ function ServicesPage({ openBooking,
   const [business,setBusiness]=useState(
       {
     id: "CAC Registration",
-    image: "https://picsum.photos/seed/verdant-reporting/800/600",
+    image:cac1,
     eyebrow: "MEGANET",
    
     title: "CAC Registration (Business Name)",
@@ -965,7 +966,7 @@ function ServicesPage({ openBooking,
    const [ngo,setNgo]=useState(
       {
     id: "CAC Registration",
-    image: "https://picsum.photos/seed/verdant-reporting/800/600",
+    image:cac1,
     eyebrow: "MEGANET",
    
     title: "CAC Registration (NGO/Church)",
@@ -1065,7 +1066,7 @@ function ServicesPage({ openBooking,
                 <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
                 <p className="font-semibold vd-text-green-dark mb-2">NERD Registration</p>
                 <p className="text-sm opacity-75 leading-relaxed mb-3">Seamless uploading of academic research projects on the NERD platform as a mandatory requirement for successful NYSC registration.</p>
-                <p className="text-xs font-semibold vd-text-green">Book-{naira("1300")} →</p>
+                <p className="text-xs font-semibold vd-text-green">Book-{naira("13000")} →</p>
               </div>
             </Reveal>
 
@@ -1086,7 +1087,7 @@ function ServicesPage({ openBooking,
 
              <Reveal  delay={80}>
               <div
-                // onClick={() => openBusiness(business)}
+                onClick={() => openBusiness(business)}
                 className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
                 style={{ borderWidth: 1, borderColor: "#00751822" }}
               >
