@@ -45,26 +45,23 @@ function ProgressBar({ step }) {
 //   const paystackReady = usePaystackScript();
   
  const paystack = new Paystack();
- const handleSubmit=async (data,form)=>{
+ const handleSubmit=async (form)=>{
   try{
 const formData = new FormData();
 formData.append("first_choice", form.first_choice);
+formData.append("fullname", form.fullname);
 formData.append("Email_address", form.Email_address);
 formData.append("second_choice", form.second_choice);
-   
-   
-  
-   
-  
 formData.append("business_address", form.business_address);
 formData.append("company_nature", form.company_nature);
 formData.append("dob", form.dob);
-
 formData.append("phone_number", form.phone_number);
 formData.append("origin", form.origin);
 formData.append("card_number", form.card_number);
 formData.append("home_address", form.home_address);
 formData.append("l_origin", form.l_origin);
+formData.append("cost", form.cost);
+
 
 
 if (form.file) {
@@ -81,7 +78,7 @@ if (form.file3) {
     await axios.post("https://meganet-backend-q2fi.onrender.com/api/business", formData).then(()=>{
       onClose()
      toast.success("Form successfully submitted!");
-     makePayment(data,form)
+    //  makePayment(data,form)
     })
   } catch(err){
      console.log(err.message)
@@ -93,14 +90,14 @@ if (form.file3) {
   paystack.newTransaction({
     key: "pk_live_cefbe9ab88fb9568291b2bccb8c837d481207a22",
     email: form.Email_address,
-    amount: 100 * data.price, // Kobo (₦5000)
+    amount: 100 * 100, // Kobo (₦5000)
     currency: "NGN",
     
 
     onSuccess: (transaction) => {
       console.log(transaction);
       toast.success("payment made successfully");  
-     
+      handleSubmit(form)
     },
     onCancel: () => {
       alert("Payment Cancelled");
@@ -115,6 +112,7 @@ if (form.file3) {
   const [form, setForm] = useState({
     first_choice: "",
     second_choice: "",
+    fullname: "",
     business_address: "",
     company_nature: "",
     dob: "",
@@ -124,6 +122,7 @@ if (form.file3) {
     card_number: "",
     home_address: "",
     l_origin:"",
+    cost:45000,
     file:"",
     file2:"",
     file3:""
@@ -440,7 +439,7 @@ function formatBytes(bytes) {
                 </button>
               ) : (
                 <button
-                  onClick={()=>handleSubmit(service,form)}
+                  onClick={()=>makePayment(service,form)}
                   disabled={!step2Valid || status === "paying"}
                   className="vd-btn-primary flex-1 px-6 py-3 rounded-full text-sm font-semibold flex items-center justify-center gap-2"
                 >
