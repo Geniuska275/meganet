@@ -166,7 +166,7 @@ if (form.file5) {
    && form.MaritalStatus && form.Dob 
   const step1Valid = form.nationality && form.State
    && form.Lga && form.city  && form.address
-   && form.PhoneNumber && form.FullName && form.Email_Address && form.Phone
+   && form.PhoneNumber && form.FullName && form.Email_Address && form.Phone && form.Email_address
   const step2Valid =form.institution && form.faculty
    && form.Department && form.programmeType  && form.MatricNumber && form.Course 
   form.file && form.file2  && form.file3  && form.file4 && form.file5;
@@ -389,6 +389,10 @@ function formatBytes(bytes) {
                  <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Residential Address</label>
                   <input value={form.address} onChange={update("address")} placeholder="" className={inputClass} style={selectStyle} />
+                </div>
+                <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Email Address</label>
+                  <input value={form.Email_address} onChange={update("Email_address")} placeholder="" className={inputClass} style={selectStyle} />
                 </div>
                   <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Phone Number</label>
