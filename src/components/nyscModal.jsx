@@ -402,7 +402,7 @@ function formatBytes(bytes) {
                 </div>
                 <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Email</label>
-                  <input value={form.kinEmail} onChange={update("kinEmail")} placeholder="you@example.com" className={inputClass} style={selectStyle} />
+                  <input value={form.kinEmail} onChange={update("kinEmail")} placeholder="Email Address" className={inputClass} style={selectStyle} />
                 </div>
                 <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Phone Number</label>
