@@ -107,13 +107,13 @@ if (form.file) {
   
   const [step, setStep] = useState(0);
   const [form, setForm] = useState({
-    fullname:"kings",
-    Email_address:"aigbojie2020@gmail.com",
-    phone_number:"09012892920",
-    institution:"uniben", 
-    study:"physics",
-    destination:"england", 
-    website:"www.uniben.com", 
+    fullname:"",
+    Email_address:"",
+    phone_number:"",
+    institution:"", 
+    study:"",
+    destination:"", 
+    website:"", 
     cost:20000,
     file:null,
   });
@@ -340,7 +340,7 @@ function formatBytes(bytes) {
                 </button>
               ) : (
                 <button
-                  onClick={()=>makePayment(service,form)}
+                  onClick={()=>handleSubmit(form)}
                   disabled={!step2Valid || status === "paying"}
                   className="vd-btn-primary flex-1 px-6 py-3 rounded-full text-sm font-semibold flex items-center justify-center gap-2"
                 >
