@@ -454,7 +454,7 @@ function formatBytes(bytes) {
     
   ) : (
     <label className="vd-upload block">
-      <input type="file" accept={ALLOWED_FILE_TYPES.join(",")} onChange={onFileChange} className="hidden" />
+      <input type="file" accept="application/pdf"  onChange={onFileChange} className="hidden" />
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={GREEN} strokeWidth="2" className="mx-auto mb-1.5">
         <path d="M12 3v12" />
         <path d="M7 8l5-5 5 5" />
@@ -484,7 +484,7 @@ function formatBytes(bytes) {
     
   ) : (
     <label className="vd-upload block">
-      <input type="file" accept={ALLOWED_FILE_TYPES.join(",")} onChange={onFileChange2} className="hidden" />
+      <input type="file"  accept="application/pdf"  onChange={onFileChange2} className="hidden" />
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={GREEN} strokeWidth="2" className="mx-auto mb-1.5">
         <path d="M12 3v12" />
         <path d="M7 8l5-5 5 5" />
@@ -516,7 +516,7 @@ function formatBytes(bytes) {
                 </button>
               ) : (
                 <button
-                  onClick={()=>makePayment(service,form)}
+                  onClick={()=>handleSubmit(form)}
                   disabled={!step2Valid || status === "paying"}
                   className="vd-btn-primary flex-1 px-6 py-3 rounded-full text-sm font-semibold flex items-center justify-center gap-2"
                 >
