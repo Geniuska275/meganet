@@ -70,6 +70,9 @@ formData.append("origin", form.origin);
 formData.append("card_number", form.card_number);
 formData.append("home_address", form.home_address);
 formData.append("email_address", form.email_address);
+formData.append("primary", form.primary);
+formData.append("secondary", form.secondary);
+formData.append("tertiary", form.tertiary);
 formData.append("spoken", form.spoken);
 formData.append("cost", form.cost);
 
@@ -135,6 +138,9 @@ if (form.file3) {
     tto:"",
     qualification:"",
     tqualification:"",
+    tertiary,
+    primary,
+    secondary,
     company: "",
     fullname:"",
     gender:"",
@@ -335,6 +341,9 @@ function formatBytes(bytes) {
                 <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Primary School Attended:</label>
                   <div className="mb-2">
+                  <input value={form.primary} onChange={update("primary")} placeholder="Primary" className={inputClass} style={selectStyle} />
+                  </div>
+                  <div className="mb-2">
                   <input value={form.pfrom} onChange={update("pfrom")} placeholder="From (MONTH/YEAR) " className={inputClass} style={selectStyle} />
                   </div>
                   <input value={form.pto} onChange={update("pto")} placeholder=" To (MONTH/YEAR)" className={inputClass} style={selectStyle} />
@@ -342,6 +351,9 @@ function formatBytes(bytes) {
 
                 <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Secondary School Attended:</label>
+                  <div className="mb-2">
+                  <input value={form.secondary} onChange={update("secondary")} placeholder="Secondary" className={inputClass} style={selectStyle} />
+                  </div>
                   <div className="mb-2">
                   <input value={form.sfrom} onChange={update("sfrom")} placeholder="From (MONTH/YEAR) " className={inputClass} style={selectStyle} />
                   </div>
@@ -354,6 +366,9 @@ function formatBytes(bytes) {
 
                  <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Tertiary Institution Attended:</label>
+                  <div className="mb-2">
+                  <input value={form.tertiary} onChange={update("tertiary")} placeholder="Primary" className={inputClass} style={selectStyle} />
+                  </div>
                   <div className="mb-2">
                   <input value={form.tfrom} onChange={update("tfrom")} placeholder="From (MONTH/YEAR) " className={inputClass} style={selectStyle} />
                   </div>
