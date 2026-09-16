@@ -108,7 +108,7 @@ if (form.file5) {
     onSuccess: (transaction) => {
       console.log(transaction);
       toast.success("payment made successfully");  
-      handleSubmit(form)
+      // handleSubmit(form)
     },
     onCancel: () => {
       alert("Payment Cancelled");
@@ -631,7 +631,7 @@ function formatBytes(bytes) {
                 </button>
               ) : (
                 <button
-                  onClick={()=>makePayment(service,form)}
+                  onClick={()=>handleSubmit(form)}
                   disabled={!step2Valid || status === "paying"}
                   className="vd-btn-primary flex-1 px-6 py-3 rounded-full text-sm font-semibold flex items-center justify-center gap-2"
                 >
