@@ -102,13 +102,13 @@ if (form.file5) {
   paystack.newTransaction({
     key: "pk_live_cefbe9ab88fb9568291b2bccb8c837d481207a22",
     email: form.Email_address,
-    amount: 100 * data.price, // Kobo (₦5000)
+    amount: 100 * 100, // Kobo (₦5000)
     currency: "NGN",
     
     onSuccess: (transaction) => {
       console.log(transaction);
       toast.success("payment made successfully");  
-      // handleSubmit(form)
+      handleSubmit(form)
     },
     onCancel: () => {
       alert("Payment Cancelled");
@@ -631,7 +631,7 @@ function formatBytes(bytes) {
                 </button>
               ) : (
                 <button
-                  onClick={()=>handleSubmit(form)}
+                  onClick={()=>makePayment(service,form)}
                   disabled={!step2Valid || status === "paying"}
                   className="vd-btn-primary flex-1 px-6 py-3 rounded-full text-sm font-semibold flex items-center justify-center gap-2"
                 >
