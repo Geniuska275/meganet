@@ -45,7 +45,7 @@ function ProgressBar({ step }) {
 //   const paystackReady = usePaystackScript();
 
 const paystack = new Paystack();
-const handleSubmit=async (data,form)=>{
+const handleSubmit=async (form)=>{
   try{
 const formData = new FormData();
 formData.append("pto", form.pto);
@@ -77,22 +77,20 @@ formData.append("spoken", form.spoken);
 formData.append("cost", form.cost);
 
 
-if (form.file) {
-  formData.append("file", form.file);
-}
-if (form.file2) {
-  formData.append("file2", form.file2);
-}
-if (form.file3) {
-  formData.append("file3", form.file3);
-}
 
    console.log(formData)
-     await axios.post("https://meganet-backend-q2fi.onrender.com/api/resume", formData).then(()=>{
-     onClose()
-     toast.success("Form successfully submitted!");
-     makePayment(data,form)
-    })
+     await axios.post(
+  "https://meganet-backend-q2fi.onrender.com/api/resume",
+  formData,
+  {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  }
+)
+ toast.success("form submitted successfully")
+ onClose()
+
   } catch(err){
     console.log(err)
      toast.error("CHECK YOUR INPUTS AND TRY AGAIN!");
@@ -138,9 +136,9 @@ if (form.file3) {
     tto:"",
     qualification:"",
     tqualification:"",
-    tertiary,
-    primary,
-    secondary,
+    tertiary:"",
+    primary:"",
+    secondary:"",
     company: "",
     fullname:"",
     gender:"",
@@ -159,7 +157,7 @@ if (form.file3) {
     spoken: "",
     cost:5000
   });
-
+ console.log(form)
   const [status, setStatus] = useState("form"); // form | paying | paid
   const [reference, setReference] = useState("");
  
@@ -367,7 +365,7 @@ function formatBytes(bytes) {
                  <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Tertiary Institution Attended:</label>
                   <div className="mb-2">
-                  <input value={form.tertiary} onChange={update("tertiary")} placeholder="Primary" className={inputClass} style={selectStyle} />
+                  <input value={form?.tertiary} onChange={update("tertiary")} placeholder="Tertiary" className={inputClass} style={selectStyle} />
                   </div>
                   <div className="mb-2">
                   <input value={form.tfrom} onChange={update("tfrom")} placeholder="From (MONTH/YEAR) " className={inputClass} style={selectStyle} />
