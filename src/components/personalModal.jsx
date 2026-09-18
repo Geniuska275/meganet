@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import  Paystack  from "@paystack/inline-js";
+import Paystack from "@paystack/inline-js";
 import { toast } from "react-toastify";
 
 
@@ -45,106 +45,106 @@ function ProgressBar({ step }) {
     </div>
   );
 }
- 
- 
 
 
- export default function PersonalModal({ service, onClose }) {
-
- const paystack = new Paystack();
- const handleSubmit=async (form)=>{
- 
-  try{
-
-const formData = new FormData();
-formData.append("fullname", form.fullname);
-formData.append("Email_address", form.Email_address);
-formData.append("phone_number", form.phone_number);
-formData.append("institution", form.institution);
-formData.append("study", form.study);
-formData.append("destination", form.destination);
-formData.append("website", form.website);
-formData.append("cost", form.cost);
 
 
-if (form.file) {
-  formData.append("file", form.file);
-}
-    await axios.post("https://meganet-backend-q2fi.onrender.com/api/personal", formData).then(()=>{
-      onClose()
-     toast.success("Form successfully submitted!");
-    //  makePayment(data,form)
-    })
-  } catch(err){
-    console.log(err)
-     toast.error("Form submission failed,server error!");
+export default function PersonalModal({ service, onClose }) {
 
+  const paystack = new Paystack();
+  const handleSubmit = async (form) => {
+
+    try {
+
+      const formData = new FormData();
+      formData.append("fullname", form.fullname);
+      formData.append("Email_address", form.Email_address);
+      formData.append("phone_number", form.phone_number);
+      formData.append("institution", form.institution);
+      formData.append("study", form.study);
+      formData.append("destination", form.destination);
+      formData.append("website", form.website);
+      formData.append("cost", form.cost);
+
+
+      if (form.file) {
+        formData.append("file", form.file);
+      }
+      await axios.post("https://meganet-backend-q2fi.onrender.com/api/personal", formData).then(() => {
+        onClose()
+        toast.success("Form successfully submitted!");
+        //  makePayment(data,form)
+      })
+    } catch (err) {
+      console.log(err)
+      toast.error("Form submission failed,server error!");
+
+    }
   }
-}
- function makePayment(data,form) {
-  paystack.newTransaction({
-    key: "pk_live_cefbe9ab88fb9568291b2bccb8c837d481207a22",
-    email: form.Email_address,
-    amount: 100 * 100, // Kobo (₦5000)
-    currency: "NGN",
-    firstname: "John",
-    lastname: "Doe",
+  function makePayment(data, form) {
+    paystack.newTransaction({
+      key: "pk_live_cefbe9ab88fb9568291b2bccb8c837d481207a22",
+      email: form.Email_address,
+      amount: 100 * 100, // Kobo (₦5000)
+      currency: "NGN",
+      firstname: "John",
+      lastname: "Doe",
 
-    onSuccess: (transaction) => {
-      console.log(transaction);
-      toast.success("payment made successfully");  
-      handleSubmit(form)
-    },
-    onCancel: () => {
-      alert("Payment Cancelled");
-    },
+      onSuccess: (transaction) => {
+        console.log(transaction);
+        toast.success("payment made successfully");
+        handleSubmit(form)
+      },
+      onCancel: () => {
+        alert("Payment Cancelled");
+      },
 
-    onError: (error) => {
-      console.log(error);
-    },
-  });
-}
-  
+      onError: (error) => {
+        console.log(error);
+      },
+    });
+  }
+
   const [step, setStep] = useState(0);
   const [form, setForm] = useState({
-    fullname:"",
-    Email_address:"",
-    phone_number:"",
-    institution:"", 
-    study:"",
-    destination:"", 
-    website:"", 
-    cost:20000,
-    file:null,
+    fullname: "",
+    Email_address: "",
+    phone_number: "",
+    institution: "",
+    study: "",
+    destination: "",
+    website: "",
+    cost: 20000,
+    file: null,
   });
 
   const [status, setStatus] = useState("form"); // form | paying | paid
   const [reference, setReference] = useState("");
- 
-  if (!service) return null;
- 
-  const update = (k) => (e) => setForm({ ...form, [k]: e.target.value });
- 
-  const step0Valid = form.fullname && form.phone_number && form.study && form.destination
-   && form.website && form.institution && form.Email_address
-  
 
-  const step2Valid = form.file 
+  if (!service) return null;
+
+  const update = (k) => (e) => setForm({ ...form, [k]: e.target.value });
+
+  const step0Valid = form.fullname && form.phone_number && form.study && form.destination
+    && form.website && form.institution && form.Email_address
+
+
+  const step2Valid = form.file
   const stepValid = [step0Valid, step2Valid][step];
 
   const next = () => { if (stepValid) setStep((s) => Math.min(s + 1, BOOKING_STEPS.length - 1)); };
-  const back = () => setStep((s) => Math.max(s - 1, 0)); 
+  const back = () => setStep((s) => Math.max(s - 1, 0));
   const selectClass = "vd-input w-full px-4 py-2.5 rounded-lg bg-white outline-none text-sm";
   const selectStyle = { border: "1px solid #00751833" };
   const inputClass = "vd-input w-full px-4 py-2.5 rounded-lg bg-white outline-none text-sm";
- const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
-const ALLOWED_FILE_TYPES = ["image/jpeg", "image/png", "image/webp", "application/pdf"];
+  const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+  const ALLOWED_FILE_TYPES = ["image/jpeg", "image/png", "image/webp", "application/pdf"];
 
-function formatBytes(bytes) {
-  if (bytes < 1024) return `${bytes} B`;
-  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} KB`;
-  return `${(bytes / 1024 / 1024).toFixed(1)} MB`;
-}
+  function formatBytes(bytes) {
+    if (bytes < 1024) return `${bytes} B`;
+    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} KB`;
+    return `${(bytes / 1024 / 1024).toFixed(1)} MB`;
+  }
 
   const [fileError, setFileError] = useState("");
 
@@ -163,7 +163,7 @@ function formatBytes(bytes) {
     setForm({ ...form, file2: f });
   };
 
-    const onFileChange3 = (e) => {
+  const onFileChange3 = (e) => {
     const f = e.target.files[0];
     if (!f) return;
     if (!ALLOWED_FILE_TYPES.includes(f.type)) {
@@ -201,9 +201,9 @@ function formatBytes(bytes) {
     <div
       className="vd-overlay fixed inset-0 z-50 flex items-center justify-center p-4"
       style={{ background: "rgba(0,20,5,0.55)" }}
-    
+
     >
-   
+
       <div
         className="vd-modal w-full max-w-md rounded-2xl bg-white p-7 relative"
         style={{ maxHeight: "90vh", overflowY: "auto" }}
@@ -219,7 +219,7 @@ function formatBytes(bytes) {
             <line x1="6" y1="6" x2="18" y2="18" />
           </svg>
         </button>
- 
+
         {status === "paid" ? (
           <div className="text-center py-6 vd-fade">
             <div className="w-12 h-12 rounded-full vd-bg-gold mx-auto mb-4 flex items-center justify-center">
@@ -246,84 +246,87 @@ function formatBytes(bytes) {
             <p className="text-sm opacity-70 mb-5">
               Fee: <span className="font-semibold vd-text-green-dark">{naira(service.price)}</span>
             </p>
- 
+
             <ProgressBar step={step} />
- 
+
             {step === 0 && (
               <div className="space-y-4 vd-fade">
                 <h1>Personal Statement / Statement of Purpose (SOP)</h1>
-            
+
                 <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Full Name</label>
                   <input value={form.fullname} onChange={update("fullname")} placeholder=" " className={inputClass} style={selectStyle} />
                 </div>
-                 <div>
+                <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Email Address</label>
                   <input value={form.Email_address} onChange={update("Email_address")} placeholder=" " className={inputClass} style={selectStyle} />
                 </div>
-                 <div>
+                <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Phone Number</label>
                   <input value={form.phone_number} onChange={update("phone_number")} placeholder=" " className={inputClass} style={selectStyle} />
                 </div>
-                 <div>
+                <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Name of Institution</label>
                   <input value={form.institution} onChange={update("institution")} placeholder=" " className={inputClass} style={selectStyle} />
                 </div>
-                 <div>
+                <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Institution Website</label>
                   <input value={form.website} onChange={update("website")} placeholder=" " className={inputClass} style={selectStyle} />
                 </div>
-                 <div>
+                <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Intended Course of Study</label>
                   <input value={form.study} onChange={update("study")} placeholder=" " className={inputClass} style={selectStyle} />
                 </div>
-                  <div>
+                <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Intended Country of Destination</label>
                   <input value={form.destination} onChange={update("destination")} placeholder="" className={inputClass} style={selectStyle} />
                 </div>
-                
+
               </div>
             )}
- 
-           
- 
+
+
+
             {step === 1 && (
               <div className="space-y-4 vd-fade">
                 <h1>Documents Upload</h1>
                 <div>
-  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">
-    CV/Resume
-  </label>
-  {form.file ? (
-    <div className="flex items-center justify-between gap-3 rounded-lg px-4 py-3" style={{ border: "1px solid #00751833", backgroundColor: "#eef3e6" }}>
-      <div className="min-w-0">
-        <p className="text-sm font-medium truncate">{form.file.name}</p>
-        <p className="text-xs opacity-60">{formatBytes(form.file.size)}</p>
-      </div>
-      <button type="button" onClick={removeFile} className="text-xs font-semibold vd-text-green shrink-0">
-        Remove
-      </button>
-    </div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">
+                    CV/Resume
+                  </label>
+                  {form.file ? (
+                    <div className="flex items-center justify-between gap-3 rounded-lg px-4 py-3" style={{ border: "1px solid #00751833", backgroundColor: "#eef3e6" }}>
+                      <div className="min-w-0">
+                        <p className="text-sm font-medium truncate">{form.file.name}</p>
+                        <p className="text-xs opacity-60">{formatBytes(form.file.size)}</p>
+                      </div>
+                      <button type="button" onClick={() => {
+                        setForm({ ...form, file: null });
+                        setFileError("");
+                      }} className="text-xs font-semibold vd-text-green shrink-0">
+                        Remove
+                      </button>
+                    </div>
 
-    
-  ) : (
-    <label className="vd-upload block">
-      <input type="file" accept={ALLOWED_FILE_TYPES.join(",")} accept="application/pdf" onChange={onFileChange} className="hidden" />
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={GREEN} strokeWidth="2" className="mx-auto mb-1.5">
-        <path d="M12 3v12" />
-        <path d="M7 8l5-5 5 5" />
-        <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" />
-      </svg>
-      <p className="text-xs font-semibold vd-text-green">Click to upload</p>
-      <p className="text-xs opacity-50 mt-0.5">JPEG, PNG, WEBP or PDF · up to 5MB</p>
-    </label>
-  )}
-  {fileError && <p className="text-xs text-red-600 mt-1.5">{fileError}</p>}
-</div>
-  
-     </div>
+
+                  ) : (
+                    <label className="vd-upload block">
+                      <input type="file" accept={ALLOWED_FILE_TYPES.join(",")} accept="application/pdf" onChange={onFileChange} className="hidden" />
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={GREEN} strokeWidth="2" className="mx-auto mb-1.5">
+                        <path d="M12 3v12" />
+                        <path d="M7 8l5-5 5 5" />
+                        <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" />
+                      </svg>
+                      <p className="text-xs font-semibold vd-text-green">Click to upload</p>
+                      <p className="text-xs opacity-50 mt-0.5">JPEG, PNG, WEBP or PDF · up to 5MB</p>
+                    </label>
+                  )}
+                  {fileError && <p className="text-xs text-red-600 mt-1.5">{fileError}</p>}
+                </div>
+
+              </div>
             )}
- 
+
             <div className="flex gap-3 mt-6">
               {step > 0 && (
                 <button onClick={back} className="vd-btn-outline flex-1 px-6 py-3 rounded-full text-sm font-semibold">
@@ -340,7 +343,7 @@ function formatBytes(bytes) {
                 </button>
               ) : (
                 <button
-                  onClick={()=>makePayment(service,form)}
+                  onClick={() => makePayment(service, form)}
                   disabled={!step2Valid || status === "paying"}
                   className="vd-btn-primary flex-1 px-6 py-3 rounded-full text-sm font-semibold flex items-center justify-center gap-2"
                 >
