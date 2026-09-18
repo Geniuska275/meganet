@@ -251,13 +251,13 @@ export default function NGOModal({ service, onClose }) {
     <div
       className="vd-overlay fixed inset-0 z-50 flex items-center justify-center p-4"
       style={{ background: "rgba(0,20,5,0.55)" }}
-      onClick={onClose}
+    // onClick={onClose}
     >
 
       <div
         className="vd-modal w-full max-w-md rounded-2xl bg-white p-7 relative"
         style={{ maxHeight: "90vh", overflowY: "auto" }}
-        onClick={(e) => e.stopPropagation()}
+      // onClick={(e) => e.stopPropagation()}
       >
         <button
           onClick={onClose}

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import  Paystack  from "@paystack/inline-js";
+import Paystack from "@paystack/inline-js";
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -38,112 +38,112 @@ function ProgressBar({ step }) {
     </div>
   );
 }
- 
-
-
- export default function ResumeModal({ service, onClose }) {
-//   const paystackReady = usePaystackScript();
-
-const paystack = new Paystack();
-const handleSubmit=async (form)=>{
-  try{
-const formData = new FormData();
-formData.append("pto", form.pto);
-formData.append("post", form.post);
-formData.append("hobby", form.hobby);
-formData.append("te", form.te);
-formData.append("to", form.to);
-formData.append("l_origin", form.l_origin);
-formData.append("dob", form.dob);
-formData.append("gender", form.gender);
-formData.append("fullname", form.fullname);
-formData.append("company", form.company);
-formData.append("tqualification", form.tqualification);
-formData.append("qualification", form.qualification);
-formData.append("pfrom", form.pfrom);
-formData.append("sfrom", form.sfrom);
-formData.append("sto", form.sto);
-formData.append("tfrom", form.tfrom);
-formData.append("tto", form.tto);
-formData.append("phone_number", form.phone_number);
-formData.append("origin", form.origin);
-formData.append("card_number", form.card_number);
-formData.append("home_address", form.home_address);
-formData.append("email_address", form.email_address);
-formData.append("primary", form.primary);
-formData.append("secondary", form.secondary);
-formData.append("tertiary", form.tertiary);
-formData.append("spoken", form.spoken);
-formData.append("cost", form.cost);
 
 
 
-   console.log(formData)
-     await axios.post(
-  "https://meganet-backend-q2fi.onrender.com/api/resume",
-  formData,
-  {
-    headers: {
-      "Content-Type": "application/json",
-    },
+export default function ResumeModal({ service, onClose }) {
+  //   const paystackReady = usePaystackScript();
+
+  const paystack = new Paystack();
+  const handleSubmit = async (form) => {
+    try {
+      const formData = new FormData();
+      formData.append("pto", form.pto);
+      formData.append("post", form.post);
+      formData.append("hobby", form.hobby);
+      formData.append("te", form.te);
+      formData.append("to", form.to);
+      formData.append("l_origin", form.l_origin);
+      formData.append("dob", form.dob);
+      formData.append("gender", form.gender);
+      formData.append("fullname", form.fullname);
+      formData.append("company", form.company);
+      formData.append("tqualification", form.tqualification);
+      formData.append("qualification", form.qualification);
+      formData.append("pfrom", form.pfrom);
+      formData.append("sfrom", form.sfrom);
+      formData.append("sto", form.sto);
+      formData.append("tfrom", form.tfrom);
+      formData.append("tto", form.tto);
+      formData.append("phone_number", form.phone_number);
+      formData.append("origin", form.origin);
+      formData.append("card_number", form.card_number);
+      formData.append("home_address", form.home_address);
+      formData.append("email_address", form.email_address);
+      formData.append("primary", form.primary);
+      formData.append("secondary", form.secondary);
+      formData.append("tertiary", form.tertiary);
+      formData.append("spoken", form.spoken);
+      formData.append("cost", form.cost);
+
+
+
+      console.log(formData)
+      await axios.post(
+        "https://meganet-backend-q2fi.onrender.com/api/resume",
+        formData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      toast.success("form submitted successfully")
+      onClose()
+
+    } catch (err) {
+      console.log(err)
+      toast.error("CHECK YOUR INPUTS AND TRY AGAIN!");
+
+    }
   }
-)
- toast.success("form submitted successfully")
- onClose()
 
-  } catch(err){
-    console.log(err)
-     toast.error("CHECK YOUR INPUTS AND TRY AGAIN!");
+  function makePayment(data, form) {
+    paystack.newTransaction({
+      key: "pk_live_cefbe9ab88fb9568291b2bccb8c837d481207a22",
+      email: form.Email_address,
+      amount: 100 * 100, // Kobo (₦5000)
+      currency: "NGN",
 
+
+      onSuccess: (transaction) => {
+        console.log(transaction);
+        toast.success("payment made successfully");
+        handleSubmit(form)
+      },
+      onCancel: () => {
+        alert("Payment Cancelled");
+      },
+
+      onError: (error) => {
+        console.log(error);
+      },
+    });
   }
-}
-
- function makePayment(data,form) {
-   paystack.newTransaction({
-     key: "pk_live_cefbe9ab88fb9568291b2bccb8c837d481207a22",
-     email: form.Email_address,
-     amount: 100 * 100, // Kobo (₦5000)
-     currency: "NGN",
-     
- 
-     onSuccess: (transaction) => {
-       console.log(transaction);
-       toast.success("payment made successfully");  
-      handleSubmit(form)
-     },
-     onCancel: () => {
-       alert("Payment Cancelled");
-     },
- 
-     onError: (error) => {
-       console.log(error);
-     },
-   });
- }
-   
- 
- 
 
 
-  
+
+
+
+
   const [step, setStep] = useState(0);
   const [form, setForm] = useState({
-    pto:"",
-    pfrom:"",
-    sfrom:"",
-    sto:"",
-    tfrom:"",
-    tto:"",
-    qualification:"",
-    tqualification:"",
-    tertiary:"",
-    primary:"",
-    secondary:"",
+    pto: "",
+    pfrom: "",
+    sfrom: "",
+    sto: "",
+    tfrom: "",
+    tto: "",
+    qualification: "",
+    tqualification: "",
+    tertiary: "",
+    primary: "",
+    secondary: "",
     company: "",
-    fullname:"",
-    gender:"",
-    l_origin:"",
-    dob:"",
+    fullname: "",
+    gender: "",
+    l_origin: "",
+    dob: "",
     to: "",
     te: "",
     hobby: "",
@@ -155,36 +155,36 @@ formData.append("cost", form.cost);
     phone_number: "",
     email_address: "",
     spoken: "",
-    cost:5000
+    cost: 5000
   });
- console.log(form)
+  console.log(form)
   const [status, setStatus] = useState("form"); // form | paying | paid
   const [reference, setReference] = useState("");
- 
+
   if (!service) return null;
- 
+
   const update = (k) => (e) => setForm({ ...form, [k]: e.target.value });
- 
-  const step0Valid =form.fullname && form.home_address && form.dob  && form.origin && form.spoken && form.l_origin && form.email_address
-  
+
+  const step0Valid = form.fullname && form.home_address && form.dob && form.origin && form.spoken && form.l_origin && form.email_address
+
   const step1Valid = form.pto && form.pfrom && form.tto && form.tfrom && form.sfrom && form.sto && form.tqualification
-  
-  const step2Valid = form.company && form.post && form.cert && form.hobby  && form.responsibility && form.to && form.te
+
+  const step2Valid = form.company && form.post && form.cert && form.hobby && form.responsibility && form.to && form.te
   const stepValid = [step0Valid, step1Valid, step2Valid][step];
 
   const next = () => { if (stepValid) setStep((s) => Math.min(s + 1, BOOKING_STEPS.length - 1)); };
-  const back = () => setStep((s) => Math.max(s - 1, 0)); 
+  const back = () => setStep((s) => Math.max(s - 1, 0));
   const selectClass = "vd-input w-full px-4 py-2.5 rounded-lg bg-white outline-none text-sm";
   const selectStyle = { border: "1px solid #00751833" };
   const inputClass = "vd-input w-full px-4 py-2.5 rounded-lg bg-white outline-none text-sm";
- const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
-const ALLOWED_FILE_TYPES = ["image/jpeg", "image/png", "image/webp", "application/pdf"];
+  const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+  const ALLOWED_FILE_TYPES = ["image/jpeg", "image/png", "image/webp", "application/pdf"];
 
-function formatBytes(bytes) {
-  if (bytes < 1024) return `${bytes} B`;
-  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} KB`;
-  return `${(bytes / 1024 / 1024).toFixed(1)} MB`;
-}
+  function formatBytes(bytes) {
+    if (bytes < 1024) return `${bytes} B`;
+    if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} KB`;
+    return `${(bytes / 1024 / 1024).toFixed(1)} MB`;
+  }
 
   const [fileError, setFileError] = useState("");
 
@@ -203,7 +203,7 @@ function formatBytes(bytes) {
     setForm({ ...form, file2: f });
   };
 
-    const onFileChange3 = (e) => {
+  const onFileChange3 = (e) => {
     const f = e.target.files[0];
     if (!f) return;
     if (!ALLOWED_FILE_TYPES.includes(f.type)) {
@@ -241,13 +241,13 @@ function formatBytes(bytes) {
     <div
       className="vd-overlay fixed inset-0 z-50 flex items-center justify-center p-4"
       style={{ background: "rgba(0,20,5,0.55)" }}
-      o1nClick={onClose}
+    // o1nClick={onClose}
     >
-   
+
       <div
         className="vd-modal w-full max-w-md rounded-2xl bg-white p-7 relative"
         style={{ maxHeight: "90vh", overflowY: "auto" }}
-        onClick={(e) => e.stopPropagation()}
+      // onClick={(e) => e.stopPropagation()}
       >
         <button
           onClick={onClose}
@@ -259,7 +259,7 @@ function formatBytes(bytes) {
             <line x1="6" y1="6" x2="18" y2="18" />
           </svg>
         </button>
- 
+
         {status === "paid" ? (
           <div className="text-center py-6 vd-fade">
             <div className="w-12 h-12 rounded-full vd-bg-gold mx-auto mb-4 flex items-center justify-center">
@@ -286,63 +286,63 @@ function formatBytes(bytes) {
             <p className="text-sm opacity-70 mb-5">
               Fee: <span className="font-semibold vd-text-green-dark">{naira(service.price)}</span>
             </p>
- 
+
             <ProgressBar step={step} />
- 
+
             {step === 0 && (
               <div className="space-y-4 vd-fade">
-              
+
 
                 <h1>CV/RESUME</h1>
                 <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Full Name</label>
                   <input value={form.fullname} onChange={update("fullname")} placeholder=" " className={inputClass} style={selectStyle} />
                 </div>
-                 <div>
+                <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Gender</label>
                   <input value={form.gender} onChange={update("gender")} placeholder=" " className={inputClass} style={selectStyle} />
                 </div>
-                 <div>
+                <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Date of Birth</label>
                   <input type="date" value={form.dob} onChange={update("dob")} placeholder=" " className={inputClass} style={selectStyle} />
                 </div>
-                 <div>
+                <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">State of Origin</label>
                   <input value={form.origin} onChange={update("origin")} placeholder=" " className={inputClass} style={selectStyle} />
                 </div>
-                 <div>
+                <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Local Govt of Origin</label>
                   <input value={form.l_origin} onChange={update("l_origin")} placeholder=" " className={inputClass} style={selectStyle} />
                 </div>
-                 <div>
+                <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Phone Number</label>
                   <input value={form.phone_number} onChange={update("phone_number")} placeholder=" " className={inputClass} style={selectStyle} />
                 </div>
-                  <div>
+                <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Email Address</label>
                   <input value={form.email_address} onChange={update("email_address")} placeholder="" className={inputClass} style={selectStyle} />
                 </div>
-                 <div>
+                <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Spoken Language</label>
                   <input value={form.spoken} onChange={update("spoken")} placeholder="" className={inputClass} style={selectStyle} />
                 </div>
-                 <div>
+                <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Home Address</label>
                   <input value={form.home_address} onChange={update("home_address")} placeholder="" className={inputClass} style={selectStyle} />
                 </div>
-                
+
               </div>
             )}
- 
+
             {step === 1 && (
-              <div className="space-y-4 vd-fade">        
+              <div className="space-y-4 vd-fade">
                 <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Primary School Attended:</label>
                   <div className="mb-2">
-                  <input value={form.primary} onChange={update("primary")} placeholder="Primary" className={inputClass} style={selectStyle} />
+                    <input value={form.primary} onChange={update("primary")} placeholder="Primary" className={inputClass} style={selectStyle} />
                   </div>
                   <div className="mb-2">
-                  <input value={form.pfrom} onChange={update("pfrom")} placeholder="From (MONTH/YEAR) " className={inputClass} style={selectStyle} />
+                    <input value={form.pfrom} onChange={update("pfrom")} placeholder="From (MONTH/YEAR) " className={inputClass} style={selectStyle} />
                   </div>
                   <input value={form.pto} onChange={update("pto")} placeholder=" To (MONTH/YEAR)" className={inputClass} style={selectStyle} />
                 </div>
@@ -350,70 +350,70 @@ function formatBytes(bytes) {
                 <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Secondary School Attended:</label>
                   <div className="mb-2">
-                  <input value={form.secondary} onChange={update("secondary")} placeholder="Secondary" className={inputClass} style={selectStyle} />
+                    <input value={form.secondary} onChange={update("secondary")} placeholder="Secondary" className={inputClass} style={selectStyle} />
                   </div>
                   <div className="mb-2">
-                  <input value={form.sfrom} onChange={update("sfrom")} placeholder="From (MONTH/YEAR) " className={inputClass} style={selectStyle} />
+                    <input value={form.sfrom} onChange={update("sfrom")} placeholder="From (MONTH/YEAR) " className={inputClass} style={selectStyle} />
                   </div>
                   <input value={form.sto} onChange={update("sto")} placeholder=" To (MONTH/YEAR)" className={inputClass} style={selectStyle} />
                   <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Qualification ( E.g WAEC , NECO)</label>
-                  <input value={form.qualification} onChange={update("qualification")} placeholder=" To (MONTH/YEAR)" className={inputClass} style={selectStyle} />
+                    <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Qualification ( E.g WAEC , NECO)</label>
+                    <input value={form.qualification} onChange={update("qualification")} placeholder=" To (MONTH/YEAR)" className={inputClass} style={selectStyle} />
                   </div>
                 </div>
 
-                 <div>
+                <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Tertiary Institution Attended:</label>
                   <div className="mb-2">
-                  <input value={form?.tertiary} onChange={update("tertiary")} placeholder="Tertiary" className={inputClass} style={selectStyle} />
+                    <input value={form?.tertiary} onChange={update("tertiary")} placeholder="Tertiary" className={inputClass} style={selectStyle} />
                   </div>
                   <div className="mb-2">
-                  <input value={form.tfrom} onChange={update("tfrom")} placeholder="From (MONTH/YEAR) " className={inputClass} style={selectStyle} />
+                    <input value={form.tfrom} onChange={update("tfrom")} placeholder="From (MONTH/YEAR) " className={inputClass} style={selectStyle} />
                   </div>
                   <input value={form.tto} onChange={update("tto")} placeholder=" To (MONTH/YEAR)" className={inputClass} style={selectStyle} />
                   <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Qualification / Course of Study </label>
-                  <input value={form.tqualification} onChange={update("tqualification")} placeholder="" className={inputClass} style={selectStyle} />
+                    <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Qualification / Course of Study </label>
+                    <input value={form.tqualification} onChange={update("tqualification")} placeholder="" className={inputClass} style={selectStyle} />
                   </div>
                 </div>
               </div>
             )}
- 
+
             {step === 2 && (
               <div className="space-y-4 vd-fade">
 
-                  <div className="space-y-4 vd-fade">
-                <h2>Employment Records/Work Experience </h2>
-                <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Name of Company</label>
-                  <input value={form.company} onChange={update("company")} placeholder=" " className={inputClass} style={selectStyle} />
-                </div>
-                 <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Post Held</label>
-                  <input value={form.post} onChange={update("post")} placeholder=" " className={inputClass} style={selectStyle} />
-                </div>
-                 <div className="mb-2">
-                  <input type="month" value={form.te} onChange={update("te")} placeholder="From (MONTH/YEAR) " className={inputClass} style={selectStyle} />
+                <div className="space-y-4 vd-fade">
+                  <h2>Employment Records/Work Experience </h2>
+                  <div>
+                    <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Name of Company</label>
+                    <input value={form.company} onChange={update("company")} placeholder=" " className={inputClass} style={selectStyle} />
+                  </div>
+                  <div>
+                    <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Post Held</label>
+                    <input value={form.post} onChange={update("post")} placeholder=" " className={inputClass} style={selectStyle} />
+                  </div>
+                  <div className="mb-2">
+                    <input type="month" value={form.te} onChange={update("te")} placeholder="From (MONTH/YEAR) " className={inputClass} style={selectStyle} />
                   </div>
                   <input type="month" value={form.to} onChange={update("to")} placeholder=" To (MONTH/YEAR)" className={inputClass} style={selectStyle} />
                   <div></div>
-                 <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Responsibilities</label>
-                  <input value={form.responsibility} onChange={update("responsibility")} placeholder=" " className={inputClass} style={selectStyle} />
+                  <div>
+                    <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Responsibilities</label>
+                    <input value={form.responsibility} onChange={update("responsibility")} placeholder=" " className={inputClass} style={selectStyle} />
+                  </div>
+                  <div>
+                    <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Professional Certificates (if any)</label>
+                    <input value={form.cert} onChange={update("cert")} placeholder=" " className={inputClass} style={selectStyle} />
+                  </div>
+                  <div>
+                    <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Hobbies</label>
+                    <input value={form.hobby} onChange={update("hobby")} placeholder=" " className={inputClass} style={selectStyle} />
+                  </div>
                 </div>
-                 <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Professional Certificates (if any)</label>
-                  <input value={form.cert} onChange={update("cert")} placeholder=" " className={inputClass} style={selectStyle} />
-                </div>
-                <div>
-                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Hobbies</label>
-                  <input value={form.hobby} onChange={update("hobby")} placeholder=" " className={inputClass} style={selectStyle} />
-                </div>        
-              </div>     
-                </div>
+              </div>
 
             )}
- 
+
             <div className="flex gap-3 mt-6">
               {step > 0 && (
                 <button onClick={back} className="vd-btn-outline flex-1 px-6 py-3 rounded-full text-sm font-semibold">
@@ -430,7 +430,7 @@ function formatBytes(bytes) {
                 </button>
               ) : (
                 <button
-                  onClick={()=>makePayment(service,form)}
+                  onClick={() => makePayment(service, form)}
                   disabled={!step2Valid || status === "paying"}
                   className="vd-btn-primary flex-1 px-6 py-3 rounded-full text-sm font-semibold flex items-center justify-center gap-2"
                 >
