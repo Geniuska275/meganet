@@ -50,6 +50,12 @@ export default function NYSCModal({ service, onClose }) {
       formData.append("tetfrom", form.tetfrom);
       formData.append("tetto", form.tetto);
       formData.append("level", form.level);
+      formData.append("E_Relationship", form.E_Relationship);
+      formData.append("E_name", form.E_name);
+      formData.append("E_address", form.E_address);
+      formData.append("E_phone", form.E_phone);
+
+
       formData.append("cost", form.cost);
 
       if (form.file) {
@@ -128,6 +134,10 @@ export default function NYSCModal({ service, onClose }) {
     tschname: "",
     kin_address: "",
     contact: "",
+    E_Relationship: "",
+    E_address: "",
+    E_name: "",
+    E_phone: "",
     cost: 10000,
     level: "",
     file: null,
@@ -150,7 +160,7 @@ export default function NYSCModal({ service, onClose }) {
     && form.bloodgroup && form.dob && form.place && form.state;
   const step1Valid = form.kinEmail && form.kinName
     && form.kinRelationship && form.kinPhone && form.level && form.prifrom && form.sschname && form.pschname && form.tschname
-    && form.contact && form.kin_address
+    && form.contact && form.kin_address && form.E_name && form.E_phone && form.E_address && form.E_Relationship
     && form.prito && form.secfrom && form.secto && form.tetfrom && form.tetto;
   const step2Valid = form.file && form.file2;
   const stepValid = [step0Valid, step1Valid, step2Valid][step];
@@ -418,6 +428,24 @@ export default function NYSCModal({ service, onClose }) {
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Relationship</label>
                   <input value={form.kinRelationship} onChange={update("kinRelationship")} placeholder="" className={inputClass} style={selectStyle} />
                 </div>
+                <h1>Emergency Contact</h1>
+                <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Name</label>
+                  <input value={form.E_name} onChange={update("E_name")} placeholder="Your full name" className={inputClass} style={selectStyle} />
+                </div>
+                <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Contact</label>
+                  <input value={form.E_address} onChange={update("E_address")} placeholder="Contact" className={inputClass} style={selectStyle} />
+                </div>
+                <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Home Address</label>
+                  <input value={form.E_phone} onChange={update("E_phone")} placeholder="Home Address" className={inputClass} style={selectStyle} />
+                </div>
+                <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Phone Number</label>
+                  <input value={form.E_Relationship} onChange={update("E_Relationship")} placeholder="" className={inputClass} style={selectStyle} />
+                </div>
+
                 <h1>NYSC Kits</h1>
                 <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Size of Shirt</label>
