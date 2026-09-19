@@ -76,6 +76,10 @@ export default function CACModal({ service, onClose }) {
       formData.append("d_fullname", form.d_fullname);
       formData.append("d_phone_number", form.d_phone_number);
       formData.append("d_origin", form.d_origin);
+      formData.append("l_origin", form.l_origin);
+      formData.append("s_dob", form.s_dob);
+      formData.append("s_card_number", form.s_card_number);
+      formData.append("s_home_address", form.s_home_address);
       formData.append("cost", form.cost);
 
 
@@ -156,6 +160,10 @@ export default function CACModal({ service, onClose }) {
     d_fullname: "",
     d_phone_number: "",
     d_origin: "",
+    s_dob: "",
+    s_card_number: "",
+    s_home_address: "",
+    l_origin: "",
     cost: 65000,
     file: "",
     file2: "",
@@ -181,7 +189,8 @@ export default function CACModal({ service, onClose }) {
 
 
   const step1Valid = form.d_address && form.d_fullname && form.d_phone_number
-    && form.d_origin && form.card_number && form.dob && form.home_address && form.l_origin
+    && form.d_origin && form.card_number && form.dob && form.home_address && form.l_origin && form.s_dob
+    && form.s_card_number && form.s_home_address
 
   const step2Valid = form.file && form.file2 && form.file3;
   const stepValid = [step0Valid, step1Valid, step2Valid][step];
@@ -420,14 +429,17 @@ export default function CACModal({ service, onClose }) {
                 </div>
                 <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Date of Birth</label>
+                  <input value={form.s_dob} type="date" onChange={update("s_dob")} className={inputClass} style={selectStyle} />
+
+
                 </div>
                 <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">National ID Card Number</label>
-                  <input value={form.card_number} onChange={update("language")} placeholder=" " className={inputClass} style={selectStyle} />
+                  <input value={form.s_card_number} onChange={update("s_card_number")} placeholder=" " className={inputClass} style={selectStyle} />
                 </div>
                 <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Home Address</label>
-                  <input value={form.home_address} onChange={update("phone")} placeholder="" className={inputClass} style={selectStyle} />
+                  <input value={form.s_home_address} onChange={update("s_home_address")} placeholder="" className={inputClass} style={selectStyle} />
                 </div>
 
 
