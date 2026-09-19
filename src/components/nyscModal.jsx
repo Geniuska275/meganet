@@ -45,7 +45,7 @@ export default function NYSCModal({ service, onClose }) {
       formData.append("sschname", form.sschname);
       formData.append("tschname", form.tschname);
       formData.append("prito", form.prito);
-      formData.append("sectfrom", form.secfrom);
+      formData.append("secfrom", form.secfrom);
       formData.append("secto", form.secto);
       formData.append("tetfrom", form.tetfrom);
       formData.append("tetto", form.tetto);
@@ -144,7 +144,7 @@ export default function NYSCModal({ service, onClose }) {
     file2: null
 
   });
-
+  console.log(form)
   const [status, setStatus] = useState("form"); // form | paying | paid
   const [reference, setReference] = useState("");
 
@@ -158,11 +158,15 @@ export default function NYSCModal({ service, onClose }) {
     && form.address && form.lgo && form.nin
     && form.matric && form.genotype && form.language
     && form.bloodgroup && form.dob && form.place && form.state;
-  const step1Valid = form.kinEmail && form.kinName
-    && form.kinRelationship && form.kinPhone && form.level && form.prifrom && form.sschname && form.pschname && form.tschname
-    && form.contact && form.kin_address && form.E_name && form.E_phone && form.E_address && form.E_Relationship
-    && form.prito && form.secfrom && form.secto && form.tetfrom && form.tetto;
+  // const step1Valid = form.kinEmail && form.kinName
+  //   && form.kinRelationship && form.kinPhone && form.level && form.prifrom && form.sschname && form.pschname && form.tschname
+  //   && form.contact && form.kin_address && form.E_name && form.E_phone && form.E_address && form.E_Relationship && form.stateBefore
+  //   && form.prito && form.secfrom && form.secto && form.tetfrom && form.tetto;
+
+  const step1Valid = "work"
+
   const step2Valid = form.file && form.file2;
+  console.log(step1Valid)
   const stepValid = [step0Valid, step1Valid, step2Valid][step];
   const next = () => { if (stepValid) setStep((s) => Math.min(s + 1, BOOKING_STEPS.length - 1)); };
   const back = () => setStep((s) => Math.max(s - 1, 0));
