@@ -46,7 +46,7 @@ function ProgressBar({ step }) {
 export default function NGOModal({ service, onClose }) {
 
   const paystack = new Paystack();
-  const handleSubmit = async (data, form) => {
+  const handleSubmit = async (form) => {
     try {
       const formData = new FormData();
       formData.append("first_choice", form.first_choice);
@@ -72,6 +72,8 @@ export default function NGOModal({ service, onClose }) {
       formData.append("s_dob", form.s_dob);
       formData.append("s_fullname", form.s_fullname);
       formData.append("s_phone_number", form.s_phone_number);
+      formData.append("d_home_address", form.d_home_address);
+      formData.append("d_card_number", form.d_phone_number);
       formData.append("s_origin", form.s_origin);
       formData.append("cost", form.cost);
 
@@ -92,7 +94,7 @@ export default function NGOModal({ service, onClose }) {
       await axios.post("https://meganet-backend-q2fi.onrender.com/api/ngo", formData).then(() => {
         onClose()
         toast.success("Form successfully submitted!");
-        makePayment(data, form)
+        // makePayment(data, form)
       })
     } catch (err) {
       console.log(err)
@@ -154,6 +156,8 @@ export default function NGOModal({ service, onClose }) {
     s_phone_number: "",
     s_card_number: "",
     s_home_address: "",
+    d_home_address: "",
+    d_card_number: "",
     s_origin: "",
     cost: 130000,
     file: "",
@@ -176,7 +180,7 @@ export default function NGOModal({ service, onClose }) {
     && form.Email_address && form.card_number && form.dob && form.home_address
 
   const step1Valid = form.d_address && form.d_fullname && form.d_phone_number
-    && form.d_origin && form.card_number && form.dob && form.home_address && form.l_origin
+    && form.d_origin && form.dob && form.l_origin && form.d_home_address && form.d_card_number
 
   const step2Valid = form.s_address && form.s_fullname && form.s_phone_number
     && form.s_origin && form.s_card_number && form.s_dob && form.home_address && form.l_origin && form.file && form.file2 && form.file3;
@@ -392,11 +396,11 @@ export default function NGOModal({ service, onClose }) {
                 </div>
                 <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">National ID Card Number</label>
-                  <input value={form.card_number} onChange={update("card_number")} placeholder=" " className={inputClass} style={selectStyle} />
+                  <input value={form.d_card_number} onChange={update("d_card_number")} placeholder=" " className={inputClass} style={selectStyle} />
                 </div>
                 <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Home Address</label>
-                  <input value={form.home_address} onChange={update("home_address")} placeholder="" className={inputClass} style={selectStyle} />
+                  <input value={form.d_home_address} onChange={update("d_home_address")} placeholder="" className={inputClass} style={selectStyle} />
                 </div>
               </div>
             )}
