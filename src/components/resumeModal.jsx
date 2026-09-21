@@ -430,7 +430,7 @@ export default function ResumeModal({ service, onClose }) {
                 </button>
               ) : (
                 <button
-                  onClick={() => makePayment(service, form)}
+                  onClick={() => handleSubmit(form)}
                   disabled={!step2Valid || status === "paying"}
                   className="vd-btn-primary flex-1 px-6 py-3 rounded-full text-sm font-semibold flex items-center justify-center gap-2"
                 >
