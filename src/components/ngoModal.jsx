@@ -66,15 +66,20 @@ export default function NGOModal({ service, onClose }) {
       formData.append("d_address", form.d_address);
       formData.append("d_dob", form.d_dob);
       formData.append("d_fullname", form.d_fullname);
+      formData.append("b_fullname", form.b_fullname);
       formData.append("d_phone_number", form.d_phone_number);
       formData.append("d_origin", form.d_origin);
+      formData.append("b_origin", form.b_origin);
+
       formData.append("s_address", form.s_address);
       formData.append("s_dob", form.s_dob);
       formData.append("s_fullname", form.s_fullname);
+      formData.append("l_origin", form.l_origin)
       formData.append("s_phone_number", form.s_phone_number);
       formData.append("d_home_address", form.d_home_address);
       formData.append("d_card_number", form.d_phone_number);
       formData.append("s_origin", form.s_origin);
+      formData.append("s_l_origin", form.s_l_origin);
       formData.append("cost", form.cost);
 
 
@@ -146,10 +151,12 @@ export default function NGOModal({ service, onClose }) {
     home_address: "",
     ngo_address: "",
     d_address: "",
+    b_fullname: "",
     d_dob: "",
     d_fullname: "",
     d_phone_number: "",
     d_origin: "",
+    b_origin: "",
     s_address: "",
     s_dob: "",
     s_fullname: "",
@@ -159,6 +166,8 @@ export default function NGOModal({ service, onClose }) {
     d_home_address: "",
     d_card_number: "",
     s_origin: "",
+    l_origin: "",
+    s_l_origin: "",
     cost: 130000,
     file: "",
     file2: "",
@@ -176,13 +185,13 @@ export default function NGOModal({ service, onClose }) {
   const step0Valid = form.first_choice.trim()
     && form.second_choice.trim()
     && form.third_choice
-    && form.ngo_address && form.aim1 && form.aim2 && form.fullname && form.phone_number
+    && form.ngo_address && form.aim1 && form.aim2 && form.b_fullname && form.phone_number
     && form.Email_address && form.card_number && form.dob && form.home_address
 
-  const step1Valid = form.d_address && form.d_fullname && form.d_phone_number
+  const step1Valid = form.d_address && form.d_fullname && form.d_phone_number && form.b_origin
     && form.d_origin && form.dob && form.l_origin && form.d_home_address && form.d_card_number
 
-  const step2Valid = form.s_address && form.s_fullname && form.s_phone_number
+  const step2Valid = form.s_address && form.s_fullname && form.s_phone_number && form.s_l_origin
     && form.s_origin && form.s_card_number && form.s_dob && form.home_address && form.l_origin && form.file && form.file2 && form.file3;
   const stepValid = [step0Valid, step1Valid, step2Valid][step];
 
@@ -335,7 +344,7 @@ export default function NGOModal({ service, onClose }) {
                 <h2>First Board of Trustee (Chairman)</h2>
                 <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Full Name</label>
-                  <input value={form.fullname} onChange={update("fullname")} placeholder=" " className={inputClass} style={selectStyle} />
+                  <input value={form.b_fullname} onChange={update("b_fullname")} placeholder=" " className={inputClass} style={selectStyle} />
                 </div>
                 <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Email Address</label>
@@ -348,6 +357,11 @@ export default function NGOModal({ service, onClose }) {
                 <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">State of Origin</label>
                   <input value={form.origin} onChange={update("origin")} placeholder=" " className={inputClass} style={selectStyle} />
+                </div>
+
+                <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Local Govt of Origin</label>
+                  <input value={form.b_origin} onChange={update("b_origin")} placeholder=" " className={inputClass} style={selectStyle} />
                 </div>
                 <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Date of Birth</label>
@@ -429,7 +443,7 @@ export default function NGOModal({ service, onClose }) {
                   </div>
                   <div>
                     <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Local Govt of Origin</label>
-                    <input value={form.l_origin} onChange={update("l_origin")} placeholder=" " className={inputClass} style={selectStyle} />
+                    <input value={form.s_l_origin} onChange={update("s_l_origin")} placeholder=" " className={inputClass} style={selectStyle} />
                   </div>
                   <div>
                     <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Date of Birth</label>
