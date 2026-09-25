@@ -344,9 +344,9 @@ export default function ResumeModal({ service, onClose }) {
                     <input value={form.primary} onChange={update("primary")} placeholder="Primary" className={inputClass} style={selectStyle} />
                   </div>
                   <div className="mb-2">
-                    <input value={form.pfrom} onChange={update("pfrom")} placeholder="From (MONTH/YEAR) " className={inputClass} style={selectStyle} />
+                    <input type="month" value={form.pfrom} onChange={update("pfrom")} placeholder="From (MONTH/YEAR) " className={inputClass} style={selectStyle} />
                   </div>
-                  <input value={form.pto} onChange={update("pto")} placeholder=" To (MONTH/YEAR)" className={inputClass} style={selectStyle} />
+                  <input type="month" value={form.pto} onChange={update("pto")} placeholder=" To (MONTH/YEAR)" className={inputClass} style={selectStyle} />
                 </div>
 
                 <div>
@@ -355,9 +355,9 @@ export default function ResumeModal({ service, onClose }) {
                     <input value={form.secondary} onChange={update("secondary")} placeholder="Secondary" className={inputClass} style={selectStyle} />
                   </div>
                   <div className="mb-2">
-                    <input value={form.sfrom} onChange={update("sfrom")} placeholder="From (MONTH/YEAR) " className={inputClass} style={selectStyle} />
+                    <input type="month" value={form.sfrom} onChange={update("sfrom")} placeholder="From (MONTH/YEAR) " className={inputClass} style={selectStyle} />
                   </div>
-                  <input value={form.sto} onChange={update("sto")} placeholder=" To (MONTH/YEAR)" className={inputClass} style={selectStyle} />
+                  <input type="month" value={form.sto} onChange={update("sto")} placeholder=" To (MONTH/YEAR)" className={inputClass} style={selectStyle} />
                   <div>
                     <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Qualification ( E.g WAEC , NECO)</label>
                     <input value={form.qualification} onChange={update("qualification")} placeholder=" To (MONTH/YEAR)" className={inputClass} style={selectStyle} />
@@ -370,9 +370,9 @@ export default function ResumeModal({ service, onClose }) {
                     <input value={form?.tertiary} onChange={update("tertiary")} placeholder="Tertiary" className={inputClass} style={selectStyle} />
                   </div>
                   <div className="mb-2">
-                    <input value={form.tfrom} onChange={update("tfrom")} placeholder="From (MONTH/YEAR) " className={inputClass} style={selectStyle} />
+                    <input type="month" value={form.tfrom} onChange={update("tfrom")} placeholder="From (MONTH/YEAR) " className={inputClass} style={selectStyle} />
                   </div>
-                  <input value={form.tto} onChange={update("tto")} placeholder=" To (MONTH/YEAR)" className={inputClass} style={selectStyle} />
+                  <input type="month" value={form.tto} onChange={update("tto")} placeholder=" To (MONTH/YEAR)" className={inputClass} style={selectStyle} />
                   <div>
                     <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Qualification / Course of Study </label>
                     <input value={form.tqualification} onChange={update("tqualification")} placeholder="" className={inputClass} style={selectStyle} />
