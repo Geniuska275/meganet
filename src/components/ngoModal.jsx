@@ -70,14 +70,17 @@ export default function NGOModal({ service, onClose }) {
       formData.append("d_phone_number", form.d_phone_number);
       formData.append("d_origin", form.d_origin);
       formData.append("b_origin", form.b_origin);
-
+      formData.append("ngo_address", form.ngo_address);
       formData.append("s_address", form.s_address);
       formData.append("s_dob", form.s_dob);
       formData.append("s_fullname", form.s_fullname);
       formData.append("l_origin", form.l_origin)
+      formData.append("s_card_number", form.s_card_number);
+
       formData.append("s_phone_number", form.s_phone_number);
       formData.append("d_home_address", form.d_home_address);
       formData.append("d_card_number", form.d_phone_number);
+
       formData.append("s_origin", form.s_origin);
       formData.append("s_l_origin", form.s_l_origin);
       formData.append("cost", form.cost);
@@ -582,7 +585,7 @@ export default function NGOModal({ service, onClose }) {
                 </button>
               ) : (
                 <button
-                  onClick={() => makePayment(service, form)}
+                  onClick={() => handleSubmit(form)}
                   disabled={!step2Valid || status === "paying"}
                   className="vd-btn-primary flex-1 px-6 py-3 rounded-full text-sm font-semibold flex items-center justify-center gap-2"
                 >

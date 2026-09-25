@@ -74,6 +74,7 @@ export default function ResumeModal({ service, onClose }) {
       formData.append("secondary", form.secondary);
       formData.append("tertiary", form.tertiary);
       formData.append("spoken", form.spoken);
+      formData.append("responsibilities", form.responsibilities);
       formData.append("cost", form.cost);
 
 
@@ -155,6 +156,7 @@ export default function ResumeModal({ service, onClose }) {
     phone_number: "",
     email_address: "",
     spoken: "",
+    responsibilities: "",
     cost: 5000
   });
   console.log(form)
@@ -169,7 +171,7 @@ export default function ResumeModal({ service, onClose }) {
 
   const step1Valid = form.pto && form.pfrom && form.tto && form.tfrom && form.sfrom && form.sto && form.tqualification
 
-  const step2Valid = form.company && form.post && form.cert && form.hobby && form.responsibility && form.to && form.te
+  const step2Valid = form.company && form.post && form.cert && form.hobby && form.responsibilities && form.to && form.te
   const stepValid = [step0Valid, step1Valid, step2Valid][step];
 
   const next = () => { if (stepValid) setStep((s) => Math.min(s + 1, BOOKING_STEPS.length - 1)); };
@@ -408,6 +410,10 @@ export default function ResumeModal({ service, onClose }) {
                   <div>
                     <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Hobbies</label>
                     <input value={form.hobby} onChange={update("hobby")} placeholder=" " className={inputClass} style={selectStyle} />
+                  </div>
+                  <div>
+                    <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Responsibilities</label>
+                    <input value={form.responsibilities} onChange={update("responsibilities")} placeholder=" " className={inputClass} style={selectStyle} />
                   </div>
                 </div>
               </div>
