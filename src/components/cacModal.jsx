@@ -65,7 +65,7 @@ export default function CACModal({ service, onClose }) {
       formData.append("origin", form.origin);
       formData.append("card_number", form.card_number);
       formData.append("home_address", form.home_address);
-      formData.append("dob2", form.dob);
+      formData.append("dob2", form.dob2);
       formData.append("address2", form.address);
       formData.append("phone_number2", form.phone_number);
       formData.append("origin2", form.origin);
@@ -170,6 +170,8 @@ export default function CACModal({ service, onClose }) {
     file3: ""
 
   });
+
+  console.log("form:", form)
 
   const [status, setStatus] = useState("form"); // form | paying | paid
   const [reference, setReference] = useState("");
@@ -357,6 +359,10 @@ export default function CACModal({ service, onClose }) {
                   <input value={form.origin} onChange={update("origin")} placeholder=" " className={inputClass} style={selectStyle} />
                 </div>
                 <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">LGA of Origin</label>
+                  <input value={form.lga1} onChange={update("lga1")} placeholder=" " className={inputClass} style={selectStyle} />
+                </div>
+                <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Date of Birth</label>
                   <input value={form.dob} type="date" onChange={update("dob")} className={inputClass} style={selectStyle} />
                 </div>
@@ -386,6 +392,10 @@ export default function CACModal({ service, onClose }) {
                 <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">State of Origin</label>
                   <input value={form.origin2} onChange={update("origin2")} placeholder=" " className={inputClass} style={selectStyle} />
+                </div>
+                <div>
+                  <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">LGA of Origin</label>
+                  <input value={form.lga2} onChange={update("lga2")} placeholder=" " className={inputClass} style={selectStyle} />
                 </div>
                 <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Date of Birth</label>
@@ -430,8 +440,6 @@ export default function CACModal({ service, onClose }) {
                 <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Date of Birth</label>
                   <input value={form.s_dob} type="date" onChange={update("s_dob")} className={inputClass} style={selectStyle} />
-
-
                 </div>
                 <div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">National ID Card Number</label>
@@ -571,7 +579,7 @@ export default function CACModal({ service, onClose }) {
                 </button>
               ) : (
                 <button
-                  onClick={() => handleSubmit(service, form)}
+                  onClick={() => handleSubmit(form)}
                   disabled={!step2Valid || status === "paying"}
                   className="vd-btn-primary flex-1 px-6 py-3 rounded-full text-sm font-semibold flex items-center justify-center gap-2"
                 >
