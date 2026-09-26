@@ -59,6 +59,8 @@ export default function CACModal({ service, onClose }) {
       formData.append("business_address", form.business_address);
       formData.append("company_does", form.company_does);
       formData.append("company_nature", form.company_nature);
+      formData.append("lga1", form.lga1);
+      formData.append("lga2", form.lga2);
       formData.append("dob", form.dob);
       formData.append("address", form.address);
       formData.append("phone_number", form.phone_number);
@@ -141,6 +143,8 @@ export default function CACModal({ service, onClose }) {
     business_address: "",
     company_does: "",
     company_nature: "",
+    lga1: "",
+    lga2: "",
     dob: "",
     address: "",
     phone_number: "",
