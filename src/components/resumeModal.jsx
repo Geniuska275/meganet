@@ -90,6 +90,8 @@ export default function ResumeModal({ service, onClose }) {
         }
       )
       toast.success("form submitted successfully")
+      alert("form submitted successfully")
+
       onClose()
 
     } catch (err) {
@@ -112,6 +114,7 @@ export default function ResumeModal({ service, onClose }) {
       onSuccess: (transaction) => {
         console.log(transaction);
         toast.success("payment made successfully");
+        alert("payment made successfully")
         handleSubmit(form)
       },
       onCancel: () => {
