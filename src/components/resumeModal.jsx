@@ -100,9 +100,11 @@ export default function ResumeModal({ service, onClose }) {
   }
 
   function makePayment(data, form) {
+    console.log("fired!")
+    console.log(form.emailmail_address)
     paystack.newTransaction({
       key: "pk_live_cefbe9ab88fb9568291b2bccb8c837d481207a22",
-      email: form.Email_address,
+      email: form.email_address,
       amount: 100 * 100, // Kobo (₦5000)
       currency: "NGN",
 
@@ -398,11 +400,8 @@ export default function ResumeModal({ service, onClose }) {
                     <input type="month" value={form.te} onChange={update("te")} placeholder="From (MONTH/YEAR) " className={inputClass} style={selectStyle} />
                   </div>
                   <input type="month" value={form.to} onChange={update("to")} placeholder=" To (MONTH/YEAR)" className={inputClass} style={selectStyle} />
-                  <div></div>
-                  <div>
-                    <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Responsibilities</label>
-                    <input value={form.responsibility} onChange={update("responsibility")} placeholder=" " className={inputClass} style={selectStyle} />
-                  </div>
+
+
                   <div>
                     <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Professional Certificates (if any)</label>
                     <input value={form.cert} onChange={update("cert")} placeholder=" " className={inputClass} style={selectStyle} />

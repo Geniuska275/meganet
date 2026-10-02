@@ -72,7 +72,7 @@ export default function CACModal({ service, onClose }) {
       formData.append("phone_number2", form.phone_number);
       formData.append("origin2", form.origin);
       formData.append("card_number2", form.card_number);
-      formData.append("home_address2", form.home_address);
+      formData.append("home_address2", form.home_address2);
       formData.append("d_address", form.d_address);
       formData.append("d_dob", form.d_dob);
       formData.append("d_fullname", form.d_fullname);

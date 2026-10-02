@@ -1096,11 +1096,9 @@ function ServicesPage({ openBooking,
                 <p className="text-sm opacity-75 leading-relaxed mb-3">Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.</p>
                 <p className="text-xs font-semibold vd-text-green" onClick={()=>{
                   < EmailModal onClose={true} price={"45000"}/>
-                }}>Book-{naira("45000")} →</p>
+                }}>Book-{naira("45000")}</p>
               </div>
             </Reveal>
-
-             
             <Reveal  delay={80}>
               <div
                 onClick={() => openNgo(ngo)}

@@ -86,11 +86,9 @@ export default function NERDModal({ service, onClose }) {
         formData.append("file5", form.file5);
       }
 
-      console.log(formData)
       await axios.post("https://meganet-backend-q2fi.onrender.com/api/nerd", formData).then(() => {
         onClose()
         toast.success("Form successfully submitted!");
-        //  makePayment(data,form)
       })
     } catch (err) {
       console.log(err)
