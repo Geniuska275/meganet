@@ -1,5 +1,5 @@
 import { useState } from "react";
-import makePayment from "./paystack";
+
 const GREEN = "#007518";
 const GREEN_DARK = "#003d0c";
 const GOLD = "#ffba00";
@@ -407,7 +407,7 @@ export default function NERDModal({ service, onClose }) {
                     marginBottom: "10px"
                   }}>
                     <input className="mb-1.5"
-                      value={form.FullName} onChange={update("FullName")} placeholder="FullName" className={inputClass} style={selectStyle} />
+                      value={form.FullName} onChange={update("FullName")} placeholder="FullName" style={selectStyle} />
                   </div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">PhoneNumber</label>
                   <input value={form.Phone} onChange={update("Phone")} placeholder="Phonenumber" className={inputClass} style={selectStyle} />
@@ -419,7 +419,7 @@ export default function NERDModal({ service, onClose }) {
                     marginBottom: "10px"
                   }}>
                     <input className="mb-1.5"
-                      value={form.Email_Address} onChange={update("Email_Address")} placeholder="Email_Address" className={inputClass} style={selectStyle} />
+                      value={form.Email_Address} onChange={update("Email_Address")} placeholder="Email_Address" style={selectStyle} />
                   </div>
                 </div>
               </div>
