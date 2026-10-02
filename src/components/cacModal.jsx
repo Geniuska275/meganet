@@ -100,6 +100,7 @@ export default function CACModal({ service, onClose }) {
       await axios.post("https://meganet-backend-q2fi.onrender.com/api/forms", formData).then(() => {
         onClose()
         toast.success("Form successfully submitted!");
+        alert("Form submitted successfully!")
         //  makePayment(data,form)
       })
     } catch (err) {
@@ -119,6 +120,7 @@ export default function CACModal({ service, onClose }) {
       onSuccess: (transaction) => {
         console.log(transaction);
         toast.success("payment made successfully");
+        alert("payment made successfully!")
         handleSubmit(form)
 
       },

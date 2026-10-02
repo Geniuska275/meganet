@@ -121,6 +121,8 @@ export default function NGOModal({ service, onClose }) {
       onSuccess: (transaction) => {
         console.log(transaction);
         toast.success("payment made successfully");
+        alert("form submitted successfully")
+
         handleSubmit(form)
 
       },
