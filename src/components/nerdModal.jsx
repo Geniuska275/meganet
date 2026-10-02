@@ -87,7 +87,7 @@ export default function NERDModal({ service, onClose }) {
       }
 
       await axios.post("https://meganet-backend-q2fi.onrender.com/api/nerd", formData).then(() => {
-        alert("payment made successfully")
+        alert("form submitted successfully")
         toast.success("Form successfully submitted!");
         onClose()
 
@@ -108,8 +108,9 @@ export default function NERDModal({ service, onClose }) {
       onSuccess: (transaction) => {
         console.log(transaction);
         toast.success("payment made successfully");
-        alert("payment made successfully")
+        alert("payment made successfully!")
         handleSubmit(form)
+
       },
       onCancel: () => {
         alert("Payment Cancelled");
@@ -120,6 +121,7 @@ export default function NERDModal({ service, onClose }) {
       },
     });
   }
+
 
   const [step, setStep] = useState(0);
   const [form, setForm] = useState({
