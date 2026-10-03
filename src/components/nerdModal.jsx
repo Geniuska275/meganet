@@ -42,7 +42,6 @@ function ProgressBar({ step }) {
 
 
 export default function NERDModal({ service, onClose }) {
-
   const paystack = new Paystack();
   const handleSubmit = async (form) => {
     try {
@@ -108,7 +107,7 @@ export default function NERDModal({ service, onClose }) {
       onSuccess: (transaction) => {
         console.log(transaction);
         toast.success("payment made successfully");
-        alert("payment made successfully!")
+        // alert("payment made successfully!")
         handleSubmit(form)
 
       },
@@ -408,7 +407,7 @@ export default function NERDModal({ service, onClose }) {
                   <div style={{
                     marginBottom: "10px"
                   }}>
-                    <input className="mb-1.5"
+                    <input className="mb-1.5 text-xs uppercase tracking-widest opacity-60 block"
                       value={form.FullName} onChange={update("FullName")} placeholder="FullName" style={selectStyle} />
                   </div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">PhoneNumber</label>
@@ -420,7 +419,7 @@ export default function NERDModal({ service, onClose }) {
                   <div style={{
                     marginBottom: "10px"
                   }}>
-                    <input className="mb-1.5"
+                    <input className="mb-1.5 text-xs uppercase tracking-widest opacity-60 block"
                       value={form.Email_Address} onChange={update("Email_Address")} placeholder="Email_Address" style={selectStyle} />
                   </div>
                 </div>
