@@ -106,9 +106,11 @@ export default function NERDModal({ service, onClose }) {
 
       onSuccess: (transaction) => {
         console.log(transaction);
-        toast.success("payment made successfully");
-        // alert("payment made successfully!")
-        handleSubmit(form)
+        if (transaction.status == "success") {
+          toast.success("payment made successfully");
+          // alert("payment made successfully!")
+          handleSubmit(form)
+        }
 
       },
       onCancel: () => {
@@ -407,7 +409,7 @@ export default function NERDModal({ service, onClose }) {
                   <div style={{
                     marginBottom: "10px"
                   }}>
-                    <input className="mb-1.5 text-xs uppercase tracking-widest opacity-60 block"
+                    <input className="text-xs uppercase tracking-widest opacity-60 block mb-1.5"
                       value={form.FullName} onChange={update("FullName")} placeholder="FullName" style={selectStyle} />
                   </div>
                   <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">PhoneNumber</label>
@@ -419,7 +421,7 @@ export default function NERDModal({ service, onClose }) {
                   <div style={{
                     marginBottom: "10px"
                   }}>
-                    <input className="mb-1.5 text-xs uppercase tracking-widest opacity-60 block"
+                    <input className="mb-1.5 text-xs  tracking-widest opacity-60 block"
                       value={form.Email_Address} onChange={update("Email_Address")} placeholder="Email_Address" style={selectStyle} />
                   </div>
                 </div>

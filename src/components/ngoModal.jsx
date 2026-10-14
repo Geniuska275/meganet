@@ -79,7 +79,8 @@ export default function NGOModal({ service, onClose }) {
 
       formData.append("s_phone_number", form.s_phone_number);
       formData.append("d_home_address", form.d_home_address);
-      formData.append("d_card_number", form.d_phone_number);
+      formData.append("s_home_address", form.s_home_address);
+      formData.append("d_card_number", form.d_card_number);
 
       formData.append("s_origin", form.s_origin);
       formData.append("s_l_origin", form.s_l_origin);
@@ -182,6 +183,7 @@ export default function NGOModal({ service, onClose }) {
 
   const [status, setStatus] = useState("form"); // form | paying | paid
   const [reference, setReference] = useState("");
+  console.log(form)
 
   if (!service) return null;
 
