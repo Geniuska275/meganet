@@ -365,7 +365,7 @@ export default function ResumeModal({ service, onClose }) {
                   <input type="month" value={form.sto} onChange={update("sto")} placeholder=" To (MONTH/YEAR)" className={inputClass} style={selectStyle} />
                   <div>
                     <label className="text-xs uppercase tracking-widest opacity-60 block mb-1.5">Qualification ( E.g WAEC , NECO)</label>
-                    <input value={form.qualification} onChange={update("qualification")} placeholder=" To (MONTH/YEAR)" className={inputClass} style={selectStyle} />
+                    <input value={form.qualification} onChange={update("qualification")} placeholder=" " className={inputClass} style={selectStyle} />
                   </div>
                 </div>
 
