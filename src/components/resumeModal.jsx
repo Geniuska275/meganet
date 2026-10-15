@@ -107,12 +107,12 @@ export default function ResumeModal({ service, onClose }) {
     paystack.newTransaction({
       key: "pk_live_cefbe9ab88fb9568291b2bccb8c837d481207a22",
       email: form.email_address,
-      amount: 100 * 100, // Kobo (₦5000)
+      amount: 100 * data.price, // Kobo (₦5000)
       currency: "NGN",
 
 
       onSuccess: (transaction) => {
-        console.log(transaction);
+
         toast.success("payment made successfully");
         alert("payment made successfully")
         handleSubmit(form)
@@ -164,7 +164,7 @@ export default function ResumeModal({ service, onClose }) {
     responsibilities: "",
     cost: 5000
   });
-  console.log(form)
+
   const [status, setStatus] = useState("form"); // form | paying | paid
   const [reference, setReference] = useState("");
 

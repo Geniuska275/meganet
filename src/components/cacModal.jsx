@@ -96,7 +96,7 @@ export default function CACModal({ service, onClose }) {
         formData.append("file3", form.file3);
       }
 
-      console.log(formData)
+
       await axios.post("https://meganet-backend-q2fi.onrender.com/api/forms", formData).then(() => {
         onClose()
         toast.success("Form successfully submitted!");
@@ -113,7 +113,7 @@ export default function CACModal({ service, onClose }) {
     paystack.newTransaction({
       key: "pk_live_cefbe9ab88fb9568291b2bccb8c837d481207a22",
       email: form.Email_address,
-      amount: 100 * 100, // Kobo (₦5000)
+      amount: 100 * data.price, // Kobo (₦5000)
       currency: "NGN",
 
 

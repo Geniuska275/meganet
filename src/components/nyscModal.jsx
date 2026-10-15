@@ -80,12 +80,11 @@ export default function NYSCModal({ service, onClose }) {
     paystack.newTransaction({
       key: "pk_live_cefbe9ab88fb9568291b2bccb8c837d481207a22",
       email: form.Email_address,
-      amount: 100 * 100,
+      amount: 100 * data.price,
       currency: "NGN",
 
 
       onSuccess: (transaction) => {
-        console.log(transaction);
         toast.success("payment made successfully");
         handleSubmit(form)
       },
@@ -144,7 +143,7 @@ export default function NYSCModal({ service, onClose }) {
     file2: null
 
   });
-  console.log(form)
+
   const [status, setStatus] = useState("form"); // form | paying | paid
   const [reference, setReference] = useState("");
 
@@ -158,10 +157,7 @@ export default function NYSCModal({ service, onClose }) {
     && form.address && form.lgo && form.nin
     && form.matric && form.genotype && form.language
     && form.bloodgroup && form.dob && form.place && form.state;
-  // const step1Valid = form.kinEmail && form.kinName
-  //   && form.kinRelationship && form.kinPhone && form.level && form.prifrom && form.sschname && form.pschname && form.tschname
-  //   && form.contact && form.kin_address && form.E_name && form.E_phone && form.E_address && form.E_Relationship && form.stateBefore
-  //   && form.prito && form.secfrom && form.secto && form.tetfrom && form.tetto;
+
 
   const step1Valid = "work"
 
