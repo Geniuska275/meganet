@@ -1059,28 +1059,32 @@ function ServicesPage({ openBooking,
 
         <Reveal delay={80}>
           <div
-            onClick={() => openBooking(nysc)}
+            // onClick={() => openBooking(nysc)}
             className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
             style={{ borderWidth: 1, borderColor: "#00751822" }}
           >
             <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
             <p className="font-semibold vd-text-green-dark mb-2">NYSC Registration</p>
             <p className="text-sm opacity-75 leading-relaxed mb-3">Hassle-free NYSC registration with accurate biometric capturing for a smooth and successful process.</p>
-            <p className="text-xs font-semibold vd-text-green">Book-{naira("10000")} →</p>
+            <a href="https://wa.me/+2348077810089">
+              <p className="text-xs font-semibold vd-text-green">Book-{naira("10000")} →</p>
+            </a>
           </div>
         </Reveal>
 
 
         <Reveal delay={80}>
           <div
-            onClick={() => openNerd(nerd)}
+            // onClick={() => openNerd(nerd)}
             className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
             style={{ borderWidth: 1, borderColor: "#00751822" }}
           >
             <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
             <p className="font-semibold vd-text-green-dark mb-2">NERD Registration</p>
             <p className="text-sm opacity-75 leading-relaxed mb-3">Seamless uploading of academic research projects on the NERD platform as a mandatory requirement for successful NYSC registration.</p>
-            <p className="text-xs font-semibold vd-text-green">Book-{naira("13000")} →</p>
+            <a href="https://wa.me/+2348077810089">
+              <p className="text-xs font-semibold vd-text-green">Book-{naira("13000")} →</p>
+            </a>
           </div>
         </Reveal>
 
@@ -1088,67 +1092,77 @@ function ServicesPage({ openBooking,
 
         <Reveal delay={80}>
           <div
-            onClick={() => openCac(cac)}
+            // onClick={() => openCac(cac)}
             className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
             style={{ borderWidth: 1, borderColor: "#00751822" }}
           >
             <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
             <p className="font-semibold vd-text-green-dark mb-2">CAC Registration (Company Name)</p>
             <p className="text-sm opacity-75 leading-relaxed mb-3">Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.</p>
-            <p className="text-xs font-semibold vd-text-green">Book-{naira("65000")} →</p>
+            <a href="https://wa.me/+2348077810089">
+              <p className="text-xs font-semibold vd-text-green">Book-{naira("65000")} →</p>
+            </a>
           </div>
         </Reveal>
 
         <Reveal delay={80}>
           <div
-            onClick={() => openBusiness(business)}
+            // onClick={() => openBusiness(business)}
             className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
             style={{ borderWidth: 1, borderColor: "#00751822" }}
           >
             <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
             <p className="font-semibold vd-text-green-dark mb-2">CAC Registration (Business Name)</p>
             <p className="text-sm opacity-75 leading-relaxed mb-3">Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.</p>
-            <p className="text-xs font-semibold vd-text-green" onClick={() => {
-              < EmailModal onClose={true} price={"45000"} />
-            }}>Book-{naira("45000")}</p>
+            <a href="https://wa.me/+2348077810089">
+              <p className="text-xs font-semibold vd-text-green" onClick={() => {
+                // < EmailModal onClose={true} price={"45000"} />
+              }}>Book-{naira("45000")}</p>
+            </a>
           </div>
         </Reveal>
         <Reveal delay={80}>
           <div
-            onClick={() => openNgo(ngo)}
+            // onClick={() => openNgo(ngo)}
             className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
             style={{ borderWidth: 1, borderColor: "#00751822" }}
           >
             <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
             <p className="font-semibold vd-text-green-dark mb-2">CAC Registration (NGO)</p>
             <p className="text-sm opacity-75 leading-relaxed mb-3">Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.</p>
-            <p className="text-xs font-semibold vd-text-green">Book-{naira("130000")} →</p>
+            <a href="https://wa.me/+2348077810089">
+              <p className="text-xs font-semibold vd-text-green">Book-{naira("130000")} →</p>
+            </a>
           </div>
         </Reveal>
 
         <Reveal delay={80}>
           <div
-            onClick={() => openCV(visa)}
+            // onClick={() => openCV(visa)}
             className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
             style={{ borderWidth: 1, borderColor: "#00751822" }}
           >
             <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
             <p className="font-semibold vd-text-green-dark mb-2">Visa Processing (CV / Resume)</p>
             <p className="text-sm opacity-75 leading-relaxed mb-3">Professional assistance in preparing and processing visa documents for a smooth application experience.</p>
-            <p className="text-xs font-semibold vd-text-green">Book-{naira("5000")} →</p>
+            <a href="https://wa.me/+2348077810089">
+              <p className="text-xs font-semibold vd-text-green">Book-{naira("5000")} →</p>
+            </a>
           </div>
         </Reveal>
 
         <Reveal delay={80}>
           <div
-            onClick={() => openPersonal(visa2)}
+            // onClick={() => openPersonal(visa2)}
             className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
             style={{ borderWidth: 1, borderColor: "#00751822" }}
           >
             <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
             <p className="font-semibold vd-text-green-dark mb-2">Visa Processing (Personal Statement)</p>
             <p className="text-sm opacity-75 leading-relaxed mb-3">Professional assistance in preparing and processing visa documents for a smooth application experience.</p>
-            <p className="text-xs font-semibold vd-text-green">Book-{naira("20000")} →</p>
+            <a href="https://wa.me/+2348077810089">
+              <p className="text-xs font-semibold vd-text-green">Book-{naira("20000")} →</p>
+            </a>
           </div>
         </Reveal>
 
