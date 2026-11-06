@@ -169,7 +169,7 @@ function Reveal({ children, delay = 0, className = "" }) {
 
 
 const BOOKING_STEPS = ["STEP ONE", "STEP TWO", "Confirm & pay"];
- 
+
 function ProgressBar({ step }) {
   const pct = (step / (BOOKING_STEPS.length - 1)) * 100;
   return (
@@ -194,8 +194,8 @@ function ProgressBar({ step }) {
     </div>
   );
 }
- 
- 
+
+
 
 
 function CountUp({ to, suffix = "", prefix = "" }) {
@@ -233,7 +233,7 @@ const SERVICES = [
     id: "Nysc",
     image: "https://picsum.photos/seed/verdant-compliance/800/600",
     eyebrow: "MEGANET",
-    
+
     title: "NYSC Registration",
     desc: "Hassle-free NYSC registration with accurate biometric capturing for a smooth and successful process.",
     items: [],
@@ -243,29 +243,29 @@ const SERVICES = [
     id: "CAC Registration",
     image: "https://picsum.photos/seed/verdant-reporting/800/600",
     eyebrow: "MEGANET",
-   
+
     title: "CAC Registration",
     desc: "Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.",
     items: ["Business Name: N45,000",
       "Company Registration: N65,000",
-       "NGO/Association/Club/Church Registration: N130,000"],
-    price:"",
+      "NGO/Association/Club/Church Registration: N130,000"],
+    price: "",
   },
   {
     id: "Processing of Visa Documents",
     image: "https://picsum.photos/seed/verdant-partnerships/800/600",
     eyebrow: "MEGANET",
-    
-    title:"Processing of Visa Documents",
+
+    title: "Processing of Visa Documents",
     desc: "Professional assistance in preparing and processing visa documents for a smooth application experience.",
     items: ["CV/Resume: N5,000",
-       "Personal Statement/Statement of Purpose: N20,000",
+      "Personal Statement/Statement of Purpose: N20,000",
       "Work Reference/Recommendation Letter: N5,000"],
     price: "",
   },
-  
+
 ];
- 
+
 
 
 const SERVICE = [
@@ -282,7 +282,7 @@ const SERVICE = [
     id: "JAMB Processing Services",
     image: "https://picsum.photos/seed/verdant-compliance/800/600",
     eyebrow: "MEGANET",
-    
+
     title: "JAMB Processing Services",
     desc: "Reliable JAMB processing services including admission status checking, printing of admission letters and original results, available for both candidates with and without email addresses.",
     items: [],
@@ -292,37 +292,37 @@ const SERVICE = [
     id: "NIN Services",
     image: "https://picsum.photos/seed/verdant-reporting/800/600",
     eyebrow: "MEGANET",
-   
+
     title: "NIN Services",
     desc: "Fast and reliable NIN reprinting services, offering both plastic card and normal slip options for quick and hassle-free delivery.",
     items: [],
-    price:"",
+    price: "",
   },
   {
     id: "Research Project/Seminar Writing:",
     image: "https://picsum.photos/seed/verdant-partnerships/800/600",
     eyebrow: "MEGANET",
-    
-    title:"Research Project/Seminar Writing:",
+
+    title: "Research Project/Seminar Writing:",
     desc: "Expert research project and seminar writing services tailored to meet academic standards.",
     items: [],
     price: "",
   },
 
-    {
+  {
     id: "Computer Works",
     image: "https://picsum.photos/seed/verdant-partnerships/800/600",
     eyebrow: "MEGANET",
-    
-    title:"Computer Works",
+
+    title: "Computer Works",
     desc: "General computer services including typing, printing, scanning, and online registrations done efficiently and accurately.",
     items: [],
     price: "",
   },
-  
-  
+
+
 ];
- 
+
 
 function naira(amount) {
   return `₦${amount?.toLocaleString("en-NG")}`;
@@ -393,25 +393,25 @@ function VineGraphic() {
 
 function Nav({ page, setPage }) {
   const [open, setOpen] = useState(false);
-  const [active,setActive]=useState("")
- 
-   const { pathname } = useLocation();
-   console.log(pathname==="/services")
+  const [active, setActive] = useState("")
+
+  const { pathname } = useLocation();
+  console.log(pathname === "/services")
   return (
     <header className="vd-bg-cream sticky top-0 z-20 border-b vd-border-green/10" style={{ borderBottomWidth: 1, borderBottomColor: "#00751822" }}>
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
         <div style={{
-          display:"flex",
-          gap:"10px",
-          alignItems:"center"
+          display: "flex",
+          gap: "10px",
+          alignItems: "center"
         }}>
           <img src={logo} style={{
-          width:"120px",
-            height:"50px",
-            borderRadius:"15px"
-          }}/>
-      
-          </div>
+            width: "120px",
+            height: "50px",
+            borderRadius: "15px"
+          }} />
+
+        </div>
 
         <nav className="hidden md:flex items-center gap-8">
           {/* {links.map((l) => (
@@ -427,40 +427,40 @@ function Nav({ page, setPage }) {
               {l}
             </button> */}
 
-             <Link to="/"
-            
-             onClick={()=>setActive("home")}
-              style={{
-                color: pathname === "/"  ? GREEN_DARK : "#4b5c47",
-                borderColor: pathname === "/"   ? GOLD : "transparent",
-              }}
-      className="vd-navlink text-sm font-medium tracking-wide uppercase pb-1 border-b-2"
+          <Link to="/"
 
-             >Home</Link>
-         <Link to="/services"
-        style={{
-                color: pathname === "/services"  ? GREEN_DARK : "#4b5c47",
-                borderColor: pathname === "/services"? "red" : "transparent",
-              }}
-      className="vd-navlink text-sm font-medium tracking-wide uppercase pb-1 border-b-2"
-       >Services</Link>
-        <Link to="/about"
-      className="vd-navlink text-sm font-medium tracking-wide uppercase pb-1 border-b-2"
-       style={{
-                color: pathname === "/about"  ? GREEN_DARK : "#4b5c47",
-                borderColor: pathname === "/about"? "red" : "transparent",
-              }}
-         >About</Link>
-     <Link to="/contact"
-         style={{
-                color: pathname === "/contact"  ? GREEN_DARK : "#4b5c47",
-                borderColor: pathname === "/contact"? "red" : "transparent",
-              }}
-      
-      className="vd-navlink text-sm font-medium tracking-wide uppercase pb-1 border-b-2"
+            onClick={() => setActive("home")}
+            style={{
+              color: pathname === "/" ? GREEN_DARK : "#4b5c47",
+              borderColor: pathname === "/" ? GOLD : "transparent",
+            }}
+            className="vd-navlink text-sm font-medium tracking-wide uppercase pb-1 border-b-2"
 
-      >Contact</Link>
-          
+          >Home</Link>
+          <Link to="/services"
+            style={{
+              color: pathname === "/services" ? GREEN_DARK : "#4b5c47",
+              borderColor: pathname === "/services" ? "red" : "transparent",
+            }}
+            className="vd-navlink text-sm font-medium tracking-wide uppercase pb-1 border-b-2"
+          >Services</Link>
+          <Link to="/about"
+            className="vd-navlink text-sm font-medium tracking-wide uppercase pb-1 border-b-2"
+            style={{
+              color: pathname === "/about" ? GREEN_DARK : "#4b5c47",
+              borderColor: pathname === "/about" ? "red" : "transparent",
+            }}
+          >About</Link>
+          <Link to="/contact"
+            style={{
+              color: pathname === "/contact" ? GREEN_DARK : "#4b5c47",
+              borderColor: pathname === "/contact" ? "red" : "transparent",
+            }}
+
+            className="vd-navlink text-sm font-medium tracking-wide uppercase pb-1 border-b-2"
+
+          >Contact</Link>
+
         </nav>
 
         <button
@@ -485,42 +485,42 @@ function Nav({ page, setPage }) {
 
       {open && (
         <div className="md:hidden px-6 pb-4 flex flex-col gap-3 vd-menu-open">
-         <Link to="/"
-            
-             onClick={()=>setActive("home")}
-              style={{
-                color: pathname === "/"  ? GREEN_DARK : "#4b5c47",
-                borderColor: pathname === "/"   ? GOLD : "transparent",
-              }}
-      className="vd-navlink text-sm font-medium tracking-wide uppercase pb-1 border-b-2"
+          <Link to="/"
 
-             >Home</Link>
-         <Link to="/services"
-        style={{
-                color: pathname === "/services"  ? GREEN_DARK : "#4b5c47",
-                borderColor: pathname === "/services"? "red" : "transparent",
-              }}
-      className="vd-navlink text-sm font-medium tracking-wide uppercase pb-1 border-b-2"
-       >Services</Link>
-        <Link to="/about"
-      className="vd-navlink text-sm font-medium tracking-wide uppercase pb-1 border-b-2"
-       style={{
-                color: pathname === "/about"  ? GREEN_DARK : "#4b5c47",
-                borderColor: pathname === "/about"? "red" : "transparent",
-              }}
-         >About</Link>
-     <Link to="/contact"
-         style={{
-                color: pathname === "/contact"  ? GREEN_DARK : "#4b5c47",
-                borderColor: pathname === "/contact"? "red" : "transparent",
-              }}
-      
-      className="vd-navlink text-sm font-medium tracking-wide uppercase pb-1 border-b-2"
+            onClick={() => setActive("home")}
+            style={{
+              color: pathname === "/" ? GREEN_DARK : "#4b5c47",
+              borderColor: pathname === "/" ? GOLD : "transparent",
+            }}
+            className="vd-navlink text-sm font-medium tracking-wide uppercase pb-1 border-b-2"
 
-      >Contact</Link>
-          
-          
-         
+          >Home</Link>
+          <Link to="/services"
+            style={{
+              color: pathname === "/services" ? GREEN_DARK : "#4b5c47",
+              borderColor: pathname === "/services" ? "red" : "transparent",
+            }}
+            className="vd-navlink text-sm font-medium tracking-wide uppercase pb-1 border-b-2"
+          >Services</Link>
+          <Link to="/about"
+            className="vd-navlink text-sm font-medium tracking-wide uppercase pb-1 border-b-2"
+            style={{
+              color: pathname === "/about" ? GREEN_DARK : "#4b5c47",
+              borderColor: pathname === "/about" ? "red" : "transparent",
+            }}
+          >About</Link>
+          <Link to="/contact"
+            style={{
+              color: pathname === "/contact" ? GREEN_DARK : "#4b5c47",
+              borderColor: pathname === "/contact" ? "red" : "transparent",
+            }}
+
+            className="vd-navlink text-sm font-medium tracking-wide uppercase pb-1 border-b-2"
+
+          >Contact</Link>
+
+
+
         </div>
       )}
     </header>
@@ -536,7 +536,7 @@ function Footer({ setPage }) {
             Mega Integrated Works <span className="vd-text-gold">&</span> Services.
           </p>
           <p className="text-sm opacity-80 leading-relaxed max-w-xs">
-           Delivering premium online services with speed, accuracy, and reliability you can trust.
+            Delivering premium online services with speed, accuracy, and reliability you can trust.
           </p>
         </div>
         <div>
@@ -568,7 +568,7 @@ function Footer({ setPage }) {
       </div>
       <div className="border-t border-white/10">
         <p className="max-w-6xl mx-auto px-6 py-5 text-xs opacity-60">
-         Mega Integrated Works and Services © 2026. All rights reserved.
+          Mega Integrated Works and Services © 2026. All rights reserved.
         </p>
       </div>
     </footer>
@@ -586,8 +586,8 @@ function Stat({ number, label, suffix = "", prefix = "" }) {
   );
 }
 
-function HomePage({ 
-  setPage, 
+function HomePage({
+  setPage,
   openBooking,
   openNerd,
   openCac,
@@ -595,78 +595,78 @@ function HomePage({
   openCV,
   openPersonal,
   openBusiness
- }) {
-    const [cac,setCac]=useState(
-      {
-    id: "CAC Registration",
-    image: cac1,
-    eyebrow: "Miwas",
-   
-    title: "CAC Registration (Company Name)",
-    desc: "Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.",
-    items: ["Business Name: N45,000",
-      "Company Registration: N65,000",
-       "NGO/Association/Club/Church Registration: N130,000"],
-    price:"65000",
-  })
+}) {
+  const [cac, setCac] = useState(
+    {
+      id: "CAC Registration",
+      image: cac1,
+      eyebrow: "Miwas",
 
-  const [business,setBusiness]=useState(
-      {
-    id: "CAC Registration",
-    image: cac1,
-    eyebrow: "Miwas",
-   
-    title: "CAC Registration (Business Name)",
-    desc: "Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.",
-    items: ["Business Name: N45,000",
-      "Company Registration: N65,000",
-       "NGO/Association/Club/Church Registration: N130,000"],
-    price:"45000",
-  })
-   const [ngo,setNgo]=useState(
-      {
-    id: "CAC Registration",
-    image: cac1,
-    eyebrow: "Miwas",
-   
-    title: "CAC Registration (NGO/Church)",
-    desc: "Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.",
-    items: ["Business Name: N45,000",
-      "Company Registration: N65,000",
-       "NGO/Association/Club/Church Registration: N130,000"],
-    price:"130000",
-  })
-    const [visa,setVisa]=useState(
-        {
-    id: "Processing of Visa Documents",
-    image: "https://picsum.photos/seed/verdant-partnerships/800/600",
-    eyebrow: "Miwas",
-    
-    title:"Processing of Visa Documents (CV/RESUME)",
-    desc: "Professional assistance in preparing and processing visa documents for a smooth application experience.",
-    items: ["CV/Resume: N5,000",
-       "Personal Statement/Statement of Purpose: N20,000",
-      "Work Reference/Recommendation Letter: N5,000"],
-    price: 5000,
-  }
-    )
+      title: "CAC Registration (Company Name)",
+      desc: "Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.",
+      items: ["Business Name: N45,000",
+        "Company Registration: N65,000",
+        "NGO/Association/Club/Church Registration: N130,000"],
+      price: "65000",
+    })
 
-     const [visa2,setVisa2]=useState(
-        {
-    id: "Processing of Visa Documents",
-    image: "https://picsum.photos/seed/verdant-partnerships/800/600",
-    eyebrow: "Miwas",
-    
-    title:"Processing of Visa Documents (Personal Statement)",
-    desc: "Professional assistance in preparing and processing visa documents for a smooth application experience.",
-    items: ["CV/Resume: N5,000",
-       "Personal Statement/Statement of Purpose: N20,000",
-      "Work Reference/Recommendation Letter: N5,000"],
-    price: 20000,
-  }
-    )
+  const [business, setBusiness] = useState(
+    {
+      id: "CAC Registration",
+      image: cac1,
+      eyebrow: "Miwas",
 
-    const [nerd,setNerd]=useState({
+      title: "CAC Registration (Business Name)",
+      desc: "Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.",
+      items: ["Business Name: N45,000",
+        "Company Registration: N65,000",
+        "NGO/Association/Club/Church Registration: N130,000"],
+      price: "45000",
+    })
+  const [ngo, setNgo] = useState(
+    {
+      id: "CAC Registration",
+      image: cac1,
+      eyebrow: "Miwas",
+
+      title: "CAC Registration (NGO/Church)",
+      desc: "Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.",
+      items: ["Business Name: N45,000",
+        "Company Registration: N65,000",
+        "NGO/Association/Club/Church Registration: N130,000"],
+      price: "130000",
+    })
+  const [visa, setVisa] = useState(
+    {
+      id: "Processing of Visa Documents",
+      image: "https://picsum.photos/seed/verdant-partnerships/800/600",
+      eyebrow: "Miwas",
+
+      title: "Processing of Visa Documents (CV/RESUME)",
+      desc: "Professional assistance in preparing and processing visa documents for a smooth application experience.",
+      items: ["CV/Resume: N5,000",
+        "Personal Statement/Statement of Purpose: N20,000",
+        "Work Reference/Recommendation Letter: N5,000"],
+      price: 5000,
+    }
+  )
+
+  const [visa2, setVisa2] = useState(
+    {
+      id: "Processing of Visa Documents",
+      image: "https://picsum.photos/seed/verdant-partnerships/800/600",
+      eyebrow: "Miwas",
+
+      title: "Processing of Visa Documents (Personal Statement)",
+      desc: "Professional assistance in preparing and processing visa documents for a smooth application experience.",
+      items: ["CV/Resume: N5,000",
+        "Personal Statement/Statement of Purpose: N20,000",
+        "Work Reference/Recommendation Letter: N5,000"],
+      price: 20000,
+    }
+  )
+
+  const [nerd, setNerd] = useState({
     id: "NERD Registration",
     image: nerd1,
     eyebrow: "Miwas",
@@ -674,12 +674,12 @@ function HomePage({
     desc: "Seamless uploading of academic research projects on the NERD platform as a mandatory requirement for successful NYSC registration.",
     items: [],
     price: 13000,
-  } )
-    const [nysc,setNysc]=useState( {
+  })
+  const [nysc, setNysc] = useState({
     id: "Nysc",
     image: nysc1,
     eyebrow: "Miwas",
-    
+
     title: "NYSC Registration",
     desc: "Hassle-free NYSC registration with accurate biometric capturing for a smooth and successful process.",
     items: [],
@@ -688,32 +688,32 @@ function HomePage({
 
 
   function makePayment(form) {
-  paystack.newTransaction({
-    key: "pk_live_cefbe9ab88fb9568291b2bccb8c837d481207a22",
-    email: form.Email_address,
-    amount: 100 * 100, // Kobo (₦5000)
-    currency: "NGN",
-    firstname: "John",
-    lastname: "Doe",
+    paystack.newTransaction({
+      key: "pk_live_cefbe9ab88fb9568291b2bccb8c837d481207a22",
+      email: form.Email_address,
+      amount: 100 * 100, // Kobo (₦5000)
+      currency: "NGN",
+      firstname: "John",
+      lastname: "Doe",
 
-    onSuccess: (transaction) => {
-      console.log(transaction);
-      toast.success("payment made successfully");  
-      handleSubmit(form)
-    },
-    onCancel: () => {
-      alert("Payment Cancelled");
-    },
+      onSuccess: (transaction) => {
+        console.log(transaction);
+        toast.success("payment made successfully");
+        handleSubmit(form)
+      },
+      onCancel: () => {
+        alert("Payment Cancelled");
+      },
 
-    onError: (error) => {
-      console.log(error);
-    },
-  });
-}
+      onError: (error) => {
+        console.log(error);
+      },
+    });
+  }
 
   return (
     <div className="vd-fade">
-     <Carousel/>
+      <Carousel />
       <section className="vd-texture" style={{ marginTop: "-3rem" }}>
         {/* <div className="max-w-6xl lg:flex mx-auto px-6 pt-10 pb-20 grid md:grid-cols-2 gap-12 items-center">
             <div>
@@ -741,38 +741,38 @@ function HomePage({
           </div> */}
         {/* </div> */}
         <div className="max-w-6xl mx-auto px-6 pt-10 pb-20 flex flex-col md:flex-row gap-12 items-center">
-  <div className="flex-1 mt-10">
-    <p className="vd-hero-eyebrow text-xs uppercase tracking-[0.2em] vd-text-green font-semibold mb-4">
-      Mega Services
-    </p>
-    <h1 className="vd-hero-title vd-display text-4xl md:text-5xl font-semibold leading-tight vd-text-green-dark">
-      Welcome to Mega Integrated Works and Services
-    </h1>
-  </div>
+          <div className="flex-1 mt-10">
+            <p className="vd-hero-eyebrow text-xs uppercase tracking-[0.2em] vd-text-green font-semibold mb-4">
+              Mega Services
+            </p>
+            <h1 className="vd-hero-title vd-display text-4xl md:text-5xl font-semibold leading-tight vd-text-green-dark">
+              Welcome to Mega Integrated Works and Services
+            </h1>
+          </div>
 
-  <div className="flex-1">
-    <p className="vd-hero-body mt-6 text-base leading-relaxed max-w-md opacity-80">
-       Your one-stop digital and administrative solutions hub, delivering fast, reliable, and professional support in NIN services, JAMB processing, NYSC Registration, NERD Enrolment, CAC Business and Company registration, Academic Project and Seminar writing, Processing of Visa Documents, online registration services, school payment services, and general computer services.
-    </p>
+          <div className="flex-1">
+            <p className="vd-hero-body mt-6 text-base leading-relaxed max-w-md opacity-80">
+              Your one-stop digital and administrative solutions hub, delivering fast, reliable, and professional support in NIN services, JAMB processing, NYSC Registration, NERD Enrolment, CAC Business and Company registration, Academic Project and Seminar writing, Processing of Visa Documents, online registration services, school payment services, and general computer services.
+            </p>
 
-    <div className="vd-hero-cta mt-8 flex flex-wrap gap-4">
-      <a href="/services">
-      <button
-        className="vd-btn-primary px-6 py-3 rounded-full text-sm font-semibold"
-        >
-        See our services
-      </button>
-        </a>
-      <a href="/contact">
-      <button
-        className="vd-btn-outline px-6 py-3 rounded-full text-sm font-semibold"
-        >
-        Talk to us
-      </button>
-        </a>
-    </div>
-  </div>
-</div>
+            <div className="vd-hero-cta mt-8 flex flex-wrap gap-4">
+              <a href="/services">
+                <button
+                  className="vd-btn-primary px-6 py-3 rounded-full text-sm font-semibold"
+                >
+                  See our services
+                </button>
+              </a>
+              <a href="/contact">
+                <button
+                  className="vd-btn-outline px-6 py-3 rounded-full text-sm font-semibold"
+                >
+                  Talk to us
+                </button>
+              </a>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section className="vd-bg-green-dark">
@@ -792,108 +792,122 @@ function HomePage({
               <h2 className="vd-display text-3xl font-semibold vd-text-green-dark">Services</h2>
             </div>
             <a href="/services">
-            <button className="vd-link-underline text-sm font-semibold vd-text-green">
-              View all services
-            </button>
+              <button className="vd-link-underline text-sm font-semibold vd-text-green">
+                View all services
+              </button>
             </a>
           </div>
         </Reveal>
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          
-            <Reveal  delay={80}>
-              <div
-                onClick={() => openBooking(nysc)}
-                className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
-                style={{ borderWidth: 1, borderColor: "#00751822" }}
-              >
-                <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
-                <p className="font-semibold vd-text-green-dark mb-2">NYSC Registration</p>
-                <p className="text-sm opacity-75 leading-relaxed mb-3">Hassle-free NYSC registration with accurate biometric capturing for a smooth and successful process.</p>
+
+          <Reveal delay={80}>
+            <div
+              // onClick={() => openBooking(nysc)}
+              className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
+              style={{ borderWidth: 1, borderColor: "#00751822" }}
+            >
+              <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
+              <p className="font-semibold vd-text-green-dark mb-2">NYSC Registration</p>
+              <p className="text-sm opacity-75 leading-relaxed mb-3">Hassle-free NYSC registration with accurate biometric capturing for a smooth and successful process.</p>
+              <a href="https://wa.me/+2348077810089">
                 <p className="text-xs font-semibold vd-text-green">Book-{naira("10000")} →</p>
-              </div>
-            </Reveal>
+              </a>
+            </div>
+          </Reveal>
 
-             
-            <Reveal  delay={80}>
-              <div
-                onClick={() => openNerd(nerd)}
-                className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
-                style={{ borderWidth: 1, borderColor: "#00751822" }}
-              >
-                <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
-                <p className="font-semibold vd-text-green-dark mb-2">NERD Registration</p>
-                <p className="text-sm opacity-75 leading-relaxed mb-3">Seamless uploading of academic research projects on the NERD platform as a mandatory requirement for successful NYSC registration.</p>
+
+          <Reveal delay={80}>
+            <div
+              // onClick={() => openNerd(nerd)}
+              className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
+              style={{ borderWidth: 1, borderColor: "#00751822" }}
+            >
+              <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
+              <p className="font-semibold vd-text-green-dark mb-2">NERD Registration</p>
+              <p className="text-sm opacity-75 leading-relaxed mb-3">Seamless uploading of academic research projects on the NERD platform as a mandatory requirement for successful NYSC registration.</p>
+              <a href="https://wa.me/+2348077810089">
                 <p className="text-xs font-semibold vd-text-green">Book-{naira("13000")} →</p>
-              </div>
-            </Reveal>
+              </a>
+            </div>
+          </Reveal>
 
 
-             
-            <Reveal  delay={80}>
-              <div
-                onClick={() => openCac(cac)}
-                className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
-                style={{ borderWidth: 1, borderColor: "#00751822" }}
-              >
-                <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
-                <p className="font-semibold vd-text-green-dark mb-2">CAC Registration (Company Name)</p>
-                <p className="text-sm opacity-75 leading-relaxed mb-3">Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.</p>
+
+          <Reveal delay={80}>
+            <div
+              // onClick={() => openCac(cac)}
+              className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
+              style={{ borderWidth: 1, borderColor: "#00751822" }}
+            >
+              <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
+              <p className="font-semibold vd-text-green-dark mb-2">CAC Registration (Company Name)</p>
+              <p className="text-sm opacity-75 leading-relaxed mb-3">Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.</p>
+              <a href="https://wa.me/+2348077810089">
                 <p className="text-xs font-semibold vd-text-green">Book-{naira("65000")} →</p>
-              </div>
-            </Reveal>
+              </a>
+            </div>
+          </Reveal>
 
-             <Reveal  delay={80}>
-              <div
-                onClick={() => openBusiness(business)}
-                className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
-                style={{ borderWidth: 1, borderColor: "#00751822" }}
-              >
-                <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
-                <p className="font-semibold vd-text-green-dark mb-2">CAC Registration (Business Name)</p>
-                <p className="text-sm opacity-75 leading-relaxed mb-3">Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.</p>
+          <Reveal delay={80}>
+            <div
+              // onClick={() => openBusiness(business)}
+              className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
+              style={{ borderWidth: 1, borderColor: "#00751822" }}
+            >
+              <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
+              <p className="font-semibold vd-text-green-dark mb-2">CAC Registration (Business Name)</p>
+              <p className="text-sm opacity-75 leading-relaxed mb-3">Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.</p>
+              <a href="https://wa.me/+2348077810089">
                 <p className="text-xs font-semibold vd-text-green">Book-{naira("45000")} →</p>
-              </div>
-            </Reveal>
+              </a>
+            </div>
+          </Reveal>
 
-             
-            <Reveal  delay={80}>
-              <div
-                onClick={() => openNgo(ngo)}
-                className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
-                style={{ borderWidth: 1, borderColor: "#00751822" }}
-              >
-                <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
-                <p className="font-semibold vd-text-green-dark mb-2">CAC Registration (NGO)</p>
-                <p className="text-sm opacity-75 leading-relaxed mb-3">Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.</p>
+
+          <Reveal delay={80}>
+            <div
+              // onClick={() => openNgo(ngo)}
+              className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
+              style={{ borderWidth: 1, borderColor: "#00751822" }}
+            >
+              <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
+              <p className="font-semibold vd-text-green-dark mb-2">CAC Registration (NGO)</p>
+              <p className="text-sm opacity-75 leading-relaxed mb-3">Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.</p>
+              <a href="https://wa.me/+2348077810089">
                 <p className="text-xs font-semibold vd-text-green">Book-{naira("130000")} →</p>
-              </div>
-            </Reveal>
+              </a>
+            </div>
+          </Reveal>
 
-             <Reveal  delay={80}>
-              <div
-                onClick={() => openCV(visa)}
-                className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
-                style={{ borderWidth: 1, borderColor: "#00751822" }}
-              >
-                <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
-                <p className="font-semibold vd-text-green-dark mb-2">Visa Processing (CV / Resume)</p>
-                <p className="text-sm opacity-75 leading-relaxed mb-3">Professional assistance in preparing and processing visa documents for a smooth application experience.</p>
+          <Reveal delay={80}>
+            <div
+              // onClick={() => openCV(visa)}
+              className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
+              style={{ borderWidth: 1, borderColor: "#00751822" }}
+            >
+              <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
+              <p className="font-semibold vd-text-green-dark mb-2">Visa Processing (CV / Resume)</p>
+              <p className="text-sm opacity-75 leading-relaxed mb-3">Professional assistance in preparing and processing visa documents for a smooth application experience.</p>
+              <a href="https://wa.me/+2348077810089">
                 <p className="text-xs font-semibold vd-text-green">Book-{naira("5000")} →</p>
-              </div>
-            </Reveal>
+              </a>
+            </div>
+          </Reveal>
 
-            <Reveal  delay={80}>
-              <div
-                onClick={() => openPersonal(visa2)}
-                className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
-                style={{ borderWidth: 1, borderColor: "#00751822" }}
-              >
-                <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
-                <p className="font-semibold vd-text-green-dark mb-2">Visa Processing (Personal Statement)</p>
-                <p className="text-sm opacity-75 leading-relaxed mb-3">Professional assistance in preparing and processing visa documents for a smooth application experience.</p>
+          <Reveal delay={80}>
+            <div
+              // onClick={() => openPersonal(visa2)}
+              className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
+              style={{ borderWidth: 1, borderColor: "#00751822" }}
+            >
+              <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
+              <p className="font-semibold vd-text-green-dark mb-2">Visa Processing (Personal Statement)</p>
+              <p className="text-sm opacity-75 leading-relaxed mb-3">Professional assistance in preparing and processing visa documents for a smooth application experience.</p>
+              <a href="https://wa.me/+2348077810089">
                 <p className="text-xs font-semibold vd-text-green">Book-{naira("20000")} →</p>
-              </div>
-            </Reveal>
+              </a>
+            </div>
+          </Reveal>
 
         </div>
       </section>
@@ -918,9 +932,9 @@ function HomePage({
             Reach out to us now, we are your surest plug.
           </p>
           <a href="https://wa.me/+2348077810089">
-          <button onClick={() => setPage("Contact")} className="vd-btn-primary px-8 py-3 rounded-full text-sm font-semibold">
-            Start a conversation
-          </button>
+            <button onClick={() => setPage("Contact")} className="vd-btn-primary px-8 py-3 rounded-full text-sm font-semibold">
+              Start a conversation
+            </button>
           </a>
         </Reveal>
       </section>
@@ -935,78 +949,78 @@ function ServicesPage({ openBooking,
   openCV,
   openPersonal,
   openBusiness
- }) {
-    const [cac,setCac]=useState(
-      {
-    id: "CAC Registration",
-    image: cac1,
-    eyebrow: "MEGANET",
-   
-    title: "CAC Registration (Company Name)",
-    desc: "Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.",
-    items: ["Business Name: N45,000",
-      "Company Registration: N65,000",
-       "NGO/Association/Club/Church Registration: N130,000"],
-    price:"65000",
-  })
+}) {
+  const [cac, setCac] = useState(
+    {
+      id: "CAC Registration",
+      image: cac1,
+      eyebrow: "MEGANET",
 
-  const [business,setBusiness]=useState(
-      {
-    id: "CAC Registration",
-    image:cac1,
-    eyebrow: "MEGANET",
-   
-    title: "CAC Registration (Business Name)",
-    desc: "Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.",
-    items: ["Business Name: N45,000",
-      "Company Registration: N65,000",
-       "NGO/Association/Club/Church Registration: N130,000"],
-    price:"45000",
-  })
-   const [ngo,setNgo]=useState(
-      {
-    id: "CAC Registration",
-    image:cac1,
-    eyebrow: "MEGANET",
-   
-    title: "CAC Registration (NGO/Church)",
-    desc: "Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.",
-    items: ["Business Name: N45,000",
-      "Company Registration: N65,000",
-       "NGO/Association/Club/Church Registration: N130,000"],
-    price:"130000",
-  })
-    const [visa,setVisa]=useState(
-        {
-    id: "Processing of Visa Documents",
-    image: "https://picsum.photos/seed/verdant-partnerships/800/600",
-    eyebrow: "MEGANET",
-    
-    title:"Processing of Visa Documents (CV/RESUME)",
-    desc: "Professional assistance in preparing and processing visa documents for a smooth application experience.",
-    items: ["CV/Resume: N5,000",
-       "Personal Statement/Statement of Purpose: N20,000",
-      "Work Reference/Recommendation Letter: N5,000"],
-    price: 5000,
-  }
-    )
+      title: "CAC Registration (Company Name)",
+      desc: "Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.",
+      items: ["Business Name: N45,000",
+        "Company Registration: N65,000",
+        "NGO/Association/Club/Church Registration: N130,000"],
+      price: "65000",
+    })
 
-     const [visa2,setVisa2]=useState(
-        {
-    id: "Processing of Visa Documents",
-    image: "https://picsum.photos/seed/verdant-partnerships/800/600",
-    eyebrow: "MEGANET",
-    
-    title:"Processing of Visa Documents (Personal Statement)",
-    desc: "Professional assistance in preparing and processing visa documents for a smooth application experience.",
-    items: ["CV/Resume: N5,000",
-       "Personal Statement/Statement of Purpose: N20,000",
-      "Work Reference/Recommendation Letter: N5,000"],
-    price: 20000,
-  }
-    )
+  const [business, setBusiness] = useState(
+    {
+      id: "CAC Registration",
+      image: cac1,
+      eyebrow: "MEGANET",
 
-    const [nerd,setNerd]=useState({
+      title: "CAC Registration (Business Name)",
+      desc: "Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.",
+      items: ["Business Name: N45,000",
+        "Company Registration: N65,000",
+        "NGO/Association/Club/Church Registration: N130,000"],
+      price: "45000",
+    })
+  const [ngo, setNgo] = useState(
+    {
+      id: "CAC Registration",
+      image: cac1,
+      eyebrow: "MEGANET",
+
+      title: "CAC Registration (NGO/Church)",
+      desc: "Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.",
+      items: ["Business Name: N45,000",
+        "Company Registration: N65,000",
+        "NGO/Association/Club/Church Registration: N130,000"],
+      price: "130000",
+    })
+  const [visa, setVisa] = useState(
+    {
+      id: "Processing of Visa Documents",
+      image: "https://picsum.photos/seed/verdant-partnerships/800/600",
+      eyebrow: "MEGANET",
+
+      title: "Processing of Visa Documents (CV/RESUME)",
+      desc: "Professional assistance in preparing and processing visa documents for a smooth application experience.",
+      items: ["CV/Resume: N5,000",
+        "Personal Statement/Statement of Purpose: N20,000",
+        "Work Reference/Recommendation Letter: N5,000"],
+      price: 5000,
+    }
+  )
+
+  const [visa2, setVisa2] = useState(
+    {
+      id: "Processing of Visa Documents",
+      image: "https://picsum.photos/seed/verdant-partnerships/800/600",
+      eyebrow: "MEGANET",
+
+      title: "Processing of Visa Documents (Personal Statement)",
+      desc: "Professional assistance in preparing and processing visa documents for a smooth application experience.",
+      items: ["CV/Resume: N5,000",
+        "Personal Statement/Statement of Purpose: N20,000",
+        "Work Reference/Recommendation Letter: N5,000"],
+      price: 20000,
+    }
+  )
+
+  const [nerd, setNerd] = useState({
     id: "NERD Registration",
     image: nerd1,
     eyebrow: "MEGANET",
@@ -1014,12 +1028,12 @@ function ServicesPage({ openBooking,
     desc: "Seamless uploading of academic research projects on the NERD platform as a mandatory requirement for successful NYSC registration.",
     items: [],
     price: 13000,
-  } )
-    const [nysc,setNysc]=useState( {
+  })
+  const [nysc, setNysc] = useState({
     id: "Nysc",
     image: nysc1,
     eyebrow: "MEGANET",
-    
+
     title: "NYSC Registration",
     desc: "Hassle-free NYSC registration with accurate biometric capturing for a smooth and successful process.",
     items: [],
@@ -1032,191 +1046,191 @@ function ServicesPage({ openBooking,
       <section className="vd-texture" style={{ marginTop: "-3rem" }}>
         <div className="max-w-4xl mx-auto px-6 pt-10 pb-14 text-center">
           <p className="vd-hero-eyebrow text-xs uppercase tracking-[0.2em] vd-text-green font-semibold mb-4">Our services</p>
-          <h1 className="vd-hero-title vd-display text-4xl font-semibold vd-text-green-dark leading-tight">          
-                MEGA INTEGRATED WORKS AND SERVICES
+          <h1 className="vd-hero-title vd-display text-4xl font-semibold vd-text-green-dark leading-tight">
+            MEGA INTEGRATED WORKS AND SERVICES
           </h1>
           <p className="vd-hero-body mt-5 opacity-75 max-w-xl mx-auto">
-           Delivering premium online services with speed, accuracy, and reliability you can trust.
+            Delivering premium online services with speed, accuracy, and reliability you can trust.
           </p>
         </div>
       </section>
- 
-            <section className="max-w-5xl mx-auto px-6 pb-20 space-y-6">
 
-                  <Reveal  delay={80}>
-              <div
-                onClick={() => openBooking(nysc)}
-                className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
-                style={{ borderWidth: 1, borderColor: "#00751822" }}
-              >
-                <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
-                <p className="font-semibold vd-text-green-dark mb-2">NYSC Registration</p>
-                <p className="text-sm opacity-75 leading-relaxed mb-3">Hassle-free NYSC registration with accurate biometric capturing for a smooth and successful process.</p>
-                <p className="text-xs font-semibold vd-text-green">Book-{naira("10000")} →</p>
-              </div>
-            </Reveal>
+      <section className="max-w-5xl mx-auto px-6 pb-20 space-y-6">
 
-             
-            <Reveal  delay={80}>
-              <div
-                onClick={() => openNerd(nerd)}
-                className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
-                style={{ borderWidth: 1, borderColor: "#00751822" }}
-              >
-                <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
-                <p className="font-semibold vd-text-green-dark mb-2">NERD Registration</p>
-                <p className="text-sm opacity-75 leading-relaxed mb-3">Seamless uploading of academic research projects on the NERD platform as a mandatory requirement for successful NYSC registration.</p>
-                <p className="text-xs font-semibold vd-text-green">Book-{naira("13000")} →</p>
-              </div>
-            </Reveal>
+        <Reveal delay={80}>
+          <div
+            onClick={() => openBooking(nysc)}
+            className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
+            style={{ borderWidth: 1, borderColor: "#00751822" }}
+          >
+            <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
+            <p className="font-semibold vd-text-green-dark mb-2">NYSC Registration</p>
+            <p className="text-sm opacity-75 leading-relaxed mb-3">Hassle-free NYSC registration with accurate biometric capturing for a smooth and successful process.</p>
+            <p className="text-xs font-semibold vd-text-green">Book-{naira("10000")} →</p>
+          </div>
+        </Reveal>
 
 
-             
-            <Reveal  delay={80}>
-              <div
-                onClick={() => openCac(cac)}
-                className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
-                style={{ borderWidth: 1, borderColor: "#00751822" }}
-              >
-                <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
-                <p className="font-semibold vd-text-green-dark mb-2">CAC Registration (Company Name)</p>
-                <p className="text-sm opacity-75 leading-relaxed mb-3">Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.</p>
-                <p className="text-xs font-semibold vd-text-green">Book-{naira("65000")} →</p>
-              </div>
-            </Reveal>
-
-             <Reveal  delay={80}>
-              <div
-                onClick={() => openBusiness(business)}
-                className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
-                style={{ borderWidth: 1, borderColor: "#00751822" }}
-              >
-                <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
-                <p className="font-semibold vd-text-green-dark mb-2">CAC Registration (Business Name)</p>
-                <p className="text-sm opacity-75 leading-relaxed mb-3">Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.</p>
-                <p className="text-xs font-semibold vd-text-green" onClick={()=>{
-                  < EmailModal onClose={true} price={"45000"}/>
-                }}>Book-{naira("45000")}</p>
-              </div>
-            </Reveal>
-            <Reveal  delay={80}>
-              <div
-                onClick={() => openNgo(ngo)}
-                className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
-                style={{ borderWidth: 1, borderColor: "#00751822" }}
-              >
-                <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
-                <p className="font-semibold vd-text-green-dark mb-2">CAC Registration (NGO)</p>
-                <p className="text-sm opacity-75 leading-relaxed mb-3">Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.</p>
-                <p className="text-xs font-semibold vd-text-green">Book-{naira("130000")} →</p>
-              </div>
-            </Reveal>
-
-             <Reveal  delay={80}>
-              <div
-                onClick={() => openCV(visa)}
-                className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
-                style={{ borderWidth: 1, borderColor: "#00751822" }}
-              >
-                <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
-                <p className="font-semibold vd-text-green-dark mb-2">Visa Processing (CV / Resume)</p>
-                <p className="text-sm opacity-75 leading-relaxed mb-3">Professional assistance in preparing and processing visa documents for a smooth application experience.</p>
-                <p className="text-xs font-semibold vd-text-green">Book-{naira("5000")} →</p>
-              </div>
-            </Reveal>
-
-            <Reveal  delay={80}>
-              <div
-                onClick={() => openPersonal(visa2)}
-                className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
-                style={{ borderWidth: 1, borderColor: "#00751822" }}
-              >
-                <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
-                <p className="font-semibold vd-text-green-dark mb-2">Visa Processing (Personal Statement)</p>
-                <p className="text-sm opacity-75 leading-relaxed mb-3">Professional assistance in preparing and processing visa documents for a smooth application experience.</p>
-                <p className="text-xs font-semibold vd-text-green">Book-{naira("20000")} →</p>
-              </div>
-            </Reveal>
-
-             <Reveal  delay={80}>
-              <div
-              
-                className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
-                style={{ borderWidth: 1, borderColor: "#00751822" }}
-              >
-                <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
-                <p className="font-semibold vd-text-green-dark mb-2">School Fees Payment and Related Services.</p>
-                <p className="text-sm opacity-75 leading-relaxed mb-3">Convenient and secure school fees payment assitance and other academic related services</p>
-                   <a href="https://wa.me/+2348077810089">  
-                   <p className="text-xs font-semibold vd-text-green">Contact Us</p>
-                   </a>
-              </div>
-            </Reveal>
-
-              <Reveal  delay={80}>
-              <div
-           
-                className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
-                style={{ borderWidth: 1, borderColor: "#00751822" }}
-              >
-                <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
-                <p className="font-semibold vd-text-green-dark mb-2">Jamb Processing Services</p>
-                <p className="text-sm opacity-75 leading-relaxed mb-3">Reliable JAMB Processing services including admission status checking,printing of admission letters and original results,available for both candidates with and without email addresses</p>
-                   <a href="https://wa.me/+2348077810089">  
-                   <p className="text-xs font-semibold vd-text-green">Contact Us</p>
-                   </a>
-              </div>
-            </Reveal>
-
-               <Reveal  delay={80}>
-              <div
-              
-                className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
-                style={{ borderWidth: 1, borderColor: "#00751822" }}
-              >
-                <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
-                <p className="font-semibold vd-text-green-dark mb-2">NIN Services</p>
-                <p className="text-sm opacity-75 leading-relaxed mb-3">Fast and reliable NIN reprinting services,offering both plastic card and normal slip options for 
-                quick and hassle-free delivery
-                </p>
-                   <a href="https://wa.me/+2348077810089">  
-                   <p className="text-xs font-semibold vd-text-green">Contact Us</p>
-                   </a>
-              </div>
-            </Reveal>
+        <Reveal delay={80}>
+          <div
+            onClick={() => openNerd(nerd)}
+            className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
+            style={{ borderWidth: 1, borderColor: "#00751822" }}
+          >
+            <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
+            <p className="font-semibold vd-text-green-dark mb-2">NERD Registration</p>
+            <p className="text-sm opacity-75 leading-relaxed mb-3">Seamless uploading of academic research projects on the NERD platform as a mandatory requirement for successful NYSC registration.</p>
+            <p className="text-xs font-semibold vd-text-green">Book-{naira("13000")} →</p>
+          </div>
+        </Reveal>
 
 
-                <Reveal  delay={80}>
-              <div
-             
-                className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
-                style={{ borderWidth: 1, borderColor: "#00751822" }}
-              >
-                <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
-                <p className="font-semibold vd-text-green-dark mb-2">Research Project / Seminar Writing</p>
-                <p className="text-sm opacity-75 leading-relaxed mb-3">Expert research project and seminar wrting services tailored to meet academic standards</p>
-                   <a href="https://wa.me/+2348077810089">  
-                   <p className="text-xs font-semibold vd-text-green">Contact Us</p>
-                   </a>
-              </div>
-            </Reveal>
 
-                <Reveal  delay={80}>
-              <div
-            
-                className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
-                style={{ borderWidth: 1, borderColor: "#00751822" }}
-              >
-                <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
-                <p className="font-semibold vd-text-green-dark mb-2">Computer Works</p>
-                <p className="text-sm opacity-75 leading-relaxed mb-3">General Computer services including typing,printing,scanning and online registrations done efficiently and accurately.</p>
-                   <a href="https://wa.me/+2348077810089">  
-                   <p className="text-xs font-semibold vd-text-green">Contact Us</p>
-                   </a>
-              </div>
-            </Reveal>
-            
-            </section>
+        <Reveal delay={80}>
+          <div
+            onClick={() => openCac(cac)}
+            className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
+            style={{ borderWidth: 1, borderColor: "#00751822" }}
+          >
+            <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
+            <p className="font-semibold vd-text-green-dark mb-2">CAC Registration (Company Name)</p>
+            <p className="text-sm opacity-75 leading-relaxed mb-3">Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.</p>
+            <p className="text-xs font-semibold vd-text-green">Book-{naira("65000")} →</p>
+          </div>
+        </Reveal>
+
+        <Reveal delay={80}>
+          <div
+            onClick={() => openBusiness(business)}
+            className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
+            style={{ borderWidth: 1, borderColor: "#00751822" }}
+          >
+            <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
+            <p className="font-semibold vd-text-green-dark mb-2">CAC Registration (Business Name)</p>
+            <p className="text-sm opacity-75 leading-relaxed mb-3">Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.</p>
+            <p className="text-xs font-semibold vd-text-green" onClick={() => {
+              < EmailModal onClose={true} price={"45000"} />
+            }}>Book-{naira("45000")}</p>
+          </div>
+        </Reveal>
+        <Reveal delay={80}>
+          <div
+            onClick={() => openNgo(ngo)}
+            className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
+            style={{ borderWidth: 1, borderColor: "#00751822" }}
+          >
+            <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
+            <p className="font-semibold vd-text-green-dark mb-2">CAC Registration (NGO)</p>
+            <p className="text-sm opacity-75 leading-relaxed mb-3">Professional CAC registration services for businesses, companies, and organizations with full compliance. End-to-end business and company registration services to help you start and grow legally.</p>
+            <p className="text-xs font-semibold vd-text-green">Book-{naira("130000")} →</p>
+          </div>
+        </Reveal>
+
+        <Reveal delay={80}>
+          <div
+            onClick={() => openCV(visa)}
+            className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
+            style={{ borderWidth: 1, borderColor: "#00751822" }}
+          >
+            <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
+            <p className="font-semibold vd-text-green-dark mb-2">Visa Processing (CV / Resume)</p>
+            <p className="text-sm opacity-75 leading-relaxed mb-3">Professional assistance in preparing and processing visa documents for a smooth application experience.</p>
+            <p className="text-xs font-semibold vd-text-green">Book-{naira("5000")} →</p>
+          </div>
+        </Reveal>
+
+        <Reveal delay={80}>
+          <div
+            onClick={() => openPersonal(visa2)}
+            className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
+            style={{ borderWidth: 1, borderColor: "#00751822" }}
+          >
+            <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
+            <p className="font-semibold vd-text-green-dark mb-2">Visa Processing (Personal Statement)</p>
+            <p className="text-sm opacity-75 leading-relaxed mb-3">Professional assistance in preparing and processing visa documents for a smooth application experience.</p>
+            <p className="text-xs font-semibold vd-text-green">Book-{naira("20000")} →</p>
+          </div>
+        </Reveal>
+
+        <Reveal delay={80}>
+          <div
+
+            className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
+            style={{ borderWidth: 1, borderColor: "#00751822" }}
+          >
+            <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
+            <p className="font-semibold vd-text-green-dark mb-2">School Fees Payment and Related Services.</p>
+            <p className="text-sm opacity-75 leading-relaxed mb-3">Convenient and secure school fees payment assitance and other academic related services</p>
+            <a href="https://wa.me/+2348077810089">
+              <p className="text-xs font-semibold vd-text-green">Contact Us</p>
+            </a>
+          </div>
+        </Reveal>
+
+        <Reveal delay={80}>
+          <div
+
+            className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
+            style={{ borderWidth: 1, borderColor: "#00751822" }}
+          >
+            <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
+            <p className="font-semibold vd-text-green-dark mb-2">Jamb Processing Services</p>
+            <p className="text-sm opacity-75 leading-relaxed mb-3">Reliable JAMB Processing services including admission status checking,printing of admission letters and original results,available for both candidates with and without email addresses</p>
+            <a href="https://wa.me/+2348077810089">
+              <p className="text-xs font-semibold vd-text-green">Contact Us</p>
+            </a>
+          </div>
+        </Reveal>
+
+        <Reveal delay={80}>
+          <div
+
+            className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
+            style={{ borderWidth: 1, borderColor: "#00751822" }}
+          >
+            <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
+            <p className="font-semibold vd-text-green-dark mb-2">NIN Services</p>
+            <p className="text-sm opacity-75 leading-relaxed mb-3">Fast and reliable NIN reprinting services,offering both plastic card and normal slip options for
+              quick and hassle-free delivery
+            </p>
+            <a href="https://wa.me/+2348077810089">
+              <p className="text-xs font-semibold vd-text-green">Contact Us</p>
+            </a>
+          </div>
+        </Reveal>
+
+
+        <Reveal delay={80}>
+          <div
+
+            className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
+            style={{ borderWidth: 1, borderColor: "#00751822" }}
+          >
+            <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
+            <p className="font-semibold vd-text-green-dark mb-2">Research Project / Seminar Writing</p>
+            <p className="text-sm opacity-75 leading-relaxed mb-3">Expert research project and seminar wrting services tailored to meet academic standards</p>
+            <a href="https://wa.me/+2348077810089">
+              <p className="text-xs font-semibold vd-text-green">Contact Us</p>
+            </a>
+          </div>
+        </Reveal>
+
+        <Reveal delay={80}>
+          <div
+
+            className="vd-card p-6 rounded-2xl bg-white/60 border vd-border-green/10 h-full"
+            style={{ borderWidth: 1, borderColor: "#00751822" }}
+          >
+            <div className="vd-dot w-10 h-10 rounded-full vd-bg-gold mb-4" />
+            <p className="font-semibold vd-text-green-dark mb-2">Computer Works</p>
+            <p className="text-sm opacity-75 leading-relaxed mb-3">General Computer services including typing,printing,scanning and online registrations done efficiently and accurately.</p>
+            <a href="https://wa.me/+2348077810089">
+              <p className="text-xs font-semibold vd-text-green">Contact Us</p>
+            </a>
+          </div>
+        </Reveal>
+
+      </section>
 
     </div>
   );
@@ -1224,7 +1238,7 @@ function ServicesPage({ openBooking,
 
 function AboutPage() {
   const values = [
-    { t: "Innovation", d:"We embrace innovative ideas and modern technology to deliver smarter, faster, and more effective solutions to our clients." },
+    { t: "Innovation", d: "We embrace innovative ideas and modern technology to deliver smarter, faster, and more effective solutions to our clients." },
     { t: "Consistency", d: "We maintain consistent quality and professionalism in every service we provide, regardless of the sector or client." },
     { t: "Reliability", d: "We build trust by delivering timely and high-quality services that our clients can confidently rely on" },
   ];
@@ -1245,12 +1259,12 @@ function AboutPage() {
             Our Mission Statement
           </h1>
           <p className="vd-hero-body mt-5 opacity-75 max-w-2xl mx-auto leading-relaxed">
-To provide unmatched support in digital and administrative services while ensuring client satisfaction across multiple sectors.
+            To provide unmatched support in digital and administrative services while ensuring client satisfaction across multiple sectors.
           </p>
         </div>
       </section>
 
-            <section className="vd-texture" style={{ marginTop: "-3rem" }}>
+      <section className="vd-texture" style={{ marginTop: "-3rem" }}>
         <div className="max-w-4xl mx-auto px-6 pt-10 pb-14 text-center">
           <p className="vd-hero-eyebrow text-xs uppercase tracking-[0.2em] vd-text-green font-semibold mb-4"> Vision</p>
           <h1 className="vd-hero-title vd-display text-4xl font-semibold vd-text-green-dark leading-tight">
@@ -1258,7 +1272,7 @@ To provide unmatched support in digital and administrative services while ensuri
           </h1>
           <p className="vd-hero-body mt-5 opacity-75 max-w-2xl mx-auto leading-relaxed">
             To become the leading provider of integrated online services in the regions known for our innovation and reliability.
-           </p> 
+          </p>
         </div>
       </section>
 
@@ -1275,7 +1289,7 @@ To provide unmatched support in digital and administrative services while ensuri
       </section>
 
       <section className="vd-bg-green-dark vd-text-cream">
-      
+
       </section>
     </div>
   );
@@ -1298,7 +1312,7 @@ function ContactPage() {
       <section className="vd-texture" style={{ marginTop: "-3rem" }}>
         <div className="max-w-4xl mx-auto px-6 pt-10 pb-10 text-center">
           <p className="vd-hero-eyebrow text-xs uppercase tracking-[0.2em] vd-text-green font-semibold mb-4">Contact</p>
-        
+
         </div>
       </section>
 
@@ -1364,8 +1378,8 @@ function ContactPage() {
               <p className="text-sm mb-2">info@meganet.com.ng</p>
               <p className="text-sm">+2348077810089</p>
             </div>
-            <div className="rounded-2xl overflow-hidden h-44 flex items-center justify-center" style={{ border: "1px solid #00751822", backgroundColor: "#eef3e6" }}>       
-              <MapComponent/>
+            <div className="rounded-2xl overflow-hidden h-44 flex items-center justify-center" style={{ border: "1px solid #00751822", backgroundColor: "#eef3e6" }}>
+              <MapComponent />
             </div>
           </div>
         </Reveal>
@@ -1423,7 +1437,7 @@ function AppRoutes() {
         style={{ width: `${scrollProgress}%` }}
       />
 
-      <Nav/>
+      <Nav />
 
       <Routes>
         <Route
